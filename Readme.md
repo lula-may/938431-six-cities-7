@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Юлия Елагина](https://up.htmlacademy.ru/react/7/user/938431).
-* Наставник: [Егор Брагин](https://up.htmlacademy.ru/react/7/user/id1349603).
+* Наставник: [Егор Брагин](https://up.htmlacademy.ru/react/7/user/1349603).
 
 ---
 
