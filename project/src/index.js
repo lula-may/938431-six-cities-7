@@ -9,12 +9,14 @@ const offers = new Array(OFFERS_COUNT)
 
 const settings = {
   offers,
+  offersCount: 250,
 };
 
 ReactDOM.render(
   <React.StrictMode>
     <App
       offers={settings.offers}
+      offersCount={settings.offersCount}
     />
   </React.StrictMode>,
   document.getElementById('root'));
