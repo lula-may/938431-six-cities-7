@@ -1,4 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+
+import Logo from '../logo/logo.jsx';
 
 function NotFound() {
   return (
@@ -7,9 +10,7 @@ function NotFound() {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              <Logo />
             </div>
           </div>
         </div>
@@ -21,16 +22,16 @@ function NotFound() {
             <div className="favorites__status-wrapper">
               <h1 className="favorites__status"> 404. Page not found.</h1>
               <p className="favorites__status-description">
-                <a href="main.html">Go to main page</a>
+                <Link to="/">Go to main page</Link>
               </p>
             </div>
           </section>
         </div>
       </main>
       <footer className="footer">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to="/">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
+        </Link>
       </footer>
     </div>
 
