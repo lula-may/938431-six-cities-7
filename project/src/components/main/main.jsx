@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OfferCard from '../offer-card/offer-card.jsx';
 import Logo from '../logo/logo.jsx';
+import OffersList from '../offers-list/offers-list.jsx';
 import {propOffer} from '../props.js';
 
 function Main(props) {
@@ -92,9 +92,7 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => <OfferCard key={offer.id} offer={offer} />)}
-              </div>
+              <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
