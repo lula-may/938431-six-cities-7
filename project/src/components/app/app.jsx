@@ -9,8 +9,10 @@ import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {AppRoute} from '../../const.js';
 import {propOffer} from '../props.js';
+import {getFavoriteOffers} from '../../utils.js';
 
 function App({offers, offersCount}) {
+  const favoriteOffers = getFavoriteOffers(offers);
   return (
     <BrowserRouter>
       <Switch>
@@ -21,7 +23,7 @@ function App({offers, offersCount}) {
           />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites />
+          <Favorites favoriteOffers={favoriteOffers} />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
