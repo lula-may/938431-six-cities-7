@@ -8,6 +8,7 @@ import NotFound from '../not-found/not-found.jsx';
 import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {AppRoute} from '../../const.js';
+import {propOffer} from '../props.js';
 
 function App({offers, offersCount}) {
   return (
@@ -38,10 +39,7 @@ function App({offers, offersCount}) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    }).isRequired,
-  ),
+    propOffer).isRequired,
   offersCount: PropTypes.number.isRequired,
 };
 

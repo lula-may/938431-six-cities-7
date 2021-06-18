@@ -7,7 +7,7 @@ const propLocation = PropTypes.shape({
 }).isRequired;
 
 const propCity = PropTypes.shape({
-  'city': propLocation,
+  'location': propLocation,
   'name': PropTypes.string.isRequired,
 });
 
