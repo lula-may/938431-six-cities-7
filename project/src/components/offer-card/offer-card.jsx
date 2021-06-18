@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {propOffer} from '../props';
 
-function OfferCard({offer}) {
+function OfferCard({offer, onCardEnter}) {
   const {
+    id,
     images,
     isFavorite,
     isPremium,
@@ -16,7 +18,7 @@ function OfferCard({offer}) {
   const ratingStyle = {width: `${Math.round(rating) * 20}%`};
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseEnter={() => onCardEnter(id)}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -56,6 +58,7 @@ function OfferCard({offer}) {
 
 OfferCard.propTypes = {
   offer: propOffer,
+  onCardEnter: PropTypes.func.isRequired,
 };
 
 export default OfferCard;

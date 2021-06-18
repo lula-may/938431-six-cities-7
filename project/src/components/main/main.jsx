@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {propOffer} from '../props.js';
 
 function Main(props) {
+  const [activeCard, setActiveCard] = useState();
+
   const {offers, offersCount} = props;
   return (
     <div className="page page--gray page--main">
@@ -92,10 +94,12 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} />
+              <OffersList offers={offers} onCardEnter={(id) => setActiveCard(id)} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <span className="visually-hidden">{activeCard}</span>
+              </section>
             </div>
           </div>
         </div>
