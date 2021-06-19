@@ -13,7 +13,7 @@ const comments = [
   },
   {
     comment: 'Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate.',
-    date: '2012-01-28T14:13:56.569Z',
+    date: '2020-01-28T14:13:56.569Z',
     id: 2,
     rating: 3,
     user: {

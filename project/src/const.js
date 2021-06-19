@@ -5,3 +5,5 @@ export const AppRoute = {
   ROOT: '/',
 };
 
+export const DATETIME_LENGTH = 10;
+
