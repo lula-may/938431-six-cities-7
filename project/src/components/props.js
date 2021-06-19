@@ -37,4 +37,12 @@ const propOffer = PropTypes.shape({
   'type': PropTypes.string.isRequired,
 }).isRequired;
 
-export {propCity, propHost, propLocation, propOffer};
+const propComment = PropTypes.shape({
+  comment: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  rating: PropTypes.number.isRequired,
+  user: propHost,
+}).isRequired;
+
+export {propCity, propComment, propHost, propLocation, propOffer};
