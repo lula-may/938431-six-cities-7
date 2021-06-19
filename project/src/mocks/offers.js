@@ -18,7 +18,7 @@ const offers = [
       'name': 'max',
     },
     'id': 1,
-    'images': ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg'],
+    'images': ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg', 'img/room.jpg'],
     'isFavorite': false,
     'isPremium': false,
     'location': {
@@ -52,7 +52,7 @@ const offers = [
       'name': 'Max',
     },
     'id': 2,
-    'images': ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg','img/room.jpg'],
+    'images': ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
     'isFavorite': true,
     'isPremium': true,
     'location': {
@@ -86,7 +86,7 @@ const offers = [
       'name': 'Jack',
     },
     'id': 3,
-    'images': ['img/apartment-02.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/apartment-01.jpg'],
+    'images': ['img/apartment-02.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/apartment-03.jpg'],
     'isFavorite': true,
     'isPremium': true,
     'location': {
@@ -120,7 +120,7 @@ const offers = [
       'name': 'Caroline',
     },
     'id': 4,
-    'images': ['img/apartment-03.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/apartment-03.jpg'],
+    'images': ['img/apartment-03.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/room.jpg'],
     'isFavorite': true,
     'isPremium': false,
     'location': {
