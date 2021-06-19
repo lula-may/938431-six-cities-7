@@ -139,7 +139,7 @@ function Room({offer, nearOffers, comments}) {
                     <Comment key={comment.id} comment={comment} />
                   ))}
                 </ul>
-                <CommentForm />
+                <CommentForm onSubmit={() => {}} />
               </section>
             </div>
           </div>

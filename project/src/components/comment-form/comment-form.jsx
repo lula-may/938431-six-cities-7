@@ -1,13 +1,21 @@
 import React, {Fragment, useState} from 'react';
+import PropTypes from 'prop-types';
 
 import {MAX_RATING, RATINGS} from '../../const';
 
-export default function CommentForm() {
-  const [rating, setRating] = useState();
-  const [comment, setComment] = useState();
+export default function CommentForm({onSubmit}) {
+  const [rating, setRating] = useState('');
+  const [comment, setComment] = useState('');
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post"
+      onSubmit={(evt) => {
+        evt.preventDefault();
+        onSubmit({rating, comment});
+        setRating('');
+        setComment('');
+      }}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {RATINGS.map((value, i) => {
@@ -41,3 +49,7 @@ export default function CommentForm() {
     </form>
   );
 }
+
+CommentForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
