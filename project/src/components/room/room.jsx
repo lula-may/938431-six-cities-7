@@ -1,11 +1,15 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import Comment from '../comment/comment.jsx';
 import Logo from '../logo/logo.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
-import {propOffer} from '../props.js';
+import {propComment, propOffer} from '../props.js';
 import {getRatingStyle} from '../../utils.js';
+import { AppRoute } from '../../const.js';
 
-function Room({offer, nearOffers}) {
+function Room({offer, nearOffers, comments}) {
   const {
     bedrooms,
     description,
@@ -23,7 +27,8 @@ function Room({offer, nearOffers}) {
 
   const favoriteClass = isFavorite && 'property__bookmark-button--active';
   const ratingStyle = getRatingStyle(rating);
-
+  const commentsCount = comments.length;
+  const hostProClass = isPro ? 'property__avatar-wrapper--pro' : '';
   return (
     <div className="page">
       <header className="header">
@@ -35,11 +40,11 @@ function Room({offer, nearOffers}) {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
                   <a className="header__nav-link" href="#">
@@ -111,7 +116,7 @@ function Room({offer, nearOffers}) {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={`property__avatar-wrapper ${hostProClass}  user__avatar-wrapper`}>
                     <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
@@ -124,36 +129,14 @@ function Room({offer, nearOffers}) {
                 </div>
                 <div className="property__description">
                   <p className="property__text">{description}</p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                  </p>
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentsCount}</span></h2>
                 <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}}></span>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
+                  {comments.map((comment) => (
+                    <Comment key={comment.id} comment={comment} />
+                  ))}
                 </ul>
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -223,7 +206,8 @@ function Room({offer, nearOffers}) {
 }
 
 Room.propTypes = {
-  offer: propOffer,
+  comments: PropTypes.arrayOf(propComment).isRequired,
   nearOffers: PropTypes.arrayOf(propOffer).isRequired,
+  offer: propOffer,
 };
 export default Room;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
@@ -10,13 +10,14 @@ function Main(props) {
   const [activeCard, setActiveCard] = useState();
 
   const {offers, offersCount} = props;
+  const isActive = true;
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo isActive="true" />
+              <Logo isActive={isActive} />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">

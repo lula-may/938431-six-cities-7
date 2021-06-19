@@ -14,7 +14,7 @@ const offers = [
     'host': {
       'avatarUrl': 'img/avatar-max.jpg',
       'id': 0,
-      'isPro': true,
+      'isPro': false,
       'name': 'max',
     },
     'id': 1,

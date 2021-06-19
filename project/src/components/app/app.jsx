@@ -8,10 +8,10 @@ import NotFound from '../not-found/not-found.jsx';
 import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {AppRoute} from '../../const.js';
-import {propOffer} from '../props.js';
+import {propComment, propOffer} from '../props.js';
 import {getFavoriteOffers} from '../../utils.js';
 
-function App({offers, offersCount}) {
+function App({offers, offersCount, comments}) {
   const favoriteOffers = getFavoriteOffers(offers);
   const [firstOffer, ...nearOffers] = offers;
 
@@ -31,7 +31,11 @@ function App({offers, offersCount}) {
           <SignIn />
         </Route>
         <Route exact path={AppRoute.ROOM}>
-          <Room offer={firstOffer} nearOffers={nearOffers} />
+          <Room
+            comments={comments}
+            nearOffers={nearOffers}
+            offer={firstOffer}
+          />
         </Route>
         <Route>
           <NotFound />
@@ -42,6 +46,7 @@ function App({offers, offersCount}) {
 }
 
 App.propTypes = {
+  comments: PropTypes.arrayOf(propComment),
   offers: PropTypes.arrayOf(
     propOffer).isRequired,
   offersCount: PropTypes.number.isRequired,
