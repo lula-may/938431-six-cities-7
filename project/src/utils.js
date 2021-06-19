@@ -2,4 +2,6 @@ const getUniqueItems = (items) => items.filter((el, i, els) => els.indexOf(el) =
 
 const getFavoriteOffers = (offers) => offers.filter(({isFavorite}) => isFavorite);
 
-export {getFavoriteOffers, getUniqueItems};
+const getRatingStyle = (rating) => ({width: `${Math.round(rating) * 20}%`});
+
+export {getFavoriteOffers, getRatingStyle, getUniqueItems};

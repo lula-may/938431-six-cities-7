@@ -1,6 +1,9 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {propOffer} from '../props';
+import {AppRoute} from '../../const';
+import {getRatingStyle} from '../../utils.js';
 
 function OfferCard({offer, onCardEnter}) {
   const {
@@ -15,7 +18,7 @@ function OfferCard({offer, onCardEnter}) {
   } = offer;
   const [cardImage] = images;
   const favoriteActiveClass = isFavorite ? ' place-card__bookmark-button--active' : '';
-  const ratingStyle = {width: `${Math.round(rating) * 20}%`};
+  const ratingStyle = getRatingStyle(rating);
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={() => onCardEnter(id)}>
@@ -24,9 +27,9 @@ function OfferCard({offer, onCardEnter}) {
         <span>Premium</span>
       </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={AppRoute.ROOM}>
           <img className="place-card__image" src={cardImage} width="260" height="200" alt="Place"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -48,7 +51,7 @@ function OfferCard({offer, onCardEnter}) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={AppRoute.ROOM}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

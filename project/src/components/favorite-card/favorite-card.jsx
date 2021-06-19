@@ -1,5 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {propOffer} from '../props';
+import {AppRoute} from '../../const';
 
 export default function FavoriteCard({offer}) {
   const {
@@ -12,13 +14,12 @@ export default function FavoriteCard({offer}) {
   } = offer;
   const favoriteActiveClass = isFavorite ? ' place-card__bookmark-button--active' : '';
   const ratingStyle = {width: `${Math.round(rating) * 20}%`};
-
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={AppRoute.ROOM}>
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place" />
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -40,7 +41,7 @@ export default function FavoriteCard({offer}) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={AppRoute.ROOM}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
