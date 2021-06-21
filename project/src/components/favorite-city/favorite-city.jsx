@@ -17,7 +17,11 @@ export default function FavoriteCity({city, offers}) {
       </div>
       <div className="favorites__places">
         {offers.map((offer) => (
-          <FavoriteCard key={offer.id} offer={offer} />
+          <FavoriteCard
+            key={offer.id}
+            offer={offer}
+            onFavoriteButtonClick={() => {}}
+          />
         ))}
       </div>
     </li>

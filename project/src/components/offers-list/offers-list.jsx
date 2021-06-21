@@ -11,6 +11,7 @@ export default function OffersList({offers, onCardEnter}) {
           key={offer.id}
           offer={offer}
           onCardEnter={onCardEnter}
+          onFavoriteButtonClick={() => {}}
         />))}
     </Fragment>
   );

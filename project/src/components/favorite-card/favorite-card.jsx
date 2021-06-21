@@ -1,9 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import BookmarkButton from '../bookmark-button/bookmark-button';
 import {propOffer} from '../props';
 import {AppRoute} from '../../const';
 
-export default function FavoriteCard({offer}) {
+export default function FavoriteCard({offer, onFavoriteButtonClick}) {
   const {
     isFavorite,
     previewImage,
@@ -12,7 +15,6 @@ export default function FavoriteCard({offer}) {
     title,
     type,
   } = offer;
-  const favoriteActiveClass = isFavorite ? ' place-card__bookmark-button--active' : '';
   const ratingStyle = {width: `${Math.round(rating) * 20}%`};
   return (
     <article className="favorites__card place-card">
@@ -27,12 +29,10 @@ export default function FavoriteCard({offer}) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${favoriteActiveClass} button`} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <BookmarkButton
+            isFavorite={isFavorite}
+            onFavoriteClick={onFavoriteButtonClick}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -51,4 +51,5 @@ export default function FavoriteCard({offer}) {
 
 FavoriteCard.propTypes = {
   offer: propOffer,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
 };
