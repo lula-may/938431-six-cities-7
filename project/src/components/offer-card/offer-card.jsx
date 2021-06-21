@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import BookmarkButton from '../bookmark-button/bookmark-button';
+import Rating from '../rating/rating';
 import {propOffer} from '../props';
 import {AppRoute} from '../../const';
-import {getRatingStyle} from '../../utils.js';
 
 function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
   const {
@@ -19,7 +19,6 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
     type,
   } = offer;
   const [cardImage] = images;
-  const ratingStyle = getRatingStyle(rating);
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={() => onCardEnter(id)}>
@@ -28,7 +27,7 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
         <span>Premium</span>
       </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.ROOM}>
+        <Link to={`${AppRoute.ROOM}/:${id}`}>
           <img className="place-card__image" src={cardImage} width="260" height="200" alt="Place"/>
         </Link>
       </div>
@@ -43,12 +42,7 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
             onFavoriteClick={onFavoriteButtonClick}
           />
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={ratingStyle}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating rating={rating} />
         <h2 className="place-card__name">
           <Link to={AppRoute.ROOM}>{title}</Link>
         </h2>

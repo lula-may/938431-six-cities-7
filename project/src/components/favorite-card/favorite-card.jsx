@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import BookmarkButton from '../bookmark-button/bookmark-button';
+import Rating from '../rating/rating';
 import {propOffer} from '../props';
 import {AppRoute} from '../../const';
 
@@ -15,7 +16,7 @@ export default function FavoriteCard({offer, onFavoriteButtonClick}) {
     title,
     type,
   } = offer;
-  const ratingStyle = {width: `${Math.round(rating) * 20}%`};
+
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
@@ -34,12 +35,7 @@ export default function FavoriteCard({offer, onFavoriteButtonClick}) {
             onFavoriteClick={onFavoriteButtonClick}
           />
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={ratingStyle}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating rating={rating} />
         <h2 className="place-card__name">
           <Link to={AppRoute.ROOM}>{title}</Link>
         </h2>
