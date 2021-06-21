@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import FavoriteList from '../favorite-list/favorite-list.jsx';
 import Logo from '../logo/logo.jsx';
-import {propOffer} from '../props';
+import {PROP_OFFER} from '../props';
 
 function Favorites({favoriteOffers}) {
   return (
@@ -50,7 +50,7 @@ function Favorites({favoriteOffers}) {
 }
 
 Favorites.propTypes = {
-  favoriteOffers: PropTypes.arrayOf(propOffer).isRequired,
+  favoriteOffers: PropTypes.arrayOf(PROP_OFFER).isRequired,
 };
 
 export default Favorites;

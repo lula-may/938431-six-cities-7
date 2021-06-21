@@ -1,7 +1,7 @@
 import React from 'react';
 import { DATETIME_LENGTH } from '../../const';
 import {getRatingStyle, formatDate} from '../../utils';
-import {propComment} from '../props';
+import {PROP_COMMENT} from '../props';
 
 export default function Comment({comment}) {
   const {
@@ -37,5 +37,5 @@ export default function Comment({comment}) {
 }
 
 Comment.propTypes = {
-  comment: propComment,
+  comment: PROP_COMMENT,
 };

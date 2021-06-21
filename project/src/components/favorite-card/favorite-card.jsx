@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import Rating from '../rating/rating';
-import {propOffer} from '../props';
+import {PROP_OFFER} from '../props';
 import {AppRoute} from '../../const';
 
 export default function FavoriteCard({offer, onFavoriteButtonClick}) {
@@ -49,6 +49,6 @@ export default function FavoriteCard({offer, onFavoriteButtonClick}) {
 }
 
 FavoriteCard.propTypes = {
-  offer: propOffer,
+  offer: PROP_OFFER,
   onFavoriteButtonClick: PropTypes.func.isRequired,
 };

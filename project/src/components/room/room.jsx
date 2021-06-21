@@ -6,7 +6,7 @@ import Comment from '../comment/comment.jsx';
 import CommentForm from '../comment-form/comment-form.jsx';
 import Logo from '../logo/logo.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
-import {propComment, propOffer} from '../props.js';
+import {PROP_COMMENT, PROP_OFFER} from '../props.js';
 import {getElementById, getRatingStyle} from '../../utils.js';
 import {AppRoute} from '../../const.js';
 
@@ -165,9 +165,9 @@ function Room(props) {
 }
 
 Room.propTypes = {
-  comments: PropTypes.arrayOf(propComment).isRequired,
+  comments: PropTypes.arrayOf(PROP_COMMENT).isRequired,
   match: PropTypes.object.isRequired,
-  nearOffers: PropTypes.arrayOf(propOffer).isRequired,
-  offers: PropTypes.arrayOf(propOffer).isRequired,
+  nearOffers: PropTypes.arrayOf(PROP_OFFER).isRequired,
+  offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
 };
 export default Room;

@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import {OFFERS} from './mocks/offers.js';
-import {comments} from './mocks/comments';
+import {COMMENTS} from './mocks/comments';
 
 const settings = {
-  comments,
+  comments: COMMENTS,
   offers: OFFERS,
   offersCount: 250,
 };
@@ -13,7 +13,7 @@ const settings = {
 ReactDOM.render(
   <React.StrictMode>
     <App
-      comments={comments}
+      comments={settings.comments}
       offers={settings.offers}
       offersCount={settings.offersCount}
     />

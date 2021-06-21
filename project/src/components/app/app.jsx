@@ -8,7 +8,7 @@ import NotFound from '../not-found/not-found.jsx';
 import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {AppRoute} from '../../const.js';
-import {propComment, propOffer} from '../props.js';
+import {PROP_COMMENT, PROP_OFFER} from '../props.js';
 import {getFavoriteOffers} from '../../utils.js';
 
 function App({offers, offersCount, comments}) {
@@ -50,9 +50,9 @@ function App({offers, offersCount, comments}) {
 }
 
 App.propTypes = {
-  comments: PropTypes.arrayOf(propComment),
+  comments: PropTypes.arrayOf(PROP_COMMENT),
   offers: PropTypes.arrayOf(
-    propOffer).isRequired,
+    PROP_OFFER).isRequired,
   offersCount: PropTypes.number.isRequired,
 };
 

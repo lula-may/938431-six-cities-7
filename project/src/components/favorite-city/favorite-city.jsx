@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoriteCard from '../favorite-card/favorite-card.jsx';
-import {propOffer} from '../props.js';
+import {PROP_OFFER} from '../props.js';
 import {AppRoute} from '../../const.js';
 
 export default function FavoriteCity({city, offers}) {
@@ -30,5 +30,5 @@ export default function FavoriteCity({city, offers}) {
 
 FavoriteCity.propTypes = {
   city: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf(propOffer).isRequired,
+  offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
 };

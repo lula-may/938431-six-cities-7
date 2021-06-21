@@ -1,34 +1,34 @@
 import PropTypes from 'prop-types';
 
-const propLocation = PropTypes.shape({
+const PROP_LOCATION = PropTypes.shape({
   'latitude': PropTypes.number.isRequired,
   'longitude': PropTypes.number.isRequired,
   'zoom': PropTypes.number.isRequired,
 }).isRequired;
 
-const propCity = PropTypes.shape({
-  'location': propLocation,
+const PROP_CITY = PropTypes.shape({
+  'location': PROP_LOCATION,
   'name': PropTypes.string.isRequired,
 });
 
-const propHost = PropTypes.shape({
+const PROP_HOST = PropTypes.shape({
   'avatarUrl': PropTypes.string.isRequired,
   'id': PropTypes.number.isRequired,
   'isPro': PropTypes.bool.isRequired,
   'name': PropTypes.string.isRequired,
 });
 
-const propOffer = PropTypes.shape({
+const PROP_OFFER = PropTypes.shape({
   'bedrooms': PropTypes.number.isRequired,
-  'city': propCity,
+  'city': PROP_CITY,
   'description': PropTypes.string.isRequired,
   'goods': PropTypes.arrayOf(PropTypes.string).isRequired,
-  'host': propHost,
+  'host': PROP_HOST,
   'id': PropTypes.number.isRequired,
   'images': PropTypes.arrayOf(PropTypes.string).isRequired,
   'isFavorite': PropTypes.bool.isRequired,
   'isPremium': PropTypes.bool.isRequired,
-  'location': propLocation,
+  'location': PROP_LOCATION,
   'maxAdults': PropTypes.number.isRequired,
   'previewImage': PropTypes.string.isRequired,
   'price': PropTypes.number.isRequired,
@@ -37,12 +37,12 @@ const propOffer = PropTypes.shape({
   'type': PropTypes.string.isRequired,
 }).isRequired;
 
-const propComment = PropTypes.shape({
+const PROP_COMMENT = PropTypes.shape({
   comment: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
-  user: propHost,
+  user: PROP_HOST,
 }).isRequired;
 
-export {propCity, propComment, propHost, propLocation, propOffer};
+export {PROP_CITY, PROP_COMMENT, PROP_HOST, PROP_LOCATION, PROP_OFFER};

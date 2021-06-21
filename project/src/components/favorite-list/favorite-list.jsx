@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import FavoriteCity from '../favorite-city/favorite-city';
 import {getUniqueItems} from '../../utils.js';
-import {propOffer} from '../props';
+import {PROP_OFFER} from '../props';
 
 const filterOffersByCity = (offers, name) => offers.filter(({city}) => city.name === name);
 
@@ -26,5 +26,5 @@ export default function FavoriteList({favoriteOffers}) {
 }
 
 FavoriteList.propTypes = {
-  favoriteOffers: PropTypes.arrayOf(propOffer).isRequired,
+  favoriteOffers: PropTypes.arrayOf(PROP_OFFER).isRequired,
 };

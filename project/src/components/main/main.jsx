@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
-import {propOffer} from '../props.js';
+import {PROP_OFFER} from '../props.js';
 import {AppRoute} from '../../const.js';
 
 function Main(props) {
@@ -117,7 +117,7 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  offers: PropTypes.arrayOf(propOffer),
+  offers: PropTypes.arrayOf(PROP_OFFER),
   offersCount: PropTypes.number.isRequired,
 };
 

@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card';
-import {propOffer} from '../props';
+import {PROP_OFFER} from '../props';
 
 export default function OffersList({offers, onCardEnter}) {
   return (
@@ -18,6 +18,6 @@ export default function OffersList({offers, onCardEnter}) {
 }
 
 OffersList.propTypes = {
-  offers: PropTypes.arrayOf(propOffer).isRequired,
+  offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
   onCardEnter: PropTypes.func.isRequired,
 };
