@@ -9,6 +9,7 @@ import {AppRoute} from '../../const';
 
 export default function FavoriteCard({offer, onFavoriteButtonClick}) {
   const {
+    id,
     isFavorite,
     previewImage,
     price,
@@ -17,10 +18,12 @@ export default function FavoriteCard({offer, onFavoriteButtonClick}) {
     type,
   } = offer;
 
+  const placeRoot = `${AppRoute.ROOM}/${id}`;
+
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.ROOM}>
+        <Link to={placeRoot}>
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place" />
         </Link>
       </div>
@@ -37,7 +40,7 @@ export default function FavoriteCard({offer, onFavoriteButtonClick}) {
         </div>
         <Rating rating={rating} />
         <h2 className="place-card__name">
-          <Link to={AppRoute.ROOM}>{title}</Link>
+          <Link to={placeRoot}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

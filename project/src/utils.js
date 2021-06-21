@@ -10,5 +10,7 @@ const formatDate = (date) => {
   }
 };
 
-export {getFavoriteOffers, getRatingStyle, getUniqueItems, formatDate};
+const getElementById = (elements, elementId) => elements.find(({id}) => id === elementId);
+
+export {getElementById, getFavoriteOffers, getRatingStyle, getUniqueItems, formatDate};
 

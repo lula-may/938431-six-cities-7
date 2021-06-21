@@ -13,7 +13,7 @@ import {getFavoriteOffers} from '../../utils.js';
 
 function App({offers, offersCount, comments}) {
   const favoriteOffers = getFavoriteOffers(offers);
-  const [firstOffer, ...nearOffers] = offers;
+  const [, ...nearOffers] = offers;
 
   return (
     <BrowserRouter>
@@ -30,12 +30,16 @@ function App({offers, offersCount, comments}) {
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
-        <Route exact path={AppRoute.ROOM}>
-          <Room
-            comments={comments}
-            nearOffers={nearOffers}
-            offer={firstOffer}
-          />
+        <Route exact path={`${AppRoute.ROOM}/:id`}
+          render={(props) => (
+            <Room
+              {...props}
+              comments={comments}
+              nearOffers={nearOffers}
+              offers={offers}
+            />
+          )}
+        >
         </Route>
         <Route>
           <NotFound />

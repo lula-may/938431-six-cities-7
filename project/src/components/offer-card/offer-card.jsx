@@ -20,6 +20,7 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
   } = offer;
   const [cardImage] = images;
 
+  const placeRoot = `${AppRoute.ROOM}/${id}`;
   return (
     <article className="cities__place-card place-card" onMouseEnter={() => onCardEnter(id)}>
       {isPremium &&
@@ -27,7 +28,7 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
         <span>Premium</span>
       </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.ROOM}/:${id}`}>
+        <Link to={placeRoot}>
           <img className="place-card__image" src={cardImage} width="260" height="200" alt="Place"/>
         </Link>
       </div>
@@ -44,7 +45,7 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
         </div>
         <Rating rating={rating} />
         <h2 className="place-card__name">
-          <Link to={AppRoute.ROOM}>{title}</Link>
+          <Link to={placeRoot}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

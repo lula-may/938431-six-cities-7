@@ -7,10 +7,13 @@ import CommentForm from '../comment-form/comment-form.jsx';
 import Logo from '../logo/logo.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {propComment, propOffer} from '../props.js';
-import {getRatingStyle} from '../../utils.js';
-import { AppRoute } from '../../const.js';
+import {getElementById, getRatingStyle} from '../../utils.js';
+import {AppRoute} from '../../const.js';
 
-function Room({offer, nearOffers, comments}) {
+function Room(props) {
+  const {offers, nearOffers, comments, match} = props;
+  const id = Number(match.params.id);
+  const offer = getElementById(offers, id);
   const {
     bedrooms,
     description,
@@ -163,7 +166,8 @@ function Room({offer, nearOffers, comments}) {
 
 Room.propTypes = {
   comments: PropTypes.arrayOf(propComment).isRequired,
+  match: PropTypes.object.isRequired,
   nearOffers: PropTypes.arrayOf(propOffer).isRequired,
-  offer: propOffer,
+  offers: PropTypes.arrayOf(propOffer).isRequired,
 };
 export default Room;
