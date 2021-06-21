@@ -1,4 +1,4 @@
-const offers = [
+const OFFERS = [
   {
     'bedrooms': 3,
     'city': {
@@ -86,7 +86,7 @@ const offers = [
       'name': 'Jack',
     },
     'id': 3,
-    'images': ['img/apartment-02.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/apartment-03.jpg'],
+    'images': ['img/apartment-02.jpg', 'img/room.jpg','img/apartment-01.jpg', 'img/apartment-03.jpg'],
     'isFavorite': true,
     'isPremium': true,
     'location': {
@@ -137,4 +137,4 @@ const offers = [
   },
 ];
 
-export {offers};
+export {OFFERS};

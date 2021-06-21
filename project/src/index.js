@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {offers} from './mocks/offers.js';
+import {OFFERS} from './mocks/offers.js';
 import {comments} from './mocks/comments';
 
 const settings = {
   comments,
-  offers,
+  offers: OFFERS,
   offersCount: 250,
 };
 
