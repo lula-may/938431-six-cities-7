@@ -1,6 +1,8 @@
 import React from 'react';
-import { DATETIME_LENGTH } from '../../const';
-import {getRatingStyle, formatDate} from '../../utils';
+
+import Rating from '../rating/rating';
+import {DATETIME_LENGTH} from '../../const';
+import {formatDate} from '../../utils';
 import {PROP_COMMENT} from '../props';
 
 export default function Comment({comment}) {
@@ -13,7 +15,7 @@ export default function Comment({comment}) {
 
   const commentDate = formatDate(new Date(date));
   const dateTimeAttr = date.slice(0, DATETIME_LENGTH);
-  const ratingStyle = getRatingStyle(rating);
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -23,12 +25,7 @@ export default function Comment({comment}) {
         <span className="reviews__user-name">{name}</span>
       </div>
       <div className="reviews__info">
-        <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={ratingStyle}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating rating={rating} />
         <p className="reviews__text">{text}</p>
         <time className="reviews__time" dateTime={dateTimeAttr}>{commentDate}</time>
       </div>
@@ -37,5 +34,5 @@ export default function Comment({comment}) {
 }
 
 Comment.propTypes = {
-  comment: PROP_COMMENT,
+  comment: PROP_COMMENT.isRequired,
 };
