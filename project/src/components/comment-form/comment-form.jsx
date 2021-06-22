@@ -6,8 +6,8 @@ import {MAX_RATING, RATINGS} from '../../const';
 export default function CommentForm({onSubmit}) {
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
-  const handleRatingChange = useCallback(({target}) => setRating(target.value), [setRating]);
-  const handleReviewTextChange = useCallback(({target}) => setComment(target.value), [setComment]);
+  const handleRatingChange = useCallback(({target}) => setRating(target.value), []);
+  const handleReviewTextChange = useCallback(({target}) => setComment(target.value), []);
   const handleFormSubmit = useCallback((evt) => {
     evt.preventDefault();
     onSubmit({rating, comment});
@@ -24,7 +24,12 @@ export default function CommentForm({onSubmit}) {
           const isChecked = currentRating.toString() === rating;
           return (
             <Fragment key={value}>
-              <input className="form__rating-input visually-hidden" name="rating" value={currentRating} id={`${currentRating}-stars`} type="radio"
+              <input
+                className="form__rating-input visually-hidden"
+                name="rating"
+                value={currentRating}
+                id={`${currentRating}-stars`}
+                type="radio"
                 checked={isChecked}
                 onChange={handleRatingChange}
               />
