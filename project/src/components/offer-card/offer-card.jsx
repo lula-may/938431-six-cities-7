@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -19,10 +19,11 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
     type,
   } = offer;
   const [cardImage] = images;
-
   const placeRoot = `${AppRoute.ROOM}/${id}`;
+  const handleMouseEnter = useCallback(() => onCardEnter(id), [onCardEnter, id]);
+
   return (
-    <article className="cities__place-card place-card" onMouseEnter={() => onCardEnter(id)}>
+    <article className="cities__place-card place-card" onMouseEnter={handleMouseEnter}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -39,8 +40,8 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <BookmarkButton
-            isFavorite={isFavorite}
-            onFavoriteClick={onFavoriteButtonClick}
+            isActive={isFavorite}
+            onClick={onFavoriteButtonClick}
           />
         </div>
         <Rating rating={rating} />
@@ -54,7 +55,7 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
 }
 
 OfferCard.propTypes = {
-  offer: PROP_OFFER,
+  offer: PROP_OFFER.isRequired,
   onCardEnter: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
 };

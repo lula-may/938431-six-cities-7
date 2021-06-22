@@ -34,8 +34,8 @@ export default function FavoriteCard({offer, onFavoriteButtonClick}) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <BookmarkButton
-            isFavorite={isFavorite}
-            onFavoriteClick={onFavoriteButtonClick}
+            isActive={isFavorite}
+            onClick={onFavoriteButtonClick}
           />
         </div>
         <Rating rating={rating} />
@@ -49,6 +49,6 @@ export default function FavoriteCard({offer, onFavoriteButtonClick}) {
 }
 
 FavoriteCard.propTypes = {
-  offer: PROP_OFFER,
+  offer: PROP_OFFER.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
 };
