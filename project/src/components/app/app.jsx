@@ -30,16 +30,12 @@ function App({offers, offersCount, comments}) {
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
-        <Route exact path={`${AppRoute.ROOM}/:id`}
-          render={(props) => (
-            <Room
-              {...props}
-              comments={comments}
-              nearOffers={nearOffers}
-              offers={offers}
-            />
-          )}
-        >
+        <Route exact path={`${AppRoute.ROOM}/:id`}>
+          <Room
+            comments={comments}
+            nearOffers={nearOffers}
+            offers={offers}
+          />
         </Route>
         <Route>
           <NotFound />
