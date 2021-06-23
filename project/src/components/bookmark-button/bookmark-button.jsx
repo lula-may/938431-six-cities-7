@@ -1,22 +1,21 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function BookmarkButton({isFavorite, onFavoriteClick}) {
-  const favoriteActiveClass = isFavorite ? ' place-card__bookmark-button--active' : '';
-  const handleButtonClick = useCallback(() => onFavoriteClick(!isFavorite), [onFavoriteClick, isFavorite]);
+export default function BookmarkButton({children, className, onClick}) {
   return (
-    <button className={`place-card__bookmark-button ${favoriteActiveClass} button`} type="button"
-      onClick={handleButtonClick}
+    <button
+      className={className}
+      onClick={onClick}
+      type="button"
     >
-      <svg className="place-card__bookmark-icon" width="18" height="19">
-        <use xlinkHref="#icon-bookmark"></use>
-      </svg>
+      {children}
       <span className="visually-hidden">To bookmarks</span>
     </button>
   );
 }
 
 BookmarkButton.propTypes = {
-  isFavorite: PropTypes.bool.isRequired,
-  onFavoriteClick: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  className: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

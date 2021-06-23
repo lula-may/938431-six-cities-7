@@ -6,6 +6,7 @@ import BookmarkButton from '../bookmark-button/bookmark-button';
 import Rating from '../rating/rating';
 import {PROP_OFFER} from '../props';
 import {AppRoute} from '../../const';
+import {cn} from '../../utils.js';
 
 function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
   const {
@@ -40,9 +41,17 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <BookmarkButton
-            isActive={isFavorite}
+            className={cn(
+              'place-card__bookmark-button',
+              isFavorite && 'place-card__bookmark-button--active',
+              'button',
+            )}
             onClick={onFavoriteButtonClick}
-          />
+          >
+            <svg className="place-card__bookmark-icon" width="18" height="19">
+              <use xlinkHref="#icon-bookmark"></use>
+            </svg>
+          </BookmarkButton>
         </div>
         <Rating rating={rating} />
         <h2 className="place-card__name">

@@ -1,18 +1,22 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useMemo} from 'react';
+
+import {Link, useRouteMatch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Comment from '../comment/comment.jsx';
 import CommentForm from '../comment-form/comment-form.jsx';
 import Logo from '../logo/logo.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {PROP_COMMENT, PROP_OFFER} from '../props.js';
-import {getElementById, getRatingStyle} from '../../utils.js';
+import {cn, getElementById, getRatingStyle} from '../../utils.js';
 import {AppRoute} from '../../const.js';
 
 function Room(props) {
-  const {offers, nearOffers, comments, match} = props;
+  const {offers, nearOffers, comments} = props;
+  const match = useRouteMatch();
   const id = Number(match.params.id);
+
   const offer = getElementById(offers, id);
   const {
     bedrooms,
@@ -29,10 +33,10 @@ function Room(props) {
     type,
   } = offer;
 
-  const favoriteClass = isFavorite && 'property__bookmark-button--active';
-  const ratingStyle = getRatingStyle(rating);
+  const ratingStyle = useMemo(() => getRatingStyle(rating), [rating]);
   const commentsCount = comments.length;
   const hostProClass = isPro ? 'property__avatar-wrapper--pro' : '';
+
   return (
     <div className="page">
       <header className="header">
@@ -80,12 +84,17 @@ function Room(props) {
               </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button className={`property__bookmark-button ${favoriteClass} button`} type="button">
+                <BookmarkButton
+                  className={cn(
+                    'property__bookmark-button',
+                    isFavorite && 'property__bookmark-button--active',
+                    'button')}
+                  onClick={() => {}}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                </BookmarkButton>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -166,7 +175,6 @@ function Room(props) {
 
 Room.propTypes = {
   comments: PropTypes.arrayOf(PROP_COMMENT).isRequired,
-  match: PropTypes.object.isRequired,
   nearOffers: PropTypes.arrayOf(PROP_OFFER).isRequired,
   offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
 };
