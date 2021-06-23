@@ -12,5 +12,5 @@ const formatDate = (date) => {
 
 const getElementById = (elements, elementId) => elements.find(({id}) => id === elementId);
 
-const cn = (...args) => args.join(' ');
+const cn = (...args) => args.filter(Boolean).join(' ');
 export {cn, getElementById, getFavoriteOffers, getRatingStyle, getUniqueItems, formatDate};
