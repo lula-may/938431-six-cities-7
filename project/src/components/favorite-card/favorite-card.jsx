@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -6,35 +6,29 @@ import BookmarkButton from '../bookmark-button/bookmark-button';
 import Rating from '../rating/rating';
 import {PROP_OFFER} from '../props';
 import {AppRoute} from '../../const';
-import {cn} from '../../utils.js';
+import { cn } from '../../utils';
 
-function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
+export default function FavoriteCard({offer, onFavoriteButtonClick}) {
   const {
     id,
-    images,
     isFavorite,
-    isPremium,
+    previewImage,
     price,
     rating,
     title,
     type,
   } = offer;
-  const [cardImage] = images;
+
   const placeRoot = `${AppRoute.ROOM}/${id}`;
-  const handleMouseEnter = useCallback(() => onCardEnter(id), [onCardEnter, id]);
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={handleMouseEnter}>
-      {isPremium &&
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className="favorites__card place-card">
+      <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={placeRoot}>
-          <img className="place-card__image" src={cardImage} width="260" height="200" alt="Place"/>
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -63,10 +57,7 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
   );
 }
 
-OfferCard.propTypes = {
+FavoriteCard.propTypes = {
   offer: PROP_OFFER.isRequired,
-  onCardEnter: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
 };
-
-export default OfferCard;

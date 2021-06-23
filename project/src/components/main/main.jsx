@@ -1,26 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import OfferCard from '../offer-card/offer-card.jsx';
 import Logo from '../logo/logo.jsx';
+import OffersList from '../offers-list/offers-list.jsx';
+import {PROP_OFFER} from '../props.js';
+import {AppRoute} from '../../const.js';
 
 function Main(props) {
+  const [activeCard, setActiveCard] = useState();
+
   const {offers, offersCount} = props;
+  const isActive = true;
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo />
+              <Logo isActive={isActive} />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
                   <a className="header__nav-link" href="#">
@@ -92,11 +98,16 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => <OfferCard key={offer.id} />)}
+                <OffersList
+                  offers={offers}
+                  onCardEnter={setActiveCard}
+                />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <span className="visually-hidden">{activeCard}</span>
+              </section>
             </div>
           </div>
         </div>
@@ -106,11 +117,7 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    }).isRequired,
-  ),
+  offers: PropTypes.arrayOf(PROP_OFFER),
   offersCount: PropTypes.number.isRequired,
 };
 
