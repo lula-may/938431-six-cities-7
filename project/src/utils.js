@@ -12,5 +12,5 @@ const formatDate = (date) => {
 
 const getElementById = (elements, elementId) => elements.find(({id}) => id === elementId);
 
-export {getElementById, getFavoriteOffers, getRatingStyle, getUniqueItems, formatDate};
-
+const cn = (...args) => args.join(' ');
+export {cn, getElementById, getFavoriteOffers, getRatingStyle, getUniqueItems, formatDate};
