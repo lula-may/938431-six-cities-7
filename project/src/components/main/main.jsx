@@ -1,16 +1,21 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import Logo from '../logo/logo.jsx';
+import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
-import {PROP_OFFER} from '../props.js';
+import {PROP_CITY, PROP_OFFER} from '../props.js';
 import {AppRoute} from '../../const.js';
+import { getRestElements } from '../../utils.js';
 
 function Main(props) {
   const [activeCard, setActiveCard] = useState();
 
-  const {offers, offersCount} = props;
+  const {cities, offers, offersCount} = props;
   const isActive = true;
+  const city = cities[0];
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -105,9 +110,11 @@ function Main(props) {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <span className="visually-hidden">{activeCard}</span>
-              </section>
+              <Map
+                activePoint={activeCard}
+                city={city}
+                points={getRestElements(offers, activeCard)}
+              />
             </div>
           </div>
         </div>
@@ -117,6 +124,7 @@ function Main(props) {
 }
 
 Main.propTypes = {
+  cities: PropTypes.arrayOf(PROP_CITY).isRequired,
   offers: PropTypes.arrayOf(PROP_OFFER),
   offersCount: PropTypes.number.isRequired,
 };
