@@ -21,7 +21,7 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
   } = offer;
   const [cardImage] = images;
   const placeRoot = `${AppRoute.ROOM}/${id}`;
-  const handleMouseEnter = useCallback(() => onCardEnter(id), [onCardEnter, id]);
+  const handleMouseEnter = useCallback(() => onCardEnter(offer), [onCardEnter, offer]);
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={handleMouseEnter}>
