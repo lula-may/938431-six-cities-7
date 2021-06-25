@@ -1,39 +1,57 @@
 const CITIES = [
   {
     id: 0,
+    location: {
+      latitude: 52.38333,
+      longitude: 4.9,
+      zoom: 12,
+    },
     name: 'Amsterdam',
-    location: [52.38333, 4.9],
-    zoom: 12,
   },
   {
     id: 1,
+    location: {
+      latitude: 48.8566969,
+      longitude: 2.3514616,
+      zoom: 12,
+    },
     name: 'Paris',
-    location: [48.8566969, 2.3514616],
-    zoom: 12,
   },
   {
     id: 2,
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
+      zoom: 12,
+    },
     name: 'Cologne',
-    location: [50.938361, 6.959974],
-    zoom: 12,
   },
   {
     id: 3,
+    location: {
+      latitude: 50.8465573,
+      longitude: 4.351697,
+      zoom: 12,
+    },
     name: 'Brussels',
-    location: [50.8465573, 4.351697],
-    zoom: 12,
   },
   {
     id: 4,
+    location: {
+      latitude: 53.550341,
+      longitude: 10.000654,
+      zoom: 12,
+    },
     name: 'Hamburg',
-    location: [53.550341, 10.000654],
-    zoom: 12,
   },
   {
     id: 5,
+    location: {
+      latitude: 51.2254018,
+      longitude: 6.7763137,
+      zoom: 12,
+    },
     name: 'Dusseldorf',
-    location: [51.2254018, 6.7763137],
-    zoom: 12,
   },
 ];
 export {CITIES};

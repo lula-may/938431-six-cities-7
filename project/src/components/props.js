@@ -7,6 +7,7 @@ const PROP_LOCATION = PropTypes.shape({
 });
 
 const PROP_CITY = PropTypes.shape({
+  id: PropTypes.number,
   location: PROP_LOCATION.isRequired,
   name: PropTypes.string.isRequired,
 });
