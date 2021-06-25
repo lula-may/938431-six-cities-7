@@ -7,10 +7,9 @@ import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {PROP_CITY, PROP_OFFER} from '../props.js';
 import {AppRoute} from '../../const.js';
-import { getRestElements } from '../../utils.js';
 
 function Main(props) {
-  const [activeCard, setActiveCard] = useState();
+  const [activeCard, setActiveCard] = useState(null);
 
   const {cities, offers, offersCount} = props;
   const isActive = true;
@@ -111,9 +110,9 @@ function Main(props) {
             </section>
             <div className="cities__right-section">
               <Map
-                activePoint={activeCard}
+                activeOffer={activeCard}
                 city={city}
-                points={getRestElements(offers, activeCard)}
+                offers={offers}
               />
             </div>
           </div>

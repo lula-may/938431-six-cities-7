@@ -3,8 +3,8 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 function useMap(mapRef, city) {
-  const {location, zoom} = city;
-  const [lat, lng] = location;
+  const {location} = city;
+  const {latitude: lat, longitude: lng, zoom} = location;
   const [map, setMap] = useState(null);
 
   useEffect(() => {
@@ -15,6 +15,8 @@ function useMap(mapRef, city) {
           lng,
         },
         zoom,
+        zoomControl: false,
+        marker: true,
       });
 
       leaflet
