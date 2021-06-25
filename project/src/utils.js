@@ -12,5 +12,13 @@ const formatDate = (date) => {
 
 const getElementById = (elements, elementId) => elements.find(({id}) => id === elementId);
 
+const getRestElements = (elements, element) => {
+  const index = elements.findIndex(({id}) => id === element.id);
+  if (index === -1) {
+    return elements;
+  }
+  return [...elements.slice(0, index), ...elements.slice(index + 1)];
+};
+
 const cn = (...args) => args.filter(Boolean).join(' ');
-export {cn, getElementById, getFavoriteOffers, getRatingStyle, getUniqueItems, formatDate};
+export {cn, getElementById, getFavoriteOffers, getRatingStyle, getRestElements, getUniqueItems, formatDate};
