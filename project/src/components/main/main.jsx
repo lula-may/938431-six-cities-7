@@ -6,7 +6,7 @@ import Logo from '../logo/logo.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {PROP_CITY, PROP_OFFER} from '../props.js';
-import {AppRoute} from '../../const.js';
+import {AppRoute, CardType} from '../../const.js';
 
 function Main(props) {
   const [activeCard, setActiveCard] = useState(null);
@@ -103,14 +103,17 @@ function Main(props) {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 <OffersList
+                  cardType={CardType.CITIES}
                   offers={offers}
                   onCardEnter={setActiveCard}
+                  onCardLeave={setActiveCard}
                 />
               </div>
             </section>
             <div className="cities__right-section">
               <Map
                 activeOffer={activeCard}
+                className="cities__map"
                 city={city}
                 offers={offers}
               />
