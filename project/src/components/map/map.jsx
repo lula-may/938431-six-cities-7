@@ -5,12 +5,13 @@ import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/useMap';
 import {PROP_CITY, PROP_OFFER} from '../props';
+import {cn} from '../../utils.js';
 
-export default function Map({city, activeOffer, offers}) {
+export default function Map({className, city, activeOffer, offers}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const activeId = activeOffer && activeOffer.id;
-
+  const containerClass = cn(className, 'map');
   const defaultIcon = leaflet.icon({
     iconUrl: 'img/pin.svg',
     iconSize: [30, 40],
@@ -40,7 +41,7 @@ export default function Map({city, activeOffer, offers}) {
 
   return (
     <section
-      className="cities__map map"
+      className={containerClass}
       ref={mapRef}
     >
     </section>
@@ -49,6 +50,7 @@ export default function Map({city, activeOffer, offers}) {
 
 Map.propTypes = {
   activeOffer: PROP_OFFER,
+  className: PropTypes.string,
   city: PROP_CITY.isRequired,
   offers: PropTypes.arrayOf(PROP_OFFER),
 };
