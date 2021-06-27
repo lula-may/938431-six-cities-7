@@ -158,9 +158,10 @@ function Room(props) {
             </div>
           </div>
           <Map
+            activeOffer={offer}
             className="property__map"
             city={city}
-            offers={nearOffers}
+            offers={offers}
           />
         </section>
         <div className="container">
@@ -170,8 +171,6 @@ function Room(props) {
               <OffersList
                 cardType={CardType.NEAR_PLACES}
                 offers={nearOffers}
-                onCardEnter={() => {}}
-                onCardLeave={() => {}}
               />
             </div>
           </section>

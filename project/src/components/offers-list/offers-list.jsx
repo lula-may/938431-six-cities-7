@@ -34,6 +34,6 @@ export default function OffersList({cardType, offers, onCardEnter, onCardLeave})
 OffersList.propTypes = {
   cardType: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
-  onCardEnter: PropTypes.func.isRequired,
-  onCardLeave: PropTypes.func.isRequired,
+  onCardEnter: PropTypes.func,
+  onCardLeave: PropTypes.func,
 };

@@ -19,8 +19,6 @@ export default function FavoriteCity({city, offers}) {
         <OffersList
           cardType={CardType.FAVORITES}
           offers={offers}
-          onCardEnter={() => {}}
-          onCardLeave={() => {}}
           onFavoriteButtonClick={() => {}}
         />
       </div>

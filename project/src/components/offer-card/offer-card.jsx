@@ -34,8 +34,8 @@ function OfferCard(props) {
   const isCitiesType = cardType === CardType.CITIES;
   const infoClassName = cn( !isCitiesType && `${cardType}__info`,'place-card__info');
   const placeRoot = `${AppRoute.ROOM}/${id}`;
-  const handleMouseEnter = useCallback(() => onCardEnter(offer), [onCardEnter, offer]);
-  const handleMouseLeave = useCallback(() => onCardLeave(null), [onCardLeave]);
+  const handleMouseEnter = useCallback(() => onCardEnter && onCardEnter(offer), [onCardEnter, offer]);
+  const handleMouseLeave = useCallback(() => onCardLeave && onCardLeave(null), [onCardLeave]);
 
   return (
     <article
@@ -82,8 +82,8 @@ OfferCard.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
   offer: PROP_OFFER.isRequired,
-  onCardEnter: PropTypes.func.isRequired,
-  onCardLeave: PropTypes.func.isRequired,
+  onCardEnter: PropTypes.func,
+  onCardLeave: PropTypes.func,
   onFavoriteButtonClick: PropTypes.func.isRequired,
   renderPremiumMark: PropTypes.func,
   type: PropTypes.string.isRequired,
