@@ -5,13 +5,23 @@ import PropTypes from 'prop-types';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import Rating from '../rating/rating';
 import {PROP_OFFER} from '../props';
-import {AppRoute} from '../../const';
+import {AppRoute, CardType} from '../../const';
 import {cn} from '../../utils.js';
 
-function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
+function OfferCard(props) {
+  const {
+    children,
+    className,
+    offer,
+    onCardEnter,
+    onCardLeave,
+    onFavoriteButtonClick,
+    renderPremiumMark,
+    type: cardType,
+  } = props;
+
   const {
     id,
-    images,
     isFavorite,
     isPremium,
     price,
@@ -19,22 +29,27 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
     title,
     type,
   } = offer;
-  const [cardImage] = images;
+
+  const imageWrapperClassName = cn(`${cardType}__image-wrapper`, 'place-card__image-wrapper');
+  const isCitiesType = cardType === CardType.CITIES;
+  const infoClassName = cn( !isCitiesType && `${cardType}__info`,'place-card__info');
   const placeRoot = `${AppRoute.ROOM}/${id}`;
   const handleMouseEnter = useCallback(() => onCardEnter(offer), [onCardEnter, offer]);
+  const handleMouseLeave = useCallback(() => onCardLeave(null), [onCardLeave]);
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={handleMouseEnter}>
-      {isPremium &&
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article
+      className={cn(className, 'place-card')}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {renderPremiumMark && renderPremiumMark(isPremium)}
+      <div className={imageWrapperClassName}>
         <Link to={placeRoot}>
-          <img className="place-card__image" src={cardImage} width="260" height="200" alt="Place"/>
+          {children}
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={infoClassName}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -64,9 +79,14 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
 }
 
 OfferCard.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string.isRequired,
   offer: PROP_OFFER.isRequired,
   onCardEnter: PropTypes.func.isRequired,
+  onCardLeave: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
+  renderPremiumMark: PropTypes.func,
+  type: PropTypes.string.isRequired,
 };
 
 export default OfferCard;
