@@ -11,9 +11,9 @@ export const CardType = {
   FAVORITES: 'favorites',
 };
 
-export const imageSize = {
-  'cities': [260, 200],
-  'favorites': [150, 110],
+export const ImageSize = {
+  cities: [260, 200],
+  favorites: [150, 110],
   'near-places': [260, 200],
 };
 

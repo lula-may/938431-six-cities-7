@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import OfferCard from '../offer-card/offer-card';
 import {PROP_OFFER} from '../props';
-import {imageSize} from '../../const';
+import {ImageSize} from '../../const';
 
 export default function OffersList(props) {
   const {
@@ -15,7 +15,7 @@ export default function OffersList(props) {
     onCardLeave,
   } = props;
 
-  const [imageWidth, imageHeight] = imageSize[cardType];
+  const [imageWidth, imageHeight] = ImageSize[cardType];
   return (
     <Fragment>
       {offers.map((offer) => (
