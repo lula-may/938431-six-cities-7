@@ -35,13 +35,12 @@ function OfferCard(props) {
   const infoClassName = cn( !isCitiesType && `${cardType}__info`,'place-card__info');
   const placeRoot = `${AppRoute.ROOM}/${id}`;
   const handleMouseEnter = useCallback(() => onCardEnter && onCardEnter(offer), [onCardEnter, offer]);
-  const handleMouseLeave = useCallback(() => onCardLeave && onCardLeave(null), [onCardLeave]);
 
   return (
     <article
       className={cn(className, 'place-card')}
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={onCardLeave}
     >
       {renderPremiumMark && renderPremiumMark(isPremium)}
       <div className={imageWrapperClassName}>

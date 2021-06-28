@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -10,6 +10,7 @@ import {AppRoute, CardType} from '../../const.js';
 
 function Main(props) {
   const [activeCard, setActiveCard] = useState(null);
+  const handleCardLeave = useCallback(() => setActiveCard(null), []);
 
   const {cities, offers, offersCount} = props;
   const isActive = true;
@@ -106,7 +107,7 @@ function Main(props) {
                   cardType={CardType.CITIES}
                   offers={offers}
                   onCardEnter={setActiveCard}
-                  onCardLeave={setActiveCard}
+                  onCardLeave={handleCardLeave}
                 />
               </div>
             </section>
