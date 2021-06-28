@@ -7,10 +7,11 @@ import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Comment from '../comment/comment.jsx';
 import CommentForm from '../comment-form/comment-form.jsx';
 import Logo from '../logo/logo.jsx';
+import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {PROP_COMMENT, PROP_OFFER} from '../props.js';
 import {cn, getElementById, getRatingStyle} from '../../utils.js';
-import {AppRoute} from '../../const.js';
+import {AppRoute, CardType} from '../../const.js';
 
 function Room(props) {
   const {offers, nearOffers, comments} = props;
@@ -20,6 +21,7 @@ function Room(props) {
   const offer = getElementById(offers, id);
   const {
     bedrooms,
+    city,
     description,
     goods,
     host: {avatarUrl, isPro, name: hostName},
@@ -155,15 +157,22 @@ function Room(props) {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map
+            activeOffer={offer}
+            className="property__map"
+            city={city}
+            offers={offers}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               <OffersList
+                cardClassName="near-places__card"
+                cardType={CardType.NEAR_PLACES}
+                isPremiumShown={false}
                 offers={nearOffers}
-                onCardEnter={() => {}}
               />
             </div>
           </section>

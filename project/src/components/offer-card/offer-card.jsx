@@ -5,36 +5,58 @@ import PropTypes from 'prop-types';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import Rating from '../rating/rating';
 import {PROP_OFFER} from '../props';
-import {AppRoute} from '../../const';
+import {AppRoute, CardType} from '../../const';
 import {cn} from '../../utils.js';
 
-function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
+function OfferCard(props) {
+  const {
+    className,
+    imageHeight,
+    imageWidth,
+    isPremiumShown,
+    offer,
+    onCardEnter,
+    onCardLeave,
+    onFavoriteButtonClick,
+    type: cardType,
+  } = props;
+
   const {
     id,
     images,
     isFavorite,
     isPremium,
+    previewImage,
     price,
     rating,
     title,
     type,
   } = offer;
-  const [cardImage] = images;
+
+  const imageUrl = (cardType === CardType.FAVORITES) ? previewImage : images[0];
+
+  const imageWrapperClassName = cn(`${cardType}__image-wrapper`, 'place-card__image-wrapper');
+  const isCitiesType = cardType === CardType.CITIES;
+  const infoClassName = cn( !isCitiesType && `${cardType}__info`,'place-card__info');
   const placeRoot = `${AppRoute.ROOM}/${id}`;
-  const handleMouseEnter = useCallback(() => onCardEnter(id), [onCardEnter, id]);
+  const handleMouseEnter = useCallback(() => onCardEnter && onCardEnter(offer), [onCardEnter, offer]);
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={handleMouseEnter}>
-      {isPremium &&
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article
+      className={cn(className, 'place-card')}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={onCardLeave}
+    >
+      {isPremiumShown && isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
+      <div className={imageWrapperClassName}>
         <Link to={placeRoot}>
-          <img className="place-card__image" src={cardImage} width="260" height="200" alt="Place"/>
+          <img className="place-card__image" src={imageUrl} width={imageWidth} height={imageHeight} alt="Place"/>
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={infoClassName}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -64,9 +86,15 @@ function OfferCard({offer, onCardEnter, onFavoriteButtonClick}) {
 }
 
 OfferCard.propTypes = {
+  className: PropTypes.string.isRequired,
+  imageHeight: PropTypes.number.isRequired,
+  imageWidth: PropTypes.number.isRequired,
+  isPremiumShown: PropTypes.bool.isRequired,
   offer: PROP_OFFER.isRequired,
-  onCardEnter: PropTypes.func.isRequired,
+  onCardEnter: PropTypes.func,
+  onCardLeave: PropTypes.func,
   onFavoriteButtonClick: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default OfferCard;

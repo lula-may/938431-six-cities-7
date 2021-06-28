@@ -1,16 +1,22 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import Logo from '../logo/logo.jsx';
+import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
-import {PROP_OFFER} from '../props.js';
-import {AppRoute} from '../../const.js';
+import {PROP_CITY, PROP_OFFER} from '../props.js';
+import {AppRoute, CardType} from '../../const.js';
 
 function Main(props) {
-  const [activeCard, setActiveCard] = useState();
+  const [activeCard, setActiveCard] = useState(null);
+  const handleCardLeave = useCallback(() => setActiveCard(null), []);
 
-  const {offers, offersCount} = props;
+  const {cities, offers, offersCount} = props;
   const isActive = true;
+  const isPremiumShown = true;
+  const city = cities[0];
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -99,15 +105,22 @@ function Main(props) {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 <OffersList
+                  cardClassName="cities__place-card"
+                  cardType={CardType.CITIES}
+                  isPremiumShown={isPremiumShown}
                   offers={offers}
                   onCardEnter={setActiveCard}
+                  onCardLeave={handleCardLeave}
                 />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <span className="visually-hidden">{activeCard}</span>
-              </section>
+              <Map
+                activeOffer={activeCard}
+                className="cities__map"
+                city={city}
+                offers={offers}
+              />
             </div>
           </div>
         </div>
@@ -117,6 +130,7 @@ function Main(props) {
 }
 
 Main.propTypes = {
+  cities: PropTypes.arrayOf(PROP_CITY).isRequired,
   offers: PropTypes.arrayOf(PROP_OFFER),
   offersCount: PropTypes.number.isRequired,
 };

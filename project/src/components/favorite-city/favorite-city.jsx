@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import FavoriteCard from '../favorite-card/favorite-card.jsx';
+import OffersList from '../offers-list/offers-list.jsx';
 import {PROP_OFFER} from '../props.js';
-import {AppRoute} from '../../const.js';
+import {AppRoute, CardType} from '../../const.js';
 
 export default function FavoriteCity({city, offers}) {
   return (
@@ -16,13 +16,13 @@ export default function FavoriteCity({city, offers}) {
         </div>
       </div>
       <div className="favorites__places">
-        {offers.map((offer) => (
-          <FavoriteCard
-            key={offer.id}
-            offer={offer}
-            onFavoriteButtonClick={() => {}}
-          />
-        ))}
+        <OffersList
+          cardClassName="favorites__card"
+          cardType={CardType.FAVORITES}
+          isPremiumShown={false}
+          offers={offers}
+          onFavoriteButtonClick={() => {}}
+        />
       </div>
     </li>
   );
