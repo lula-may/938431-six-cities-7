@@ -10,25 +10,30 @@ import {cn} from '../../utils.js';
 
 function OfferCard(props) {
   const {
-    children,
     className,
+    imageHeight,
+    imageWidth,
+    isPremiumShown = true,
     offer,
     onCardEnter,
     onCardLeave,
     onFavoriteButtonClick,
-    renderPremiumMark,
     type: cardType,
   } = props;
 
   const {
     id,
+    images,
     isFavorite,
     isPremium,
+    previewImage,
     price,
     rating,
     title,
     type,
   } = offer;
+
+  const imageUrl = (cardType === CardType.FAVORITES) ? previewImage : images[0];
 
   const imageWrapperClassName = cn(`${cardType}__image-wrapper`, 'place-card__image-wrapper');
   const isCitiesType = cardType === CardType.CITIES;
@@ -42,10 +47,13 @@ function OfferCard(props) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={onCardLeave}
     >
-      {renderPremiumMark && renderPremiumMark(isPremium)}
+      {isPremiumShown && isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
       <div className={imageWrapperClassName}>
         <Link to={placeRoot}>
-          {children}
+          <img className="place-card__image" src={imageUrl} width={imageWidth} height={imageHeight} alt="Place"/>
         </Link>
       </div>
       <div className={infoClassName}>
@@ -78,13 +86,14 @@ function OfferCard(props) {
 }
 
 OfferCard.propTypes = {
-  children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
+  imageHeight: PropTypes.number.isRequired,
+  imageWidth: PropTypes.number.isRequired,
+  isPremiumShown: PropTypes.bool.isRequired,
   offer: PROP_OFFER.isRequired,
   onCardEnter: PropTypes.func,
   onCardLeave: PropTypes.func,
   onFavoriteButtonClick: PropTypes.func.isRequired,
-  renderPremiumMark: PropTypes.func,
   type: PropTypes.string.isRequired,
 };
 
