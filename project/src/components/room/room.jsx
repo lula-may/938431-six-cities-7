@@ -169,7 +169,9 @@ function Room(props) {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               <OffersList
+                cardClassName="near-places__card"
                 cardType={CardType.NEAR_PLACES}
+                isPremiumShown={false}
                 offers={nearOffers}
               />
             </div>

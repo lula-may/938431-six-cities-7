@@ -17,7 +17,9 @@ export default function FavoriteCity({city, offers}) {
       </div>
       <div className="favorites__places">
         <OffersList
+          cardClassName="favorites__card"
           cardType={CardType.FAVORITES}
+          isPremiumShown={false}
           offers={offers}
           onFavoriteButtonClick={() => {}}
         />

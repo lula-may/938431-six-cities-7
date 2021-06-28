@@ -13,7 +13,7 @@ function OfferCard(props) {
     className,
     imageHeight,
     imageWidth,
-    isPremiumShown = true,
+    isPremiumShown,
     offer,
     onCardEnter,
     onCardLeave,

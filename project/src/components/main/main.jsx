@@ -14,6 +14,7 @@ function Main(props) {
 
   const {cities, offers, offersCount} = props;
   const isActive = true;
+  const isPremiumShown = true;
   const city = cities[0];
 
   return (
@@ -104,7 +105,9 @@ function Main(props) {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 <OffersList
+                  cardClassName="cities__place-card"
                   cardType={CardType.CITIES}
+                  isPremiumShown={isPremiumShown}
                   offers={offers}
                   onCardEnter={setActiveCard}
                   onCardLeave={handleCardLeave}
