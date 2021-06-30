@@ -31,6 +31,11 @@ function useMap(mapRef, city) {
         .addTo(instance);
 
       setMap(instance);
+      return () => {
+        if (mapRef.current && map) {
+          map.remove();
+        }
+      };
     }
   }, [mapRef, map, lat, lng, zoom]);
 
