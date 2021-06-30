@@ -2,20 +2,21 @@ import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import CitiesList from '../cities-list/cities-list.jsx';
 import Logo from '../logo/logo.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
-import {PROP_CITY, PROP_OFFER} from '../props.js';
-import {AppRoute, CardType} from '../../const.js';
+import {PROP_OFFER} from '../props.js';
+import {AppRoute, CardType, CITIES} from '../../const.js';
 
 function Main(props) {
   const [activeCard, setActiveCard] = useState(null);
   const handleCardLeave = useCallback(() => setActiveCard(null), []);
 
-  const {cities, offers, offersCount} = props;
+  const {currentCity, offers} = props;
+  const offersCount = offers.length;
   const isActive = true;
   const isPremiumShown = true;
-  const city = cities[0];
 
   return (
     <div className="page page--gray page--main">
@@ -49,38 +50,9 @@ function Main(props) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesList
+              currentCity = {currentCity}
+            />
           </section>
         </div>
         <div className="cities">
@@ -118,7 +90,7 @@ function Main(props) {
               <Map
                 activeOffer={activeCard}
                 className="cities__map"
-                city={city}
+                city={offers[0].city}
                 offers={offers}
               />
             </div>
@@ -130,9 +102,8 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  cities: PropTypes.arrayOf(PROP_CITY).isRequired,
+  currentCity: PropTypes.oneOf(CITIES).isRequired,
   offers: PropTypes.arrayOf(PROP_OFFER),
-  offersCount: PropTypes.number.isRequired,
 };
 
 
