@@ -12,6 +12,8 @@ const formatDate = (date) => {
 
 const getElementById = (elements, elementId) => elements.find(({id}) => id === elementId);
 
+const getOffersByCity = (offers, cityName) => offers.filter(({city}) => city.name === cityName);
+
 const getRestElements = (elements, element) => {
   const index = elements.findIndex(({id}) => id === element.id);
   if (index === -1) {
@@ -21,4 +23,4 @@ const getRestElements = (elements, element) => {
 };
 
 const cn = (...args) => args.filter(Boolean).join(' ');
-export {cn, getElementById, getFavoriteOffers, getRatingStyle, getRestElements, getUniqueItems, formatDate};
+export {cn, getElementById, getFavoriteOffers, getOffersByCity, getRatingStyle, getRestElements, getUniqueItems, formatDate};
