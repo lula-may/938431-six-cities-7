@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CitiesList from '../cities-list/cities-list.jsx';
@@ -13,7 +14,7 @@ function Main(props) {
   const [activeCard, setActiveCard] = useState(null);
   const handleCardLeave = useCallback(() => setActiveCard(null), []);
 
-  const {currentCity, offers} = props;
+  const {offers, currentCity} = props;
   const offersCount = offers.length;
   const isActive = true;
   const isPremiumShown = true;
@@ -106,5 +107,10 @@ Main.propTypes = {
   offers: PropTypes.arrayOf(PROP_OFFER),
 };
 
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  currentCity: state.city,
+});
 
-export default Main;
+export {Main};
+export default connect(mapStateToProps)(Main);

@@ -1,29 +1,44 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import CityTab from '../city-tab/city-tab';
 import {CITIES} from '../../const';
-import {cn} from '../../utils';
+import {OFFERS} from '../../mocks/offers';
+import {ActionCreator} from '../../store/action';
+import { getOffersByCity } from '../../utils';
 
-export default function CitiesList ({currentCity}) {
+function CitiesList ({currentCity, onTabClick}) {
   return (
     <ul className="locations__list tabs__list">
-      {CITIES.map((cityName) => {
-        const isActive = cityName === currentCity;
-        const tabClass = cn('locations__item-link tabs__item', isActive && 'tabs__item tabs__item--active');
-        return (
-          <li
-            key={cityName}
-            className="locations__item"
-          >
-            <a className={tabClass} onClick={() => {}}>
-              <span>{cityName}</span>
-            </a>
-          </li>
-        );},
-      )}
+      {CITIES.map((cityName) => (
+        <CityTab
+          key={cityName}
+          isActive={cityName === currentCity}
+          cityName={cityName}
+          onTabClick={onTabClick}
+        />
+      ))}
     </ul>
   );
 }
 
 CitiesList.propTypes = {
   currentCity: PropTypes.string.isRequired,
+  onTabClick: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  currentCity: state.city,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onTabClick: (city) => {
+    const offers = getOffersByCity(OFFERS, city);
+    dispatch(ActionCreator.setCity(city));
+    dispatch(ActionCreator.setOffers(offers));
+  },
+});
+
+export {CitiesList};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
