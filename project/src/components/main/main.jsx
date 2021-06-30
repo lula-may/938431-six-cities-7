@@ -1,23 +1,22 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CitiesList from '../cities-list/cities-list.jsx';
 import Logo from '../logo/logo.jsx';
-import Map from '../map/map.jsx';
-import OffersList from '../offers-list/offers-list.jsx';
+import PlacesEmpty from '../places-empty/places-empty';
+import Places from '../places/places';
+
 import {PROP_OFFER} from '../props.js';
-import {AppRoute, CardType, CITIES} from '../../const.js';
+import {AppRoute, CITIES} from '../../const.js';
+import { cn } from '../../utils.js';
 
 function Main(props) {
-  const [activeCard, setActiveCard] = useState(null);
-  const handleCardLeave = useCallback(() => setActiveCard(null), []);
-
   const {offers, currentCity} = props;
-  const offersCount = offers.length;
   const isActive = true;
-  const isPremiumShown = true;
+  const isEmpty = offers.length === 0;
+  const mainClassnName = cn('page__main page__main--index', isEmpty && 'page__main--index-empty');
 
   return (
     <div className="page page--gray page--main">
@@ -47,7 +46,7 @@ function Main(props) {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={mainClassnName}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -57,45 +56,9 @@ function Main(props) {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
-              <div className="cities__places-list places__list tabs__content">
-                <OffersList
-                  cardClassName="cities__place-card"
-                  cardType={CardType.CITIES}
-                  isPremiumShown={isPremiumShown}
-                  offers={offers}
-                  onCardEnter={setActiveCard}
-                  onCardLeave={handleCardLeave}
-                />
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <Map
-                activeOffer={activeCard}
-                className="cities__map"
-                city={offers[0].city}
-                offers={offers}
-              />
-            </div>
-          </div>
+          {isEmpty
+            ? <PlacesEmpty city={currentCity} />
+            : <Places offers={offers} />}
         </div>
       </main>
     </div>
