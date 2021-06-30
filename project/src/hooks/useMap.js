@@ -31,13 +31,15 @@ function useMap(mapRef, city) {
         .addTo(instance);
 
       setMap(instance);
-      return () => {
-        if (mapRef.current && map) {
-          map.remove();
-        }
-      };
     }
   }, [mapRef, map, lat, lng, zoom]);
+
+  useEffect(() => {
+    if (map) {
+      map.panTo({lat, lng});
+      map.setZoom(zoom);
+    }
+  }, [lat, lng, map, zoom]);
 
   return map;
 }
