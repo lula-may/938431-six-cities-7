@@ -221,7 +221,7 @@ const OFFERS = [
       isPro: false,
       name: 'Jack',
     },
-    id: 3,
+    id: 7,
     images: ['img/apartment-02.jpg', 'img/room.jpg','img/apartment-01.jpg', 'img/apartment-03.jpg'],
     isFavorite: true,
     isPremium: true,
