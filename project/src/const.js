@@ -17,6 +17,7 @@ export const ImageSize = {
   'near-places': [260, 200],
 };
 
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const DATETIME_LENGTH = 10;
 export const MAX_RATING = 5;
 export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
