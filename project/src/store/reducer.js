@@ -1,12 +1,13 @@
 import {CITIES} from '../const.js';
+import {getOffersByCity} from '../utils.js';
 import {OFFERS} from '../mocks/offers.js';
-import { getOffersByCity } from '../utils.js';
 import {ActionType} from './action.js';
 
+const defaultCity = CITIES[0];
+
 const initialState = {
-  city: CITIES[0],
-  offers: getOffersByCity(OFFERS),
-  allOffers: OFFERS,
+  city: defaultCity,
+  offers: getOffersByCity(OFFERS, defaultCity),
 };
 
 const reducer = (state = initialState, action) => {
