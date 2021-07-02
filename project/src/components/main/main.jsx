@@ -58,7 +58,7 @@ function Main(props) {
         <div className="cities">
           {isEmpty
             ? <PlacesEmpty city={currentCity} />
-            : <Places offers={offers} />}
+            : <Places offers={offers} city={currentCity} />}
         </div>
       </main>
     </div>
@@ -71,7 +71,7 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: state.sortedOffers,
   currentCity: state.city,
 });
 
