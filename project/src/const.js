@@ -17,6 +17,13 @@ export const ImageSize = {
   'near-places': [260, 200],
 };
 
+export const SortType = {
+  POPULAR: 'popular',
+  PRICE_UP: 'priceUp',
+  PRICE_DOWN: 'priceDown',
+  RATING: 'rating',
+};
+
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const DATETIME_LENGTH = 10;
 export const MAX_RATING = 5;
