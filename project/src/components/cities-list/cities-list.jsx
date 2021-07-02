@@ -36,6 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
     const offers = getOffersByCity(OFFERS, city);
     dispatch(ActionCreator.setCity(city));
     dispatch(ActionCreator.setOffers(offers));
+    dispatch(ActionCreator.resetSortType());
   },
 });
 
