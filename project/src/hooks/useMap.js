@@ -34,6 +34,13 @@ function useMap(mapRef, city) {
     }
   }, [mapRef, map, lat, lng, zoom]);
 
+  useEffect(() => {
+    if (map) {
+      map.panTo({lat, lng});
+      map.setZoom(zoom);
+    }
+  }, [lat, lng, map, zoom]);
+
   return map;
 }
 

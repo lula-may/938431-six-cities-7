@@ -7,11 +7,11 @@ import Main from '../main/main.jsx';
 import NotFound from '../not-found/not-found.jsx';
 import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
-import {AppRoute} from '../../const.js';
-import {PROP_CITY, PROP_COMMENT, PROP_OFFER} from '../props.js';
+import {AppRoute, CITIES} from '../../const.js';
+import {PROP_COMMENT, PROP_OFFER} from '../props.js';
 import {getFavoriteOffers} from '../../utils.js';
 
-function App({cities, offers, offersCount, comments}) {
+function App({currentCity, offers, comments}) {
   const favoriteOffers = getFavoriteOffers(offers);
   const [, ...nearOffers] = offers;
 
@@ -20,9 +20,8 @@ function App({cities, offers, offersCount, comments}) {
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main
-            cities={cities}
+            currentCity={currentCity}
             offers={offers}
-            offersCount={offersCount}
           />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
@@ -47,11 +46,10 @@ function App({cities, offers, offersCount, comments}) {
 }
 
 App.propTypes = {
-  cities: PropTypes.arrayOf(PROP_CITY).isRequired,
+  currentCity: PropTypes.oneOf(CITIES).isRequired,
   comments: PropTypes.arrayOf(PROP_COMMENT),
   offers: PropTypes.arrayOf(
     PROP_OFFER).isRequired,
-  offersCount: PropTypes.number.isRequired,
 };
 
 export default App;

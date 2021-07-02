@@ -1,21 +1,22 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import CitiesList from '../cities-list/cities-list.jsx';
 import Logo from '../logo/logo.jsx';
-import Map from '../map/map.jsx';
-import OffersList from '../offers-list/offers-list.jsx';
-import {PROP_CITY, PROP_OFFER} from '../props.js';
-import {AppRoute, CardType} from '../../const.js';
+import PlacesEmpty from '../places-empty/places-empty';
+import Places from '../places/places';
+
+import {PROP_OFFER} from '../props.js';
+import {AppRoute, CITIES} from '../../const.js';
+import { cn } from '../../utils.js';
 
 function Main(props) {
-  const [activeCard, setActiveCard] = useState(null);
-  const handleCardLeave = useCallback(() => setActiveCard(null), []);
-
-  const {cities, offers, offersCount} = props;
+  const {offers, currentCity} = props;
   const isActive = true;
-  const isPremiumShown = true;
-  const city = cities[0];
+  const isEmpty = offers.length === 0;
+  const mainClassnName = cn('page__main page__main--index', isEmpty && 'page__main--index-empty');
 
   return (
     <div className="page page--gray page--main">
@@ -45,84 +46,19 @@ function Main(props) {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={mainClassnName}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesList
+              currentCity = {currentCity}
+            />
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
-              <div className="cities__places-list places__list tabs__content">
-                <OffersList
-                  cardClassName="cities__place-card"
-                  cardType={CardType.CITIES}
-                  isPremiumShown={isPremiumShown}
-                  offers={offers}
-                  onCardEnter={setActiveCard}
-                  onCardLeave={handleCardLeave}
-                />
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <Map
-                activeOffer={activeCard}
-                className="cities__map"
-                city={city}
-                offers={offers}
-              />
-            </div>
-          </div>
+          {isEmpty
+            ? <PlacesEmpty city={currentCity} />
+            : <Places offers={offers} />}
         </div>
       </main>
     </div>
@@ -130,10 +66,14 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  cities: PropTypes.arrayOf(PROP_CITY).isRequired,
+  currentCity: PropTypes.oneOf(CITIES).isRequired,
   offers: PropTypes.arrayOf(PROP_OFFER),
-  offersCount: PropTypes.number.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  currentCity: state.city,
+});
 
-export default Main;
+export {Main};
+export default connect(mapStateToProps)(Main);

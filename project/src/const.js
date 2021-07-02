@@ -11,12 +11,13 @@ export const CardType = {
   FAVORITES: 'favorites',
 };
 
-export const imageSize = {
-  'cities': [260, 200],
-  'favorites': [150, 110],
+export const ImageSize = {
+  cities: [260, 200],
+  favorites: [150, 110],
   'near-places': [260, 200],
 };
 
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const DATETIME_LENGTH = 10;
 export const MAX_RATING = 5;
 export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'];

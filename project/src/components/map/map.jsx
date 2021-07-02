@@ -7,13 +7,13 @@ import useMap from '../../hooks/useMap';
 import {PROP_CITY, PROP_OFFER} from '../props';
 import {cn} from '../../utils.js';
 
-const defaultIcon = leaflet.icon({
+const DEFAULT_ICON = leaflet.icon({
   iconUrl: 'img/pin.svg',
   iconSize: [30, 40],
   iconAnchor: [15, 40],
 });
 
-const activeIcon = leaflet.icon({
+const ACTIVE_ICON = leaflet.icon({
   iconUrl: 'img/pin-active.svg',
   iconSize: [30, 40],
   iconAnchor: [15, 40],
@@ -30,8 +30,8 @@ export default function Map({className, city, activeOffer, offers}) {
       offers.forEach((offer) => {
         const isActive = offer.id === activeId;
         const icon = isActive
-          ? activeIcon
-          : defaultIcon;
+          ? ACTIVE_ICON
+          : DEFAULT_ICON;
         const {latitude: lat, longitude: lng} = offer.location;
         leaflet
           .marker({lat, lng}, {icon})
