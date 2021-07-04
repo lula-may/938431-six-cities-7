@@ -26,7 +26,7 @@ const getRestElements = (elements, element) => {
 
 const cn = (...args) => args.filter(Boolean).join(' ');
 
-const sortOffersByType = (type, offers) => {
+const sortOffersByType = (offers, type) => {
   switch (type) {
     case SortType.PRICE_UP:
       return offers.slice().sort((left, right) => (left.price - right.price));

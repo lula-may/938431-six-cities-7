@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
       };
     case ActionType.SORT_OFFERS:
       return {...state,
-        sortedOffers: sortOffersByType(action.payload, state.offers),
+        sortedOffers: sortOffersByType(state.offers, action.payload),
       };
     case ActionType.START_LOADING:
       return {
