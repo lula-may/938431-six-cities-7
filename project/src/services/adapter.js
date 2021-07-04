@@ -1,30 +1,51 @@
 export const adaptOffers = (rawData) => {
   const {
+    bedrooms,
+    city,
+    description,
+    goods,
     host: rawHost,
+    id,
+    images,
     'is_favorite': isFavorite,
     'is_premium': isPremium,
+    location,
     'max_adults': maxAdults,
     'preview_image': previewImage,
+    price,
+    rating,
+    title,
+    type,
   } = rawData;
 
   const {
     'avatar_url': avatarUrl,
-    id,
+    id: hostId,
     'is_pro': isPro,
     name,
   } = rawHost;
 
   return {
-    ...rawData,
+    bedrooms,
+    city,
+    description,
+    goods,
     host: {
       avatarUrl,
-      id,
+      id: hostId,
       isPro,
       name,
     },
+    id,
     isFavorite,
+    images,
     isPremium,
+    location,
     maxAdults,
     previewImage,
+    price,
+    rating,
+    title,
+    type,
   };
 };

@@ -24,9 +24,8 @@ export const ActionCreator = {
     payload: city,
   }),
 
-  setOffers: (offers) => ({
+  setOffers: () => ({
     type: ActionType.SET_OFFERS,
-    payload: offers,
   }),
 
   setSortType: (sortType) => ({
@@ -34,9 +33,8 @@ export const ActionCreator = {
     payload: sortType,
   }),
 
-  sortOffers: (sortType) => ({
+  sortOffers: () => ({
     type: ActionType.SORT_OFFERS,
-    payload: sortType,
   }),
 
   startLoading: () => ({
