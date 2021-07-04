@@ -1,21 +1,32 @@
 import {CITIES, SortType} from '../const.js';
-import {getOffersByCity, sortOffersByType} from '../utils.js';
-import {OFFERS} from '../mocks/offers.js';
+import {sortOffersByType} from '../utils.js';
 import {ActionType} from './action.js';
 
 const defaultCity = CITIES[0];
 const defaultSortType = SortType.POPULAR;
-const offers = getOffersByCity(OFFERS, defaultCity);
+// const offers = getOffersByCity(OFFERS, defaultCity);
 
 const initialState = {
+  allOffers: [],
+  isLoading: false,
   city: defaultCity,
-  offers,
+  offers: [],
   sortType: defaultSortType,
-  sortedOffers: offers,
+  sortedOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.END_LOADING:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        allOffers: action.payload,
+      };
     case ActionType.SET_CITY:
       return {
         ...state,
@@ -35,6 +46,12 @@ const reducer = (state = initialState, action) => {
       return {...state,
         sortedOffers: sortOffersByType(action.payload, state.offers),
       };
+    case ActionType.START_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
     case ActionType.RESET_SORT_TYPE:
       return {
         ...state,
