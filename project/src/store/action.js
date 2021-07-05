@@ -45,7 +45,7 @@ export const ActionCreator = {
     payload: sortType,
   }),
 
-  serUser: (userInfo) => ({
+  setUser: (userInfo) => ({
     type: ActionType.SET_USER,
     payload: userInfo,
   }),
