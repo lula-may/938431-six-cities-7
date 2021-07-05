@@ -1,6 +1,8 @@
 export const ActionType = {
   END_LOADING: 'END_LOADING',
   LOAD_OFFERS: 'LOAD_OFFERS',
+  LOGOUT: 'LOGOUT',
+  REQUIRE_AUTHORIZATION: 'REQUIRE_AUTHORIZATION',
   RESET_SORT_TYPE: 'RESET_SORT_TYPE',
   SET_CITY: 'SET_CITY',
   SET_OFFERS: 'SET_OFFERS',
@@ -17,6 +19,15 @@ export const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
+  }),
+
+  logout: () => ({
+    type: ActionType.LOGOUT,
+  }),
+
+  requireAuthorization: (status) =>({
+    type: ActionType.REQUIRE_AUTHORIZATION,
+    payload: status,
   }),
 
   setCity: (city) => ({

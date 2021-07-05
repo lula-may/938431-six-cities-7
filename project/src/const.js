@@ -13,6 +13,12 @@ export const APIRoute = {
   LOGOUT: '/logout',
 };
 
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
 export const CardType = {
   CITIES: 'cities',
   NEAR_PLACES: 'near-places',
