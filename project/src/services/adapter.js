@@ -1,3 +1,21 @@
+export const adaptUserInfo = (rawUserInfo) => {
+  const {
+    'avatar_url': avatarUrl,
+    email,
+    id,
+    'is_pro': isPro,
+    name,
+  } = rawUserInfo;
+
+  return {
+    avatarUrl,
+    email,
+    id,
+    isPro,
+    name,
+  };
+};
+
 export const adaptOffers = (rawData) => {
   const {
     bedrooms,
@@ -18,24 +36,12 @@ export const adaptOffers = (rawData) => {
     type,
   } = rawData;
 
-  const {
-    'avatar_url': avatarUrl,
-    id: hostId,
-    'is_pro': isPro,
-    name,
-  } = rawHost;
-
   return {
     bedrooms,
     city,
     description,
     goods,
-    host: {
-      avatarUrl,
-      id: hostId,
-      isPro,
-      name,
-    },
+    host: adaptUserInfo(rawHost),
     id,
     isFavorite,
     images,
