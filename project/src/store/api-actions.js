@@ -1,8 +1,8 @@
 import {ActionCreator} from './action';
-import {APIRoute} from '../const.js';
-import { adaptOffers } from '../services/adapter';
+import {APIRoute, AuthorizationStatus} from '../const.js';
+import {adaptOffers, adaptUserInfo} from '../services/adapter';
 
-export const fetchOfferList = () => (dispatch, getState, api) =>{
+export const fetchOfferList = () => (dispatch, _getState, api) =>{
   dispatch(ActionCreator.startLoading());
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
@@ -16,3 +16,25 @@ export const fetchOfferList = () => (dispatch, getState, api) =>{
       return err;
     });
 };
+
+export const checkAuth = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.LOGIN)
+    .then(({data}) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      const userInfo = adaptUserInfo(data);
+      dispatch(ActionCreator.serUser(userInfo));
+    })
+    .catch(() => {})
+);
+
+export const login = ({login: email, password}) => (dispatch, _getState, api) => (
+  api.post(APIRoute.LOGIN, {email, password})
+    .then(({data}) => {
+      localStorage.setItem('token', data.token);
+      dispatch(ActionCreator.serUser(adaptUserInfo(data)));
+    })
+    .then(() => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+    })
+    .catch(() => {})
+);
