@@ -7,6 +7,7 @@ export const ActionType = {
   SET_CITY: 'SET_CITY',
   SET_OFFERS: 'SET_OFFERS',
   SET_SORT_TYPE: 'SET_SORT_TYPE',
+  SET_USER: 'SET_USER',
   SORT_OFFERS: 'SORT_OFFERS',
   START_LOADING: 'START_LOADING',
 };
@@ -42,6 +43,11 @@ export const ActionCreator = {
   setSortType: (sortType) => ({
     type: ActionType.SET_SORT_TYPE,
     payload: sortType,
+  }),
+
+  serUser: (userInfo) => ({
+    type: ActionType.SET_USER,
+    payload: userInfo,
   }),
 
   sortOffers: () => ({

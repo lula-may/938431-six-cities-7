@@ -7,6 +7,7 @@ const defaultSortType = SortType.POPULAR;
 
 const initialState = {
   allOffers: [],
+  user: {},
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isLoading: false,
   city: defaultCity,
@@ -52,6 +53,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         sortType: action.payload,
+      };
+    case ActionType.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
     case ActionType.SORT_OFFERS:
       return {
