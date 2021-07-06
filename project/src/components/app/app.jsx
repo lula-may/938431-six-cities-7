@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Favorites from '../favorites/favorites.jsx';
 import Main from '../main/main.jsx';
 import NotFound from '../not-found/not-found.jsx';
+import PrivateRoute from '../private-route/private-route.jsx';
 import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {AppRoute} from '../../const.js';
@@ -23,9 +24,12 @@ function App({offers}) {
         <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <Favorites favoriteOffers={favoriteOffers} />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => <Favorites favoriteOffers={favoriteOffers} />}
+        >
+        </PrivateRoute>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
