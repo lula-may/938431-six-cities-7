@@ -14,6 +14,7 @@ const PROP_CITY = PropTypes.shape({
 
 const PROP_HOST = PropTypes.shape({
   avatarUrl: PropTypes.string.isRequired,
+  email: PropTypes.string,
   id: PropTypes.number.isRequired,
   isPro: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
