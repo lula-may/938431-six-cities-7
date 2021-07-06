@@ -53,23 +53,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         sortType: action.payload,
+        sortedOffers: sortOffersByType(state.offers, action.payload),
       };
     case ActionType.SET_USER:
       return {
         ...state,
         user: action.payload,
       };
-    case ActionType.SORT_OFFERS:
-      return {
-        ...state,
-        sortedOffers: sortOffersByType(state.offers, state.sortType),
-      };
     case ActionType.START_LOADING:
       return {
         ...state,
         isLoading: true,
       };
-
     case ActionType.RESET_SORT_TYPE:
       return {
         ...state,

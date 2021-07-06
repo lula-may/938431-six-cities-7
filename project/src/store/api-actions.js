@@ -8,7 +8,9 @@ export const fetchOfferList = () => (dispatch, _getState, api) =>{
     .then(({data}) => {
       const offers = data.map(adaptOffers);
       dispatch(ActionCreator.loadOffers(offers));
-      dispatch(ActionCreator.sortOffers());
+    })
+    .then(() =>{
+      dispatch(ActionCreator.resetSortType());
       dispatch(ActionCreator.endLoading());
     })
     .catch((err) => {

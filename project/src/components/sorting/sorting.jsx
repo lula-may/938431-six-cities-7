@@ -65,7 +65,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onSortTypeChange: (sortType) => {
     dispatch(ActionCreator.setSortType(sortType));
-    dispatch(ActionCreator.sortOffers(sortType));
   },
 });
 
