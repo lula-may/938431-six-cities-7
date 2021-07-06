@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import Favorites from '../favorites/favorites.jsx';
 import Main from '../main/main.jsx';
+import NoAuthRoute from '../no-auth-route/no-auth-route.jsx';
 import NotFound from '../not-found/not-found.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
 import Room from '../room/room.jsx';
@@ -30,9 +31,11 @@ function App({offers}) {
           render={() => <Favorites favoriteOffers={favoriteOffers} />}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.LOGIN}>
-          <SignIn />
-        </Route>
+        <NoAuthRoute
+          exact
+          path={AppRoute.LOGIN}
+          render={() => <SignIn />}
+        />
         <Route exact path={`${AppRoute.ROOM}/:id`}>
           <Room
             comments={COMMENTS}
