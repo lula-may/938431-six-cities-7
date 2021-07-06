@@ -7,16 +7,33 @@ import CitiesList from '../cities-list/cities-list.jsx';
 import Logo from '../logo/logo.jsx';
 import PlacesEmpty from '../places-empty/places-empty';
 import Places from '../places/places';
+import Spinner from '../spinner/spinner';
 
 import {PROP_OFFER} from '../props.js';
 import {AppRoute, CITIES} from '../../const.js';
 import { cn } from '../../utils.js';
 
+
 function Main(props) {
-  const {offers, currentCity} = props;
+  const {currentCity, isLoading, offers} = props;
   const isActive = true;
   const isEmpty = offers.length === 0;
   const mainClassnName = cn('page__main page__main--index', isEmpty && 'page__main--index-empty');
+
+  const renderBoard =() => {
+    if (isLoading) {
+      return <Spinner />;
+    }
+    if (isEmpty) {
+      return <PlacesEmpty  city={currentCity} />;
+    }
+    return (
+      <Places
+        city={currentCity}
+        offers={offers}
+      />
+    );
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -56,9 +73,7 @@ function Main(props) {
           </section>
         </div>
         <div className="cities">
-          {isEmpty
-            ? <PlacesEmpty city={currentCity} />
-            : <Places offers={offers} city={currentCity} />}
+          {renderBoard()}
         </div>
       </main>
     </div>
@@ -67,12 +82,14 @@ function Main(props) {
 
 Main.propTypes = {
   currentCity: PropTypes.oneOf(CITIES).isRequired,
+  isLoading: PropTypes.bool.isRequired,
   offers: PropTypes.arrayOf(PROP_OFFER),
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.sortedOffers,
+  isLoading: state.isLoading,
   currentCity: state.city,
+  offers: state.sortedOffers,
 });
 
 export {Main};

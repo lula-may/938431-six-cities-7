@@ -1,17 +1,20 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Favorites from '../favorites/favorites.jsx';
 import Main from '../main/main.jsx';
 import NotFound from '../not-found/not-found.jsx';
+import PrivateRoute from '../private-route/private-route.jsx';
 import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
-import {AppRoute, CITIES} from '../../const.js';
-import {PROP_COMMENT, PROP_OFFER} from '../props.js';
+import {AppRoute} from '../../const.js';
+import {PROP_OFFER} from '../props.js';
 import {getFavoriteOffers} from '../../utils.js';
+import {COMMENTS} from '../../mocks/comments';
 
-function App({currentCity, offers, comments}) {
+function App({offers}) {
   const favoriteOffers = getFavoriteOffers(offers);
   const [, ...nearOffers] = offers;
 
@@ -19,20 +22,20 @@ function App({currentCity, offers, comments}) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main
-            currentCity={currentCity}
-            offers={offers}
-          />
+          <Main />
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <Favorites favoriteOffers={favoriteOffers} />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => <Favorites favoriteOffers={favoriteOffers} />}
+        >
+        </PrivateRoute>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
         <Route exact path={`${AppRoute.ROOM}/:id`}>
           <Room
-            comments={comments}
+            comments={COMMENTS}
             nearOffers={nearOffers}
             offers={offers}
           />
@@ -46,10 +49,14 @@ function App({currentCity, offers, comments}) {
 }
 
 App.propTypes = {
-  currentCity: PropTypes.oneOf(CITIES).isRequired,
-  comments: PropTypes.arrayOf(PROP_COMMENT),
   offers: PropTypes.arrayOf(
     PROP_OFFER).isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+export {App};
+
+export default connect(mapStateToProps)(App);
