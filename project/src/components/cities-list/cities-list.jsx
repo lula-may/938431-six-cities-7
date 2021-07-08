@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import CityTab from '../city-tab/city-tab';
 import {CITIES} from '../../const';
-import {ActionCreator} from '../../store/action';
+import {ActionCreator} from '../../store/offers/actions';
+import {getCity} from '../../store/offers/selectors';
 
 function CitiesList ({currentCity, onTabClick}) {
   return (
@@ -26,7 +27,7 @@ CitiesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city,
+  currentCity: getCity(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

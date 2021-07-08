@@ -14,6 +14,7 @@ import {AppRoute} from '../../const.js';
 import {PROP_OFFER} from '../props.js';
 import {getFavoriteOffers} from '../../utils.js';
 import {COMMENTS} from '../../mocks/comments';
+import {selectOffersByCity} from '../../store/offers/selectors';
 
 function App({offers}) {
   const favoriteOffers = getFavoriteOffers(offers);
@@ -58,7 +59,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: selectOffersByCity(state),
 });
 
 export {App};

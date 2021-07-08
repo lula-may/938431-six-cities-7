@@ -12,6 +12,8 @@ import Spinner from '../spinner/spinner';
 import {PROP_OFFER} from '../props.js';
 import {AppRoute, AuthorizationStatus, CITIES} from '../../const.js';
 import { cn } from '../../utils.js';
+import {getAuthorizationStatus, getUserEmail} from '../../store/user/selectors.js';
+import {getCity, getOffersLoadingStatus, selectSortedOffers} from '../../store/offers/selectors.js';
 
 
 function Main(props) {
@@ -92,11 +94,11 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  isLoading: state.isLoading,
-  currentCity: state.city,
-  offers: state.sortedOffers,
-  userEmail: state.userEmail,
+  authorizationStatus: getAuthorizationStatus(state),
+  isLoading: getOffersLoadingStatus(state),
+  currentCity: getCity(state),
+  offers: selectSortedOffers(state),
+  userEmail: getUserEmail(state),
 });
 
 export {Main};
