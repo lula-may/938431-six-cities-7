@@ -5,10 +5,16 @@ const initialState = {
   userEmail: null,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isLoading: false,
+  isError: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.CLEAR_ERROR:
+      return {
+        ...state,
+        isError: false,
+      };
     case ActionType.END_LOADING:
       return {
         ...state,
@@ -23,6 +29,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: action.payload,
+      };
+    case ActionType.SET_ERROR:
+      return {
+        ...state,
+        isError: true,
       };
     case ActionType.SET_USER:
       return {

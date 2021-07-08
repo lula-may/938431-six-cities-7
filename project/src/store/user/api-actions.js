@@ -10,14 +10,18 @@ export const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => {})
 );
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => (
+export const login = ({login: email, password}) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.clearError());
+  dispatch(ActionCreator.startLoading());
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
       dispatch(ActionCreator.setUser(data.email));
-    })
-    .then(() => {
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.endLoading());
     })
-    .catch(() => {})
-);
+    .catch(() => {
+      dispatch(ActionCreator.setError());
+      dispatch(ActionCreator.endLoading());
+    });
+};
