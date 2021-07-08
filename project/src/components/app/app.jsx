@@ -28,14 +28,15 @@ function App({offers}) {
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}
-          render={() => <Favorites favoriteOffers={favoriteOffers} />}
         >
+          <Favorites favoriteOffers={favoriteOffers} />
         </PrivateRoute>
         <NoAuthRoute
           exact
           path={AppRoute.LOGIN}
-          render={() => <SignIn />}
-        />
+        >
+          <SignIn/>
+        </NoAuthRoute>
         <Route exact path={`${AppRoute.ROOM}/:id`}>
           <Room
             comments={COMMENTS}
