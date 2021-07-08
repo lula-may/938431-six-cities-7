@@ -8,8 +8,12 @@ import App from './components/app/app';
 import {reducer} from './store/reducer';
 import {createApi} from './services/api';
 import {fetchOfferList} from './store/api-actions';
+import { ActionCreator } from './store/action';
+import { AuthorizationStatus } from './const';
 
-const api = createApi();
+const api = createApi(
+  () => ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH),
+);
 
 const store = createStore(
   reducer,
