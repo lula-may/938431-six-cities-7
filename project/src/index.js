@@ -10,9 +10,10 @@ import {createApi} from './services/api';
 import {fetchOfferList} from './store/offers/api-actions';
 import {ActionCreator } from './store/user/actions';
 import {AuthorizationStatus} from './const';
+import {checkAuth} from './store/user/api-actions';
 
 const api = createApi(
-  () => ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH),
+  () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
 );
 
 const store = createStore(
@@ -22,7 +23,9 @@ const store = createStore(
   ),
 );
 
+
 store.dispatch(fetchOfferList());
+store.dispatch(checkAuth());
 
 ReactDOM.render(
   <React.StrictMode>
