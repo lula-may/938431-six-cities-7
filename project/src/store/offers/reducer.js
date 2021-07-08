@@ -1,19 +1,14 @@
-import {AuthorizationStatus, CITIES, SortType} from '../const.js';
-import {getOffersByCity, sortOffersByType} from '../utils.js';
+import {CITIES, SortType} from '../../const.js';
 import {ActionType} from './action.js';
 
 const defaultCity = CITIES[0];
 const defaultSortType = SortType.POPULAR;
 
 const initialState = {
-  allOffers: [],
-  userEmail: null,
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
   isLoading: false,
   city: defaultCity,
   offers: [],
   sortType: defaultSortType,
-  sortedOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,39 +21,17 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_OFFERS:
       return {
         ...state,
-        allOffers: action.payload,
-        offers: getOffersByCity(action.payload, defaultCity),
-      };
-    case ActionType.LOGOUT:
-      return {
-        ...state,
-        authorizationStatus: AuthorizationStatus.NO_AUTH,
-      };
-    case ActionType.REQUIRE_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload,
+        offers: action.payload,
       };
     case ActionType.SET_CITY:
       return {
         ...state,
         city: action.payload,
       };
-    case ActionType.SET_OFFERS:
-      return {
-        ...state,
-        offers: getOffersByCity(state.allOffers, state.city),
-      };
     case ActionType.SET_SORT_TYPE:
       return {
         ...state,
         sortType: action.payload,
-        sortedOffers: sortOffersByType(state.offers, action.payload),
-      };
-    case ActionType.SET_USER:
-      return {
-        ...state,
-        userEmail: action.payload,
       };
     case ActionType.START_LOADING:
       return {
@@ -69,7 +42,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         sortType: defaultSortType,
-        sortedOffers: state.offers,
       };
     default:
       return state;

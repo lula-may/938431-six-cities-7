@@ -2,7 +2,7 @@ import {ActionCreator} from './action';
 import {APIRoute, AuthorizationStatus} from '../const.js';
 import {adaptOffers, adaptUserInfo} from '../services/adapter';
 
-export const fetchOfferList = () => (dispatch, _getState, api) =>{
+export const fetchOfferList = () => (dispatch, _getState, api) => {
   dispatch(ActionCreator.startLoading());
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
