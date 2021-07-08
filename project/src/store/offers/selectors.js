@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import { sortOffersByType } from '../../utils';
+import {sortOffersByType} from '../../utils';
 import {NameSpace} from '../root-reducer';
 
 const NAME_SPACE = NameSpace.OFFERS;

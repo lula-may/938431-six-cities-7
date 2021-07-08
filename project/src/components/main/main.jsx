@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -18,7 +18,7 @@ import {getCity, getOffersLoadingStatus, selectSortedOffers} from '../../store/o
 
 function Main(props) {
   const {authorizationStatus, currentCity, isLoading, offers, userEmail} = props;
-  const isAuthorized = useMemo(() => (authorizationStatus === AuthorizationStatus.AUTH), [authorizationStatus]);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
   const isActive = true;
   const isEmpty = offers.length === 0;
   const mainClassnName = cn('page__main page__main--index', isEmpty && 'page__main--index-empty');

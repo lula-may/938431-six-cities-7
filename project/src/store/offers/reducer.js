@@ -1,5 +1,5 @@
 import {CITIES, SortType} from '../../const.js';
-import {ActionType} from './action.js';
+import {ActionType} from './actions.js';
 
 const defaultCity = CITIES[0];
 const defaultSortType = SortType.POPULAR;

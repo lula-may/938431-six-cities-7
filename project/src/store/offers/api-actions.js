@@ -1,4 +1,4 @@
-import {ActionCreator} from './action';
+import {ActionCreator} from './actions';
 import {APIRoute} from '../../const.js';
 import {adaptOffers} from '../../services/adapter.js';
 

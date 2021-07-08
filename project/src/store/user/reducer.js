@@ -1,5 +1,5 @@
-import {AuthorizationStatus} from '../../const.js';
-import {ActionType} from './action.js';
+import {AuthorizationStatus} from '../../const';
+import {ActionType} from './actions.js';
 
 const initialState = {
   userEmail: null,

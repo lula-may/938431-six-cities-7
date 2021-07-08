@@ -33,7 +33,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onTabClick: (city) => {
     dispatch(ActionCreator.setCity(city));
-    dispatch(ActionCreator.setOffers());
     dispatch(ActionCreator.resetSortType());
   },
 });

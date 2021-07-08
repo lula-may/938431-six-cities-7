@@ -1,4 +1,4 @@
-import {ActionCreator} from './action';
+import {ActionCreator} from './actions';
 import {APIRoute, AuthorizationStatus} from '../../const.js';
 
 export const checkAuth = () => (dispatch, _getState, api) => (
