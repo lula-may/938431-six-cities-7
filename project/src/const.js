@@ -5,6 +5,20 @@ export const AppRoute = {
   ROOT: '/',
 };
 
+export const APIRoute = {
+  OFFERS: '/hotels',
+  FAVORITES: '/favorite',
+  COMMENTS: '/comments',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
 export const CardType = {
   CITIES: 'cities',
   NEAR_PLACES: 'near-places',

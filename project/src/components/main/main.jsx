@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,16 +7,33 @@ import CitiesList from '../cities-list/cities-list.jsx';
 import Logo from '../logo/logo.jsx';
 import PlacesEmpty from '../places-empty/places-empty';
 import Places from '../places/places';
+import Spinner from '../spinner/spinner';
 
 import {PROP_OFFER} from '../props.js';
-import {AppRoute, CITIES} from '../../const.js';
+import {AppRoute, AuthorizationStatus, CITIES} from '../../const.js';
 import { cn } from '../../utils.js';
 
+
 function Main(props) {
-  const {offers, currentCity} = props;
+  const {authorizationStatus, currentCity, isLoading, offers, userEmail} = props;
+  const isAuthorized = useMemo(() => (authorizationStatus === AuthorizationStatus.AUTH), [authorizationStatus]);
   const isActive = true;
   const isEmpty = offers.length === 0;
   const mainClassnName = cn('page__main page__main--index', isEmpty && 'page__main--index-empty');
+  const renderBoard =() => {
+    if (isLoading) {
+      return <Spinner />;
+    }
+    if (isEmpty) {
+      return <PlacesEmpty  city={currentCity} />;
+    }
+    return (
+      <Places
+        city={currentCity}
+        offers={offers}
+      />
+    );
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -32,14 +49,17 @@ function Main(props) {
                   <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    {isAuthorized
+                      ? <span className="header__user-name user__name">{userEmail}</span>
+                      : <span className="header__login">Sign in</span>}
                   </Link>
                 </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
+                {isAuthorized &&
+                  <li className="header__nav-item">
+                    <a className="header__nav-link" href="#">
+                      <span className="header__signout">Sign out</span>
+                    </a>
+                  </li>}
               </ul>
             </nav>
           </div>
@@ -56,9 +76,7 @@ function Main(props) {
           </section>
         </div>
         <div className="cities">
-          {isEmpty
-            ? <PlacesEmpty city={currentCity} />
-            : <Places offers={offers} city={currentCity} />}
+          {renderBoard()}
         </div>
       </main>
     </div>
@@ -66,13 +84,19 @@ function Main(props) {
 }
 
 Main.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
   currentCity: PropTypes.oneOf(CITIES).isRequired,
+  userEmail: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
   offers: PropTypes.arrayOf(PROP_OFFER),
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.sortedOffers,
+  authorizationStatus: state.authorizationStatus,
+  isLoading: state.isLoading,
   currentCity: state.city,
+  offers: state.sortedOffers,
+  userEmail: state.userEmail,
 });
 
 export {Main};
