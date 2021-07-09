@@ -1,26 +1,35 @@
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {AppRoute} from '../../const.js';
 import Logo from '../logo/logo.jsx';
-import {login} from '../../store/api-actions';
+import {login} from '../../store/user/api-actions';
+import {getLoginError} from '../../store/user/selectors';
 
-function SignIn({onSubmit}) {
-  const loginRef = useRef();
-  const passwordRef = useRef();
+function SignIn({onSubmit, isError}) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const errorStyle = useMemo(() => (isError ? {borderColor: 'red'} : {}), [isError]);
 
   const handleSubmit = useCallback((evt) => {
     evt.preventDefault();
-    // TODO: проверка валидности полей
-    // TODO: блокировка кнопки на время отправки запроса
-    // TODO: показывать прелоадер
     onSubmit({
-      login: loginRef.current.value,
-      password: passwordRef.current.value,
+      login: email,
+      password,
     });
-  }, [onSubmit]);
+  }, [email, password, onSubmit]);
+
+  const handlePasswordChange = useCallback((evt) => {
+    const value = evt.target.value.trim();
+    setPassword(value);
+  }, []);
+
+  const handleEmailChange = useCallback((evt) => {
+    setEmail(evt.target.value);
+  }, []);
 
   return (
     <div className="page page--gray page--login">
@@ -56,25 +65,29 @@ function SignIn({onSubmit}) {
               onSubmit={handleSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
+                {isError && <p>Please, enter a valid email!</p>}
                 <label className="visually-hidden">E-mail</label>
                 <input
-                  ref={loginRef}
                   className="login__input form__input"
+                  style={errorStyle}
                   type="email"
                   name="email"
+                  onChange={handleEmailChange}
                   placeholder="Email"
-                  required=""
+                  value={email}
+                  required
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
-                  ref={passwordRef}
                   className="login__input form__input"
                   type="password"
                   name="password"
+                  onChange={handlePasswordChange}
                   placeholder="Password"
-                  required=""
+                  value={password}
+                  required
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
@@ -94,8 +107,13 @@ function SignIn({onSubmit}) {
 }
 
 SignIn.propTypes = {
+  isError: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  isError: getLoginError(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: (authData) => dispatch(login(authData)),
@@ -103,4 +121,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 export {SignIn};
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

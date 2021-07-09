@@ -14,6 +14,7 @@ import {AppRoute} from '../../const.js';
 import {PROP_OFFER} from '../props.js';
 import {getFavoriteOffers} from '../../utils.js';
 import {COMMENTS} from '../../mocks/comments';
+import {selectOffersByCity} from '../../store/offers/selectors';
 
 function App({offers}) {
   const favoriteOffers = getFavoriteOffers(offers);
@@ -28,14 +29,15 @@ function App({offers}) {
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}
-          render={() => <Favorites favoriteOffers={favoriteOffers} />}
         >
+          <Favorites favoriteOffers={favoriteOffers} />
         </PrivateRoute>
         <NoAuthRoute
           exact
           path={AppRoute.LOGIN}
-          render={() => <SignIn />}
-        />
+        >
+          <SignIn/>
+        </NoAuthRoute>
         <Route exact path={`${AppRoute.ROOM}/:id`}>
           <Room
             comments={COMMENTS}
@@ -57,7 +59,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: selectOffersByCity(state),
 });
 
 export {App};

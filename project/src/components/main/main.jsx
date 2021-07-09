@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -12,11 +12,13 @@ import Spinner from '../spinner/spinner';
 import {PROP_OFFER} from '../props.js';
 import {AppRoute, AuthorizationStatus, CITIES} from '../../const.js';
 import { cn } from '../../utils.js';
+import {getAuthorizationStatus, getUserEmail} from '../../store/user/selectors.js';
+import {getCity, getOffersLoadingStatus, selectSortedOffers} from '../../store/offers/selectors.js';
 
 
 function Main(props) {
   const {authorizationStatus, currentCity, isLoading, offers, userEmail} = props;
-  const isAuthorized = useMemo(() => (authorizationStatus === AuthorizationStatus.AUTH), [authorizationStatus]);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
   const isActive = true;
   const isEmpty = offers.length === 0;
   const mainClassnName = cn('page__main page__main--index', isEmpty && 'page__main--index-empty');
@@ -92,11 +94,11 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  isLoading: state.isLoading,
-  currentCity: state.city,
-  offers: state.sortedOffers,
-  userEmail: state.userEmail,
+  authorizationStatus: getAuthorizationStatus(state),
+  isLoading: getOffersLoadingStatus(state),
+  currentCity: getCity(state),
+  offers: selectSortedOffers(state),
+  userEmail: getUserEmail(state),
 });
 
 export {Main};
