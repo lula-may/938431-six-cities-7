@@ -7,6 +7,7 @@ const defaultSortType = SortType.POPULAR;
 const initialState = {
   isLoading: false,
   city: defaultCity,
+  favoriteOffers: [],
   offers: [],
   sortType: defaultSortType,
 };

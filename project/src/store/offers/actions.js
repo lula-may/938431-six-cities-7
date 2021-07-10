@@ -1,6 +1,7 @@
 export const ActionType = {
   END_LOADING: 'OFFERS/END_LOADING',
   LOAD_OFFERS: 'OFFERS/LOAD_OFFERS',
+  LOAD_FAVORITE_OFFERS: 'OFFERS/LOAD_FAVORITE_OFFERS',
   RESET_SORT_TYPE: 'OFFERS/RESET_SORT_TYPE',
   SET_CITY: 'OFFERS/SET_CITY',
   SET_ERROR: 'OFFERS/SET_ERROR',
@@ -11,6 +12,11 @@ export const ActionType = {
 export const ActionCreator = {
   endLoading: () => ({
     type: ActionType.END_LOADING,
+  }),
+
+  loadFavoriteOffers: (offers) => ({
+    type: ActionType.LOAD_FAVORITE_OFFERS,
+    payload: offers,
   }),
 
   loadOffers: (offers) => ({

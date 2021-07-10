@@ -8,6 +8,8 @@ const getOffers = (state) => state[NAME_SPACE].offers;
 
 const getCity = (state) => state[NAME_SPACE].city;
 
+const getFavoriteOffers = (state) => state[NAME_SPACE].favoriteOffers;
+
 const getSortType = (state) => state[NAME_SPACE].sortType;
 
 const getOffersLoadingStatus = (state) => state[NAME_SPACE].isLoading;
@@ -24,4 +26,4 @@ const selectSortedOffers = createSelector(
   (sortType, offers) => sortOffersByType(offers, sortType),
 );
 
-export {getCity, getSortType, getOffersLoadingStatus, selectOffersByCity, selectSortedOffers};
+export {getCity, getFavoriteOffers, getSortType, getOffersLoadingStatus, selectOffersByCity, selectSortedOffers};

@@ -1,12 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import FavoriteList from '../favorite-list/favorite-list.jsx';
 import Logo from '../logo/logo.jsx';
-import {PROP_OFFER} from '../props';
 
-function Favorites({favoriteOffers}) {
+function Favorites() {
   return (
     <div className="page">
       <header className="header">
@@ -37,7 +35,7 @@ function Favorites({favoriteOffers}) {
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <FavoriteList favoriteOffers={favoriteOffers} />
+          <FavoriteList />
         </div>
       </main>
       <footer className="footer container">
@@ -48,9 +46,5 @@ function Favorites({favoriteOffers}) {
     </div>
   );
 }
-
-Favorites.propTypes = {
-  favoriteOffers: PropTypes.arrayOf(PROP_OFFER).isRequired,
-};
 
 export default Favorites;
