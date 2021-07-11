@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
-    case ActionType.REQUIRE_AUTHORIZATION:
+    case ActionType.SET_AUTHORIZATION_STATUS:
       return {
         ...state,
         authorizationStatus: action.payload,

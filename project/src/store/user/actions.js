@@ -1,7 +1,7 @@
 export const ActionType = {
   END_LOADING: 'USER/END_LOADING',
   LOGOUT: 'USER/LOGOUT',
-  REQUIRE_AUTHORIZATION: 'USER/REQUIRE_AUTHORIZATION',
+  SET_AUTHORIZATION_STATUS: 'USER/SET_AUTHORIZATION_STATUS',
   SET_ERROR: 'USER/SET_ERROR',
   SET_USER: 'USER/SET_USER',
   START_LOADING: 'USER/START_LOADING',
@@ -16,8 +16,8 @@ export const ActionCreator = {
     type: ActionType.LOGOUT,
   }),
 
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRE_AUTHORIZATION,
+  setAuthorizationStatus: (status) => ({
+    type: ActionType.SET_AUTHORIZATION_STATUS,
     payload: status,
   }),
 
