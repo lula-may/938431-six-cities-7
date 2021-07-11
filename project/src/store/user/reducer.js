@@ -10,11 +10,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CLEAR_ERROR:
-      return {
-        ...state,
-        isError: false,
-      };
     case ActionType.END_LOADING:
       return {
         ...state,
@@ -43,6 +38,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.START_LOADING:
       return {
         ...state,
+        isError: false,
         isLoading: true,
       };
     default:

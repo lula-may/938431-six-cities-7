@@ -1,5 +1,4 @@
 export const ActionType = {
-  CLEAR_ERROR: 'USER/CLEAR_ERROR',
   END_LOADING: 'USER/END_LOADING',
   LOGOUT: 'USER/LOGOUT',
   REQUIRE_AUTHORIZATION: 'USER/REQUIRE_AUTHORIZATION',
@@ -9,10 +8,6 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
-  clearError: () => ({
-    type: ActionType.CLEAR_ERROR,
-  }),
-
   endLoading: () => ({
     type: ActionType.END_LOADING,
   }),

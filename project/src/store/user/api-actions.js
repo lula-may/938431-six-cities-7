@@ -11,7 +11,6 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.clearError());
   dispatch(ActionCreator.startLoading());
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
