@@ -5,6 +5,7 @@ const defaultCity = CITIES[0];
 const defaultSortType = SortType.POPULAR;
 
 const initialState = {
+  isError: false,
   isLoading: false,
   city: defaultCity,
   favoriteOffers: [],
@@ -29,6 +30,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         city: action.payload,
       };
+    case ActionType.SET_ERROR:
+      return {
+        ...state,
+        isError: true,
+      };
     case ActionType.SET_SORT_TYPE:
       return {
         ...state,
@@ -37,6 +43,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.START_LOADING:
       return {
         ...state,
+        isError: false,
         isLoading: true,
       };
     case ActionType.RESET_SORT_TYPE:

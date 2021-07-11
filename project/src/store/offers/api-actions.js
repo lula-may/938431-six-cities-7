@@ -14,7 +14,8 @@ export const fetchOfferList = () => (dispatch, _getState, api) => {
       dispatch(ActionCreator.endLoading());
     })
     .catch((err) => {
-      ActionCreator.endLoading();
+      dispatch(ActionCreator.setError());
+      dispatch(ActionCreator.endLoading());
       return err;
     });
 };

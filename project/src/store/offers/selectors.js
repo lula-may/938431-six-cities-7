@@ -12,6 +12,8 @@ const getFavoriteOffers = (state) => state[NAME_SPACE].favoriteOffers;
 
 const getSortType = (state) => state[NAME_SPACE].sortType;
 
+const getOffersLoadingError = (state) => state[NAME_SPACE].isError;
+
 const getOffersLoadingStatus = (state) => state[NAME_SPACE].isLoading;
 
 const selectOffersByCity = createSelector(
@@ -26,4 +28,4 @@ const selectSortedOffers = createSelector(
   (sortType, offers) => sortOffersByType(offers, sortType),
 );
 
-export {getCity, getFavoriteOffers, getSortType, getOffersLoadingStatus, selectOffersByCity, selectSortedOffers};
+export {getCity, getFavoriteOffers, getOffersLoadingError, getOffersLoadingStatus, getSortType, selectOffersByCity, selectSortedOffers};

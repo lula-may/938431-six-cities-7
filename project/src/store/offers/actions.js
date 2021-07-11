@@ -29,6 +29,10 @@ export const ActionCreator = {
     payload: city,
   }),
 
+  setError: () => ({
+    type: ActionType.SET_ERROR,
+  }),
+
   setSortType: (sortType) => ({
     type: ActionType.SET_SORT_TYPE,
     payload: sortType,
