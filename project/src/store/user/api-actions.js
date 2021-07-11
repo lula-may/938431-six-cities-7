@@ -24,3 +24,12 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
       dispatch(ActionCreator.endLoading());
     });
 };
+
+export const logout = () => (dispatch, _getState, api) => {
+  api.delete(APIRoute.LOGOUT)
+    .then(() => {
+      localStorage.removeItem('token');
+      dispatch(ActionCreator.logout());
+    })
+    .catch((err) => err);
+};
