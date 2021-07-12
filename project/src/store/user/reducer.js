@@ -4,7 +4,7 @@ import {ActionType} from './actions.js';
 const initialState = {
   userEmail: null,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  isLoading: false,
+  isLoading: true,
   isError: false,
 };
 

@@ -16,7 +16,7 @@ export const adaptUserInfo = (rawUserInfo) => {
   };
 };
 
-export const adaptOffers = (rawData) => {
+export const adaptOffer = (rawData) => {
   const {
     bedrooms,
     city,
@@ -55,3 +55,8 @@ export const adaptOffers = (rawData) => {
     type,
   };
 };
+
+export const adaptComment = (rawData) => ({
+  ...rawData,
+  user: adaptUserInfo(rawData.user),
+});
