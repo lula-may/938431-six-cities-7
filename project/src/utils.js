@@ -2,8 +2,6 @@ import {SortType} from './const';
 
 const getUniqueItems = (items) => items.filter((el, i, els) => els.indexOf(el) === i);
 
-const getFavoriteOffers = (offers) => offers.filter(({isFavorite}) => isFavorite);
-
 const getRatingStyle = (rating) => ({width: `${Math.round(rating) * 20}%`});
 
 const formatDate = (date) => {
@@ -42,4 +40,4 @@ const sortOffersByType = (offers, type) => {
   }
 };
 
-export {cn, getElementById, getFavoriteOffers, getOffersByCity, getRatingStyle, getRestElements, getUniqueItems, formatDate, sortOffersByType};
+export {cn, getElementById, getOffersByCity, getRatingStyle, getRestElements, getUniqueItems, formatDate, sortOffersByType};

@@ -1,13 +1,15 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import FavoriteCity from '../favorite-city/favorite-city';
 import {getUniqueItems} from '../../utils.js';
+import {getFavoriteOffers} from '../../store/offers/selectors';
 import {PROP_OFFER} from '../props';
 
 const filterOffersByCity = (offers, name) => offers.filter(({city}) => city.name === name);
 
-export default function FavoriteList({favoriteOffers}) {
+function FavoriteList({favoriteOffers}) {
   const cities = getUniqueItems(favoriteOffers.map(({city}) => city.name));
   const sortedOffers = cities.map((city) => ({
     city: city,
@@ -28,3 +30,11 @@ export default function FavoriteList({favoriteOffers}) {
 FavoriteList.propTypes = {
   favoriteOffers: PropTypes.arrayOf(PROP_OFFER).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  favoriteOffers: getFavoriteOffers(state),
+});
+
+export {FavoriteList};
+
+export default connect(mapStateToProps)(FavoriteList);

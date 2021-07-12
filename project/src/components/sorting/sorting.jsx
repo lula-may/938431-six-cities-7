@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {cn} from '../../utils';
 import {SortType} from '../../const';
-import {ActionCreator} from '../../store/action';
+import {ActionCreator} from '../../store/offers/actions';
+import {getSortType} from '../../store/offers/selectors';
 
 const TypeToText = {
   popular: ' Popular',
@@ -59,7 +60,7 @@ Sorting.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  sortType: state.sortType,
+  sortType: getSortType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
