@@ -5,15 +5,13 @@ import PropTypes from 'prop-types';
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
 import Reviews from '../reviews/reviews.jsx';
-import Spinner from '../spinner/spinner.jsx';
 import {PROP_OFFER} from '../props.js';
 import {cn, getRatingStyle} from '../../utils.js';
 import { getNearOffers } from '../../store/nearby/selectors.js';
 import {getCurrentRoom} from '../../store/room/selectors.js';
-import { getCommentsLoadingError, getCommentsLoadingStatus} from '../../store/comments/selectors.js';
 
 function RoomProperty(props) {
-  const {isCommentLoading, isCommentError, offer, nearOffers} = props;
+  const {offer, nearOffers} = props;
   const {
     bedrooms,
     city,
@@ -30,21 +28,10 @@ function RoomProperty(props) {
     type,
   } = offer;
 
-  const renderReviews = () => {
-    if (isCommentLoading) {
-      return <Spinner />;
-    }
-    if (isCommentError) {
-      return (
-        <h2 className="property__inside-title">We failed to load Reviews. Please, try again later.</h2>
-      );
-    }
-    return <Reviews />;
-  };
-
   const ratingStyle = getRatingStyle(rating);
   const hostProClass = isPro ? 'property__avatar-wrapper--pro' : '';
   const offers = [offer, ...nearOffers];
+
   return (
     <section className="property">
       <div className="property__gallery-container container">
@@ -120,7 +107,7 @@ function RoomProperty(props) {
               <p className="property__text">{description}</p>
             </div>
           </div>
-          {renderReviews()}
+          <Reviews />
         </div>
       </div>
       <Map
@@ -134,15 +121,11 @@ function RoomProperty(props) {
 }
 
 RoomProperty.propTypes = {
-  isCommentLoading: PropTypes.bool.isRequired,
-  isCommentError: PropTypes.bool.isRequired,
   nearOffers: PropTypes.arrayOf(PROP_OFFER).isRequired,
   offer: PROP_OFFER,
 };
 
 const mapStateToProps = (state) => ({
-  isCommentError: getCommentsLoadingError(state),
-  isCommentLoading: getCommentsLoadingStatus(state),
   offer: getCurrentRoom(state),
   nearOffers: getNearOffers(state),
 });

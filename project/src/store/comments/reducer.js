@@ -26,6 +26,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.START_LOADING:
       return {
         ...state,
+        comments: [],
         isError: false,
         isLoading: true,
       };

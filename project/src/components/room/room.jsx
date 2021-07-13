@@ -11,72 +11,60 @@ import Spinner from '../spinner/spinner.jsx';
 import {fetchCurrentRoom} from '../../store/room/api-actions.js';
 import {fetchComments} from '../../store/comments/api-actions.js';
 import {fetchNearOffers} from '../../store/nearby/api-actions.js';
-import {getRoomLoadingError, getRoomLoadingStatus } from '../../store/room/selectors.js';
+import { getRoomLoadingError, getRoomLoadingStatus } from '../../store/room/selectors.js';
 
 function Room(props) {
   const {
-    fetchOffer,
+    fetchRoom,
     fetchRoomComments,
     fetchRoomNearOffers,
-    isRoomLoadingError,
-    isRoomLoading,
+    isLoading,
+    isError,
   } = props;
 
   const match = useRouteMatch();
   const id = Number(match.params.id);
   useEffect(() => {
-    fetchOffer(id);
-  }, [fetchOffer, id]);
-
-  useEffect(() => {
+    fetchRoom(id);
     fetchRoomComments(id);
-  }, [fetchRoomComments, id]);
-
-  useEffect(() => {
     fetchRoomNearOffers(id);
-  }, [fetchRoomNearOffers, id]);
+  }, [fetchRoom, fetchRoomComments, fetchRoomNearOffers, id]);
 
-  const renderBoard = () => {
-    if (isRoomLoading) {
-      return <Spinner />;
-    }
-    if (isRoomLoadingError) {
-      return <Error />;
-    }
-    return (
+  const hasData = !(isLoading || isError);
+
+  return (
+    <div className="page">
+      <Header />
+      {isLoading && <Spinner />}
+      {isError && <Error />}
+      {hasData &&
       <main className="page__main page__main--property">
         <RoomProperty />
         <div className="container">
           <NearOffers />
         </div>
-      </main>
-    );
-  };
-
-  return (
-    <div className="page">
-      <Header />
-      {renderBoard()}
+      </main>}
     </div>
   );
 }
 
 Room.propTypes = {
-  fetchOffer: PropTypes.func.isRequired,
+  isError: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  fetchRoom: PropTypes.func.isRequired,
   fetchRoomNearOffers: PropTypes.func.isRequired,
   fetchRoomComments: PropTypes.func.isRequired,
-  isRoomLoading: PropTypes.bool.isRequired,
-  isRoomLoadingError: PropTypes.bool.isRequired,
 };
+
 const mapStateToProps = (state) => ({
-  isRoomLoading: getRoomLoadingStatus(state),
-  isRoomLoadingError: getRoomLoadingError(state),
+  isError: getRoomLoadingError(state),
+  isLoading: getRoomLoadingStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchRoomComments: (id) => dispatch(fetchComments(id)),
   fetchRoomNearOffers: (id) => dispatch(fetchNearOffers(id)),
-  fetchOffer: (id) => dispatch(fetchCurrentRoom(id)),
+  fetchRoom: (id) => dispatch(fetchCurrentRoom(id)),
 });
 
 export {Room};

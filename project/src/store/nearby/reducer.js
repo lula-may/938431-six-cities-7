@@ -28,6 +28,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         isError: false,
         isLoading: true,
+        nearOffers: [],
       };
     default:
       return state;
