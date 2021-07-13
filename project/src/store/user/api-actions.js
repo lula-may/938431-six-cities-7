@@ -21,7 +21,6 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     })
     .catch(() => {
       dispatch(ActionCreator.setError());
-      dispatch(ActionCreator.endLoading());
     });
 };
 

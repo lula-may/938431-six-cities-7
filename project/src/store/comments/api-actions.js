@@ -15,7 +15,6 @@ export const fetchComments = (id) => (dispatch, _getState, api) => {
     })
     .catch((err) => {
       dispatch(ActionCreator.setError());
-      dispatch(ActionCreator.endLoading());
       return err;
     });
 };

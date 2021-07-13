@@ -34,6 +34,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isError: true,
+        isLoading: false,
       };
     case ActionType.SET_SORT_TYPE:
       return {
