@@ -41,5 +41,7 @@ export const SortType = {
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const DATETIME_LENGTH = 10;
 export const MAX_RATING = 5;
+export const MAX_COMMENT_LENGTH = 300;
+export const MIN_COMMENT_LENGTH = 50;
 export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
