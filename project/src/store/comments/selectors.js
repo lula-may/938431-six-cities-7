@@ -9,6 +9,10 @@ const getCommentsLoadingError = (state) => state[NAME_SPACE].isError;
 
 const getCommentsLoadingStatus = (state) => state[NAME_SPACE].isLoading;
 
+const getUploadingError = (state) => state[NAME_SPACE].isUploadingError;
+
+const getUploadingStatus = (state) => state[NAME_SPACE].isUploading;
+
 const selectComments = createSelector(
   getAllComments,
   (comments) => ([...comments].sort((right, left) => {
@@ -20,4 +24,4 @@ const getCommentsCount = createSelector(
   getAllComments,
   (comments) => comments.length,
 );
-export {selectComments, getCommentsCount, getCommentsLoadingError, getCommentsLoadingStatus};
+export {selectComments, getCommentsCount, getCommentsLoadingError, getCommentsLoadingStatus, getUploadingError, getUploadingStatus};

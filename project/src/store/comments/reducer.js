@@ -3,7 +3,9 @@ import {ActionType} from './actions.js';
 const initialState = {
   comments: [],
   isError: false,
+  isUploadingError: false,
   isLoading: true,
+  isUploading: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,6 +14,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+    case ActionType.END_UPLOADING:
+      return {
+        ...state,
+        isUploading: false,
       };
     case ActionType.LOAD_COMMENTS:
       return {
@@ -24,12 +31,24 @@ const reducer = (state = initialState, action) => {
         isError: true,
         isLoading: false,
       };
+    case ActionType.SET_UPLOADING_ERROR:
+      return {
+        ...state,
+        isUploadingError: true,
+        isUploading: false,
+      };
     case ActionType.START_LOADING:
       return {
         ...state,
         comments: [],
         isError: false,
         isLoading: true,
+      };
+    case ActionType.START_UPLOADING:
+      return {
+        ...state,
+        isUploadingError: false,
+        isUploading: true,
       };
     default:
       return state;
