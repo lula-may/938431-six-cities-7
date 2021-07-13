@@ -7,12 +7,11 @@ import CommentForm from '../comment-form/comment-form.jsx';
 import Spinner from '../spinner/spinner.jsx';
 import {AuthorizationStatus} from '../../const.js';
 import {getAuthorizationStatus} from '../../store/user/selectors.js';
-import {getComments, getCommentsLoadingError, getCommentsLoadingStatus} from '../../store/comments/selectors.js';
+import {selectComments, getCommentsLoadingError, getCommentsLoadingStatus, getCommentsCount} from '../../store/comments/selectors.js';
 import {PROP_COMMENT} from '../props.js';
 
-function Reviews({authorizationStatus, comments, isError, isLoading}) {
+function Reviews({authorizationStatus, comments, commentsCount, isError, isLoading}) {
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
-  const commentsCount = comments.length;
 
   return (
     <section className="property__reviews reviews">
@@ -32,13 +31,15 @@ function Reviews({authorizationStatus, comments, isError, isLoading}) {
 Reviews.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   comments: PropTypes.arrayOf(PROP_COMMENT).isRequired,
+  commentsCount: PropTypes.number.isRequired,
   isError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
-  comments: getComments(state),
+  comments: selectComments(state),
+  commentsCount: getCommentsCount(state),
   isError: getCommentsLoadingError(state),
   isLoading: getCommentsLoadingStatus(state),
 });
