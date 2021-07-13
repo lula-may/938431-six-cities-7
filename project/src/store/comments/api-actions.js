@@ -1,16 +1,16 @@
 import {ActionCreator} from './actions';
 import {APIRoute} from '../../const.js';
-import {adaptOffer} from '../../services/adapter.js';
+import {adaptComment} from '../../services/adapter.js';
 
-export const fetchOfferList = () => (dispatch, _getState, api) => {
+export const fetchComments = (id) => (dispatch, _getState, api) => {
   dispatch(ActionCreator.startLoading());
-  api.get(APIRoute.OFFERS)
+  const url = `${APIRoute.COMMENTS}/${id}`;
+  api.get(url)
     .then(({data}) => {
-      const offers = data.map(adaptOffer);
-      dispatch(ActionCreator.loadOffers(offers));
+      const comments = data.map(adaptComment);
+      dispatch(ActionCreator.loadComments(comments));
     })
     .then(() =>{
-      dispatch(ActionCreator.resetSortType());
       dispatch(ActionCreator.endLoading());
     })
     .catch((err) => {
@@ -19,4 +19,3 @@ export const fetchOfferList = () => (dispatch, _getState, api) => {
       return err;
     });
 };
-

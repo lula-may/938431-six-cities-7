@@ -2,15 +2,15 @@ import {ActionCreator} from './actions';
 import {APIRoute} from '../../const.js';
 import {adaptOffer} from '../../services/adapter.js';
 
-export const fetchOfferList = () => (dispatch, _getState, api) => {
+export const fetchCurrentRoom = (id) => (dispatch, _getState, api) => {
   dispatch(ActionCreator.startLoading());
-  api.get(APIRoute.OFFERS)
+  const url = `${APIRoute.OFFERS}/${id}`;
+  api.get(url)
     .then(({data}) => {
-      const offers = data.map(adaptOffer);
-      dispatch(ActionCreator.loadOffers(offers));
+      const offer = adaptOffer(data);
+      dispatch(ActionCreator.loadRoom(offer));
     })
     .then(() =>{
-      dispatch(ActionCreator.resetSortType());
       dispatch(ActionCreator.endLoading());
     })
     .catch((err) => {
@@ -19,4 +19,3 @@ export const fetchOfferList = () => (dispatch, _getState, api) => {
       return err;
     });
 };
-

@@ -11,14 +11,11 @@ import PrivateRoute from '../private-route/private-route.jsx';
 import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {AppRoute} from '../../const.js';
-import {PROP_OFFER} from '../props.js';
-import {COMMENTS} from '../../mocks/comments';
 import {selectOffersByCity} from '../../store/offers/selectors';
 import { fetchOfferList } from '../../store/offers/api-actions.js';
 import { checkAuth } from '../../store/user/api-actions.js';
 
-function App({offers, fetchOffers, checkAuthStatus}) {
-  const [, ...nearOffers] = offers;
+function App({fetchOffers, checkAuthStatus}) {
   useEffect(() => {
     fetchOffers();
     checkAuthStatus();
@@ -43,11 +40,7 @@ function App({offers, fetchOffers, checkAuthStatus}) {
           <SignIn/>
         </NoAuthRoute>
         <Route exact path={`${AppRoute.ROOM}/:id`}>
-          <Room
-            comments={COMMENTS}
-            nearOffers={nearOffers}
-            offers={offers}
-          />
+          <Room />
         </Route>
         <Route>
           <NotFound />
@@ -58,8 +51,6 @@ function App({offers, fetchOffers, checkAuthStatus}) {
 }
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(
-    PROP_OFFER).isRequired,
   fetchOffers: PropTypes.func.isRequired,
   checkAuthStatus: PropTypes.func.isRequired,
 };
