@@ -24,14 +24,16 @@ function CommentForm({onSubmit, isError, isUploading}) {
   }, [isError, isUploading]);
 
   const handleRatingChange = useCallback(({target}) => {
-    setRating(Number(target.value));
-    setIsButtonDisabled(!isFormValid(rating, comment));
-  }, [comment, rating]);
+    const newRating = Number(target.value);
+    setRating(newRating);
+    setIsButtonDisabled(!isFormValid(newRating, comment));
+  }, [comment]);
 
   const handleReviewTextChange = useCallback(({target}) => {
-    setComment(target.value);
-    setIsButtonDisabled(!isFormValid(rating, comment));
-  }, [comment, rating]);
+    const commentText = target.value;
+    setComment(commentText);
+    setIsButtonDisabled(!isFormValid(rating, commentText));
+  }, [rating]);
 
   const handleFormSubmit = useCallback((evt) => {
     evt.preventDefault();
