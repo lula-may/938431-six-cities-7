@@ -23,7 +23,7 @@ function Reviews({authorizationStatus, comments, commentsCount, isError, isLoadi
           <Comment key={comment.id} comment={comment} />
         ))}
       </ul>
-      {isAuthorized && <CommentForm onSubmit={() => {}} />}
+      {isAuthorized && <CommentForm />}
     </section>
   );
 }
@@ -44,10 +44,6 @@ const mapStateToProps = (state) => ({
   isLoading: getCommentsLoadingStatus(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onCommentFormSubmit: () => {},
-});
-
 export {Reviews};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
+export default connect(mapStateToProps)(Reviews);
