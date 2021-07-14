@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 export const ActionType = {
   END_LOADING: 'OFFERS/END_LOADING',
   LOAD_OFFERS: 'OFFERS/LOAD_OFFERS',
@@ -9,40 +11,22 @@ export const ActionType = {
   START_LOADING: 'OFFERS/START_LOADING',
 };
 
-export const ActionCreator = {
-  endLoading: () => ({
-    type: ActionType.END_LOADING,
-  }),
+export const endLoading = createAction(ActionType.END_LOADING);
 
-  loadFavoriteOffers: (offers) => ({
-    type: ActionType.LOAD_FAVORITE_OFFERS,
-    payload: offers,
-  }),
+export const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS,
+  (offers) => ({payload: offers}));
 
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
-  }),
+export const loadOffers = createAction(ActionType.LOAD_OFFERS,
+  (offers) => ({payload: offers}));
 
-  setCity: (city) => ({
-    type: ActionType.SET_CITY,
-    payload: city,
-  }),
+export const setCity = createAction(ActionType.SET_CITY,
+  (city) => ({payload: city}));
 
-  setError: () => ({
-    type: ActionType.SET_ERROR,
-  }),
+export const setError = createAction(ActionType.SET_ERROR);
 
-  setSortType: (sortType) => ({
-    type: ActionType.SET_SORT_TYPE,
-    payload: sortType,
-  }),
+export const setSortType = createAction(ActionType.SET_SORT_TYPE,
+  (sortType) => ({payload: sortType}));
 
-  startLoading: () => ({
-    type: ActionType.START_LOADING,
-  }),
+export const startLoading = createAction(ActionType.START_LOADING);
 
-  resetSortType: () => ({
-    type: ActionType.RESET_SORT_TYPE,
-  }),
-};
+export const resetSortType = createAction(ActionType.RESET_SORT_TYPE);

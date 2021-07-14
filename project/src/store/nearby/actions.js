@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 export const ActionType = {
   END_LOADING: 'NEAR_OFFERS/END_LOADING',
   LOAD_NEAR_OFFERS: 'NEAR_OFFERS/LOAD_NEAR_OFFERS',
@@ -5,21 +7,13 @@ export const ActionType = {
   START_LOADING: 'NEAR_OFFERS/START_LOADING',
 };
 
-export const ActionCreator = {
-  endLoading: () => ({
-    type: ActionType.END_LOADING,
-  }),
+export const endLoading = createAction(ActionType.END_LOADING);
 
-  loadNearOffers: (offers) => ({
-    type: ActionType.LOAD_NEAR_OFFERS,
+export const loadNearOffers = createAction(ActionType.LOAD_NEAR_OFFERS,
+  (offers) => ({
     payload: offers,
-  }),
+  }));
 
-  setError: () => ({
-    type: ActionType.SET_ERROR,
-  }),
+export const setError = createAction(ActionType.SET_ERROR);
 
-  startLoading: () => ({
-    type: ActionType.START_LOADING,
-  }),
-};
+export const startLoading = createAction(ActionType.START_LOADING);

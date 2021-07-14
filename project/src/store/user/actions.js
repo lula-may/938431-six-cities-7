@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 export const ActionType = {
   END_LOADING: 'USER/END_LOADING',
   LOGOUT: 'USER/LOGOUT',
@@ -7,30 +9,17 @@ export const ActionType = {
   START_LOADING: 'USER/START_LOADING',
 };
 
-export const ActionCreator = {
-  endLoading: () => ({
-    type: ActionType.END_LOADING,
-  }),
+export const endLoading = createAction(ActionType.END_LOADING);
 
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
+export const logout = createAction(ActionType.LOGOUT);
 
-  setAuthorizationStatus: (status) => ({
-    type: ActionType.SET_AUTHORIZATION_STATUS,
-    payload: status,
-  }),
+export const setAuthorizationStatus = createAction(ActionType.SET_AUTHORIZATION_STATUS,
+  (status) => ({payload: status}));
 
-  setError: (error) => ({
-    type: ActionType.SET_ERROR,
-  }),
+export const setError = createAction(ActionType.SET_ERROR);
 
-  setUser: (userInfo) => ({
-    type: ActionType.SET_USER,
-    payload: userInfo,
-  }),
+export const setUser = createAction(ActionType.SET_USER, (userInfo) => ({
+  payload: userInfo,
+}));
 
-  startLoading: () => ({
-    type: ActionType.START_LOADING,
-  }),
-};
+export const startLoading = createAction(ActionType.START_LOADING);

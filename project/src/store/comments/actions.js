@@ -1,3 +1,4 @@
+import {createAction} from '@reduxjs/toolkit';
 export const ActionType = {
   END_LOADING: 'COMMENTS/END_LOADING',
   END_UPLOADING: 'COMMENTS/END_UPLOADING',
@@ -8,33 +9,19 @@ export const ActionType = {
   START_UPLOADING: 'COMMENTS/START_UPLOADING',
 };
 
-export const ActionCreator = {
-  endLoading: () => ({
-    type: ActionType.END_LOADING,
-  }),
+export const endLoading = createAction(ActionType.END_LOADING);
 
-  endUploading: () => ({
-    type: ActionType.END_UPLOADING,
-  }),
+export const endUploading = createAction(ActionType.END_UPLOADING);
 
-  loadComments: (comments) => ({
-    type: ActionType.LOAD_COMMENTS,
+export const loadComments = createAction(ActionType.LOAD_COMMENTS,
+  (comments) => ({
     payload: comments,
-  }),
+  }));
 
-  setError: () => ({
-    type: ActionType.SET_ERROR,
-  }),
+export const setError = createAction(ActionType.SET_ERROR);
 
-  setUploadingError: () => ({
-    type: ActionType.SET_UPLOADING_ERROR,
-  }),
+export const setUploadingError = createAction(ActionType.SET_UPLOADING_ERROR);
 
-  startLoading: () => ({
-    type: ActionType.START_LOADING,
-  }),
+export const startLoading = createAction(ActionType.START_LOADING);
 
-  startUploading: () => ({
-    type: ActionType.START_UPLOADING,
-  }),
-};
+export const startUploading = createAction(ActionType.START_UPLOADING);

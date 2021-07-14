@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 export const ActionType = {
   END_LOADING: 'ROOM/END_LOADING',
   LOAD_ROOM: 'ROOM/LOAD_ROOM',
@@ -5,21 +7,11 @@ export const ActionType = {
   START_LOADING: 'ROOM/START_LOADING',
 };
 
-export const ActionCreator = {
-  endLoading: () => ({
-    type: ActionType.END_LOADING,
-  }),
+export const endLoading = createAction(ActionType.END_LOADING);
 
-  loadRoom: (room) => ({
-    type: ActionType.LOAD_ROOM,
-    payload: room,
-  }),
+export const loadRoom = createAction(ActionType.LOAD_ROOM,
+  (room) => ({payload: room}));
 
-  setError: () => ({
-    type: ActionType.SET_ERROR,
-  }),
+export const setError = createAction(ActionType.SET_ERROR);
 
-  startLoading: () => ({
-    type: ActionType.START_LOADING,
-  }),
-};
+export const startLoading = createAction(ActionType.START_LOADING);
