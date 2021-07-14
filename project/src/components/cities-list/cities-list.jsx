@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import CityTab from '../city-tab/city-tab';
 import {CITIES} from '../../const';
-import {ActionCreator} from '../../store/offers/actions';
+import {resetSortType, setCity} from '../../store/offers/actions';
 import {getCity} from '../../store/offers/selectors';
 
 function CitiesList ({currentCity, onTabClick}) {
@@ -32,8 +32,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onTabClick: (city) => {
-    dispatch(ActionCreator.setCity(city));
-    dispatch(ActionCreator.resetSortType());
+    dispatch(setCity(city));
+    dispatch(resetSortType());
   },
 });
 

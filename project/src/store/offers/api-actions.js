@@ -1,20 +1,20 @@
-import {ActionCreator} from './actions';
+import {endLoading, loadOffers, resetSortType, setError, startLoading} from './actions';
 import {APIRoute} from '../../const.js';
 import {adaptOffer} from '../../services/adapter.js';
 
 export const fetchOfferList = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.startLoading());
+  dispatch(startLoading());
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
       const offers = data.map(adaptOffer);
-      dispatch(ActionCreator.loadOffers(offers));
+      dispatch(loadOffers(offers));
     })
     .then(() =>{
-      dispatch(ActionCreator.resetSortType());
-      dispatch(ActionCreator.endLoading());
+      dispatch(resetSortType());
+      dispatch(endLoading());
     })
     .catch((err) => {
-      dispatch(ActionCreator.setError());
+      dispatch(setError());
       return err;
     });
 };

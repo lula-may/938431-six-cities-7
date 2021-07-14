@@ -5,11 +5,11 @@ import {Provider} from 'react-redux';
 import App from './components/app/app';
 import reducer from './store/root-reducer';
 import {createApi} from './services/api';
-import {ActionCreator } from './store/user/actions';
+import {setAuthorizationStatus} from './store/user/actions';
 import {AuthorizationStatus} from './const';
 
 const api = createApi(
-  () => store.dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH)),
+  () => store.dispatch(setAuthorizationStatus(AuthorizationStatus.NO_AUTH)),
 );
 
 const store = configureStore({

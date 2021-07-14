@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {cn} from '../../utils';
 import {SortType} from '../../const';
-import {ActionCreator} from '../../store/offers/actions';
+import {setSortType} from '../../store/offers/actions';
 import {getSortType} from '../../store/offers/selectors';
 
 const TypeToText = {
@@ -65,7 +65,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSortTypeChange: (sortType) => {
-    dispatch(ActionCreator.setSortType(sortType));
+    dispatch(setSortType(sortType));
   },
 });
 

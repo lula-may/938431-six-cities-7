@@ -1,21 +1,21 @@
-import {ActionCreator} from './actions';
+import {endLoading, endUploading, loadComments, setError, setUploadingError, startUploading, startLoading} from './actions';
 import {APIRoute} from '../../const.js';
 import {adaptComment} from '../../services/adapter.js';
 import {getCurrentRoom} from '../room/selectors';
 
 export const fetchComments = (id) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.startLoading());
+  dispatch(startLoading());
   const url = `${APIRoute.COMMENTS}/${id}`;
   api.get(url)
     .then(({data}) => {
       const comments = data.map(adaptComment);
-      dispatch(ActionCreator.loadComments(comments));
+      dispatch(loadComments(comments));
     })
     .then(() =>{
-      dispatch(ActionCreator.endLoading());
+      dispatch(endLoading());
     })
     .catch((err) => {
-      dispatch(ActionCreator.setError());
+      dispatch(setError());
       return err;
     });
 };
@@ -23,18 +23,18 @@ export const fetchComments = (id) => (dispatch, _getState, api) => {
 export const postComment = (comment) => (dispatch, getState, api) => {
   const state = getState();
   const id = getCurrentRoom(state).id;
-  dispatch(ActionCreator.startUploading());
+  dispatch(startUploading());
   const url = `${APIRoute.COMMENTS}/${id}`;
   api.post(url, comment)
     .then(({data}) => {
       const comments = data.map(adaptComment);
-      dispatch(ActionCreator.loadComments(comments));
+      dispatch(loadComments(comments));
     })
     .then(() =>{
-      dispatch(ActionCreator.endUploading());
+      dispatch(endUploading());
     })
     .catch((err) => {
-      dispatch(ActionCreator.setUploadingError());
+      dispatch(setUploadingError());
       return err;
     });
 };
