@@ -1,4 +1,5 @@
-import {ActionType} from './actions.js';
+import {createReducer} from '@reduxjs/toolkit';
+import {endLoading, loadNearOffers, setError, startLoading} from './actions.js';
 
 const initialState = {
   nearOffers: [],
@@ -6,34 +7,23 @@ const initialState = {
   isLoading: true,
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.END_LOADING:
-      return {
-        ...state,
-        isLoading: false,
-      };
-    case ActionType.LOAD_NEAR_OFFERS:
-      return {
-        ...state,
-        nearOffers: action.payload,
-      };
-    case ActionType.SET_ERROR:
-      return {
-        ...state,
-        isError: true,
-        isLoading: false,
-      };
-    case ActionType.START_LOADING:
-      return {
-        ...state,
-        isError: false,
-        isLoading: true,
-        nearOffers: [],
-      };
-    default:
-      return state;
-  }
-};
+const reducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(endLoading, (state) => {
+      state.isLoading = false;
+    })
+    .addCase(loadNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
+    })
+    .addCase(setError, (state) => {
+      state.isError = true;
+      state.isLoading = false;
+    })
+    .addCase(startLoading, (state) => {
+      state.isError = false;
+      state.isLoading = true;
+      state.nearOffers = [];
+    });
+});
 
 export {reducer};
