@@ -39,7 +39,13 @@ function CommentForm() {
 
   const handleFormSubmit = useCallback((evt) => {
     evt.preventDefault();
-    dispatch(postComment({comment, rating}));
+    const trimmedComment = comment.trim();
+    if (!isFormValid(rating, trimmedComment)) {
+      setComment(trimmedComment);
+      setIsButtonDisabled(true);
+      return;
+    }
+    dispatch(postComment({comment: trimmedComment, rating}));
     setIsButtonDisabled(true);
   }, [dispatch, comment, rating]);
 
