@@ -1,14 +1,16 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
 import OffersList from '../offers-list/offers-list.jsx';
 import Spinner from '../spinner/spinner.jsx';
 import {CardType} from '../../const.js';
-import {PROP_OFFER} from '../props.js';
 import {getNearOffers, getNearOffersLoadingError, getNearOffersLoadingStatus} from '../../store/nearby/selectors.js';
 
-function NearOffers({isError, isLoading, offers}) {
+function NearOffers() {
+  const isError = useSelector(getNearOffersLoadingError);
+  const isLoading = useSelector(getNearOffersLoadingStatus);
+  const offers = useSelector(getNearOffers);
+
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
@@ -26,18 +28,4 @@ function NearOffers({isError, isLoading, offers}) {
   );
 }
 
-NearOffers.propTypes = {
-  isError: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isError: getNearOffersLoadingError(state),
-  isLoading: getNearOffersLoadingStatus(state),
-  offers: getNearOffers(state),
-});
-
-export {NearOffers};
-
-export default connect(mapStateToProps)(NearOffers);
+export default NearOffers;

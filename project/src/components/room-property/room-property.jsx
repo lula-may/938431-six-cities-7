@@ -1,17 +1,17 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
 import Reviews from '../reviews/reviews.jsx';
-import {PROP_OFFER} from '../props.js';
 import {cn, getRatingStyle} from '../../utils.js';
 import { getNearOffers } from '../../store/nearby/selectors.js';
 import {getCurrentRoom} from '../../store/room/selectors.js';
 
 function RoomProperty(props) {
-  const {offer, nearOffers} = props;
+  const offer = useSelector(getCurrentRoom);
+  const nearOffers = useSelector(getNearOffers);
+
   const {
     bedrooms,
     city,
@@ -120,16 +120,4 @@ function RoomProperty(props) {
   );
 }
 
-RoomProperty.propTypes = {
-  nearOffers: PropTypes.arrayOf(PROP_OFFER).isRequired,
-  offer: PROP_OFFER,
-};
-
-const mapStateToProps = (state) => ({
-  offer: getCurrentRoom(state),
-  nearOffers: getNearOffers(state),
-});
-
-export {RoomProperty};
-
-export default connect(mapStateToProps)(RoomProperty);
+export default RoomProperty;

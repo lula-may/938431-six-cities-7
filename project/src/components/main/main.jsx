@@ -1,6 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
 import CitiesList from '../cities-list/cities-list.jsx';
 import Error from '../error/error.jsx';
@@ -8,16 +7,16 @@ import PlacesEmpty from '../places-empty/places-empty';
 import Places from '../places/places';
 import Spinner from '../spinner/spinner';
 
-import {PROP_OFFER} from '../props.js';
-import {CITIES} from '../../const.js';
-import { cn } from '../../utils.js';
-import {getCity, getOffersLoadingError, getOffersLoadingStatus, selectSortedOffers} from '../../store/offers/selectors.js';
+import {cn} from '../../utils.js';
+import {getOffersLoadingError, getOffersLoadingStatus, selectCityOffersCount} from '../../store/offers/selectors.js';
 import Header from '../header/header.jsx';
 
 
-function Main(props) {
-  const {currentCity, isLoadingError, isLoading, offers} = props;
-  const isEmpty = offers.length === 0;
+function Main() {
+  const isLoading = useSelector(getOffersLoadingStatus);
+  const isLoadingError = useSelector(getOffersLoadingError);
+  const offersCount = useSelector(selectCityOffersCount);
+  const isEmpty = !offersCount;
   const mainClassnName = cn('page__main page__main--index', isEmpty && 'page__main--index-empty');
 
   const renderBoard = () => {
@@ -28,13 +27,10 @@ function Main(props) {
       return <Error />;
     }
     if (isEmpty) {
-      return <PlacesEmpty  city={currentCity} />;
+      return <PlacesEmpty />;
     }
     return (
-      <Places
-        city={currentCity}
-        offers={offers}
-      />
+      <Places />
     );
   };
 
@@ -57,19 +53,4 @@ function Main(props) {
   );
 }
 
-Main.propTypes = {
-  currentCity: PropTypes.oneOf(CITIES).isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isLoadingError: PropTypes.bool.isRequired,
-  offers: PropTypes.arrayOf(PROP_OFFER),
-};
-
-const mapStateToProps = (state) => ({
-  isLoading: getOffersLoadingStatus(state),
-  isLoadingError: getOffersLoadingError(state),
-  currentCity: getCity(state),
-  offers: selectSortedOffers(state),
-});
-
-export {Main};
-export default connect(mapStateToProps)(Main);
+export default Main;

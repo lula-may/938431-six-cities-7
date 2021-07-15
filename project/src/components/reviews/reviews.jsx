@@ -1,6 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
 import Comment from '../comment/comment.jsx';
 import CommentForm from '../comment-form/comment-form.jsx';
@@ -8,9 +7,13 @@ import Spinner from '../spinner/spinner.jsx';
 import {AuthorizationStatus} from '../../const.js';
 import {getAuthorizationStatus} from '../../store/user/selectors.js';
 import {selectComments, getCommentsLoadingError, getCommentsLoadingStatus, getCommentsCount} from '../../store/comments/selectors.js';
-import {PROP_COMMENT} from '../props.js';
 
-function Reviews({authorizationStatus, comments, commentsCount, isError, isLoading}) {
+function Reviews() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const comments = useSelector(selectComments);
+  const commentsCount = useSelector(getCommentsCount);
+  const isError = useSelector(getCommentsLoadingError);
+  const isLoading = useSelector(getCommentsLoadingStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   return (
@@ -28,22 +31,4 @@ function Reviews({authorizationStatus, comments, commentsCount, isError, isLoadi
   );
 }
 
-Reviews.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  comments: PropTypes.arrayOf(PROP_COMMENT).isRequired,
-  commentsCount: PropTypes.number.isRequired,
-  isError: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  comments: selectComments(state),
-  commentsCount: getCommentsCount(state),
-  isError: getCommentsLoadingError(state),
-  isLoading: getCommentsLoadingStatus(state),
-});
-
-export {Reviews};
-
-export default connect(mapStateToProps)(Reviews);
+export default Reviews;

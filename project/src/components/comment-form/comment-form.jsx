@@ -1,6 +1,5 @@
 import React, {Fragment, useCallback, useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {MAX_COMMENT_LENGTH, MAX_RATING, MIN_COMMENT_LENGTH, RATINGS} from '../../const';
 import {getUploadingStatus, getUploadingError} from '../../store/comments/selectors';
@@ -8,7 +7,10 @@ import {postComment} from '../../store/comments/api-actions';
 
 const isFormValid = (rating, text) => (text.length >= MIN_COMMENT_LENGTH) && (text.length <= MAX_COMMENT_LENGTH) && rating;
 
-function CommentForm({onSubmit, isError, isUploading}) {
+function CommentForm() {
+  const isUploading = useSelector(getUploadingStatus);
+  const isError = useSelector(getUploadingError);
+  const dispatch = useDispatch();
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -37,9 +39,9 @@ function CommentForm({onSubmit, isError, isUploading}) {
 
   const handleFormSubmit = useCallback((evt) => {
     evt.preventDefault();
-    onSubmit({comment, rating});
+    dispatch(postComment({comment, rating}));
     setIsButtonDisabled(true);
-  }, [onSubmit, comment, rating]);
+  }, [dispatch, comment, rating]);
 
   return (
     <form
@@ -103,21 +105,4 @@ function CommentForm({onSubmit, isError, isUploading}) {
   );
 }
 
-CommentForm.propTypes = {
-  isError: PropTypes.bool.isRequired,
-  isUploading: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isUploading: getUploadingStatus(state),
-  isError: getUploadingError(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (comment) => dispatch(postComment(comment)),
-});
-
-export {CommentForm};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);
+export default CommentForm;

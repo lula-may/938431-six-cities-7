@@ -1,4 +1,4 @@
-import {endLoading, setAuthorizationStatus, setError, setUser, startLoading} from './actions';
+import {endLoading, logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions';
 import {APIRoute, AuthorizationStatus} from '../../const.js';
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -24,7 +24,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     });
 };
 
-export const logout = () => (dispatch, _getState, api) => {
+export const logoutUser = () => (dispatch, _getState, api) => {
   api.delete(APIRoute.LOGOUT)
     .then(() => {
       localStorage.removeItem('token');
