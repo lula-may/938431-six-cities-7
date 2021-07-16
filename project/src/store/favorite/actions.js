@@ -13,7 +13,9 @@ export const endLoading = createAction(ActionType.END_LOADING);
 
 export const loadFavoriteOffers = createAction(ActionType.LOAD_OFFERS,
   (offers) => ({payload: offers}));
+
 export const resetOffers = createAction(ActionType.RESET_OFFERS);
+
 export const setError = createAction(ActionType.SET_ERROR);
 
 export const startLoading = createAction(ActionType.START_LOADING);

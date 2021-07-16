@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {endLoading, loadFavoriteOffers, resetOffers, setError, startLoading, updateFavoriteOffers} from './actions';
-import { updateElements } from '../../utils';
+import {updateElements} from '../../utils';
 const initialState = {
   isError: false,
   isLoading: true,
