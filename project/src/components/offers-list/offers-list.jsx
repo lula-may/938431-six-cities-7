@@ -1,20 +1,31 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import OfferCard from '../offer-card/offer-card';
+import {AppRoute, AuthorizationStatus, ImageSize} from '../../const';
+import {getAuthorizationStatus} from '../../store/user/selectors.js';
+import history from '../../browser-history';
 import {PROP_OFFER} from '../props';
-import {ImageSize} from '../../const';
+import {postOffer} from '../../store/favorite/api-actions.js';
 
 export default function OffersList(props) {
   const {
     cardClassName,
     cardType,
     isPremiumShown,
-    offers,
     onCardEnter,
     onCardLeave,
-    onFavoriteButtonClick,
+    offers,
   } = props;
+
+  const dispatch = useDispatch();
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const onFavoriteButtonClick = useCallback((offer) => {
+    isAuthorized ? dispatch(postOffer(offer)) : history.push(AppRoute.LOGIN);
+  }, [dispatch, isAuthorized]);
 
   const [imageWidth, imageHeight] = ImageSize[cardType];
   return (
@@ -43,5 +54,4 @@ OffersList.propTypes = {
   offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
   onCardEnter: PropTypes.func,
   onCardLeave: PropTypes.func,
-  onFavoriteButtonClick: PropTypes.func.isRequired,
 };

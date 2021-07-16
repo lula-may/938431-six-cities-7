@@ -1,17 +1,24 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useCallback, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
 import Reviews from '../reviews/reviews.jsx';
-import {cn, getRatingStyle} from '../../utils.js';
-import { getNearOffers } from '../../store/nearby/selectors.js';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/user/selectors.js';
+import {getRatingStyle} from '../../utils.js';
+import {getNearOffers} from '../../store/nearby/selectors.js';
 import {getCurrentRoom} from '../../store/room/selectors.js';
+import history from '../../browser-history';
+import {postOffer} from '../../store/favorite/api-actions.js';
 
-function RoomProperty(props) {
+function RoomProperty() {
   const offer = useSelector(getCurrentRoom);
   const nearOffers = useSelector(getNearOffers);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
+  const [isFavorite, setFavorite] = useState(offer.isFavorite);
   const {
     bedrooms,
     city,
@@ -19,7 +26,6 @@ function RoomProperty(props) {
     goods,
     host: {avatarUrl, isPro, name: hostName},
     images,
-    isFavorite,
     isPremium,
     maxAdults,
     price,
@@ -27,6 +33,16 @@ function RoomProperty(props) {
     title,
     type,
   } = offer;
+  const dispatch = useDispatch();
+
+  const onFavoriteButtonClick = useCallback(() => {
+    if (isAuthorized) {
+      dispatch(postOffer(offer));
+      setFavorite((prev) => !prev);
+      return;
+    }
+    history.push(AppRoute.LOGIN);
+  }, [dispatch, isAuthorized, offer]);
 
   const ratingStyle = getRatingStyle(rating);
   const hostProClass = isPro ? 'property__avatar-wrapper--pro' : '';
@@ -52,11 +68,9 @@ function RoomProperty(props) {
           <div className="property__name-wrapper">
             <h1 className="property__name">{title}</h1>
             <BookmarkButton
-              className={cn(
-                'property__bookmark-button',
-                isFavorite && 'property__bookmark-button--active',
-                'button')}
-              onClick={() => {}}
+              buttonClassName="property__bookmark-button"
+              isFavorite={isFavorite}
+              onClick={onFavoriteButtonClick}
             >
               <svg className="property__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
