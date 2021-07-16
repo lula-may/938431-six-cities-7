@@ -62,11 +62,8 @@ function OfferCard(props) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <BookmarkButton
-            className={cn(
-              'place-card__bookmark-button',
-              isFavorite && 'place-card__bookmark-button--active',
-              'button',
-            )}
+            buttonClassName="place-card__bookmark-button"
+            isFavorite={isFavorite}
             onClick={handleFavoriteButtonClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">

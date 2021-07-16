@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function BookmarkButton({children, className, onClick}) {
+import {cn} from '../../utils';
+
+export default function BookmarkButton({buttonClassName, children, isFavorite, onClick}) {
+  const className = cn(buttonClassName, isFavorite && `${buttonClassName}--active`, 'button');
   return (
     <button
       className={className}
@@ -15,7 +18,8 @@ export default function BookmarkButton({children, className, onClick}) {
 }
 
 BookmarkButton.propTypes = {
+  buttonClassName: PropTypes.string.isRequired,
   children: PropTypes.node,
-  className: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 };
