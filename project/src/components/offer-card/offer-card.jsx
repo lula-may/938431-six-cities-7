@@ -23,7 +23,6 @@ function OfferCard(props) {
 
   const {
     id,
-    images,
     isFavorite,
     isPremium,
     previewImage,
@@ -33,13 +32,13 @@ function OfferCard(props) {
     type,
   } = offer;
 
-  const imageUrl = (cardType === CardType.FAVORITES) ? previewImage : images[0];
-
   const imageWrapperClassName = cn(`${cardType}__image-wrapper`, 'place-card__image-wrapper');
   const isCitiesType = cardType === CardType.CITIES;
   const infoClassName = cn( !isCitiesType && `${cardType}__info`,'place-card__info');
   const placeRoot = `${AppRoute.ROOM}/${id}`;
+
   const handleMouseEnter = useCallback(() => onCardEnter && onCardEnter(offer), [onCardEnter, offer]);
+  const handleFavoriteButtonClick = useCallback(() => onFavoriteButtonClick(offer), [offer, onFavoriteButtonClick]);
 
   return (
     <article
@@ -53,7 +52,7 @@ function OfferCard(props) {
         </div>}
       <div className={imageWrapperClassName}>
         <Link to={placeRoot}>
-          <img className="place-card__image" src={imageUrl} width={imageWidth} height={imageHeight} alt="Place"/>
+          <img className="place-card__image" src={previewImage} width={imageWidth} height={imageHeight} alt="Place"/>
         </Link>
       </div>
       <div className={infoClassName}>
@@ -68,7 +67,7 @@ function OfferCard(props) {
               isFavorite && 'place-card__bookmark-button--active',
               'button',
             )}
-            onClick={onFavoriteButtonClick}
+            onClick={handleFavoriteButtonClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

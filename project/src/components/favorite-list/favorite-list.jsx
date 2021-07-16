@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 
 import FavoriteCity from '../favorite-city/favorite-city';
 import {getUniqueItems} from '../../utils.js';
-import {getFavoriteOffers} from '../../store/offers/selectors';
+import {getFavoriteOffers} from '../../store/favorite/selectors';
 
 const filterOffersByCity = (offers, name) => offers.filter(({city}) => city.name === name);
 

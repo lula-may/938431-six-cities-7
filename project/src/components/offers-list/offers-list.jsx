@@ -13,6 +13,7 @@ export default function OffersList(props) {
     offers,
     onCardEnter,
     onCardLeave,
+    onFavoriteButtonClick,
   } = props;
 
   const [imageWidth, imageHeight] = ImageSize[cardType];
@@ -28,7 +29,7 @@ export default function OffersList(props) {
           offer={offer}
           onCardEnter={onCardEnter}
           onCardLeave={onCardLeave}
-          onFavoriteButtonClick={() => {}}
+          onFavoriteButtonClick={onFavoriteButtonClick}
           type={cardType}
         />))}
     </Fragment>
@@ -42,4 +43,5 @@ OffersList.propTypes = {
   offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
   onCardEnter: PropTypes.func,
   onCardLeave: PropTypes.func,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
 };
