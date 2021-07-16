@@ -1,5 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {endLoading, loadNearOffers, setError, startLoading} from './actions.js';
+import {endLoading, loadNearOffers, setError, startLoading, updateNearbyOffers} from './actions.js';
+import {replaceElement} from '../../utils';
 
 const initialState = {
   nearOffers: [],
@@ -23,7 +24,11 @@ const reducer = createReducer(initialState, (builder) => {
       state.isError = false;
       state.isLoading = true;
       state.nearOffers = [];
+    })
+    .addCase(updateNearbyOffers, (state, action) => {
+      state.nearOffers = replaceElement(action.payload, state.nearOffers);
     });
+
 });
 
 export {reducer};

@@ -2,6 +2,7 @@ import {APIRoute} from '../../const.js';
 import {adaptOffer} from '../../services/adapter.js';
 import {endLoading, loadFavoriteOffers, setError, startLoading, updateFavoriteOffers} from './actions';
 import {updateOffer} from '../offers/actions.js';
+import {updateNearbyOffers} from '../nearby/actions.js';
 
 export const fetchFavoriteList = () => (dispatch, _getState, api) => {
   dispatch(startLoading());
@@ -29,6 +30,7 @@ export const postOffer = (offer) => (dispatch, _getState, api) => {
       const newOffer = adaptOffer(data);
       dispatch(updateFavoriteOffers(newOffer));
       dispatch(updateOffer(newOffer));
+      dispatch(updateNearbyOffers(newOffer));
     })
     .then(() =>{
       dispatch(endLoading());
