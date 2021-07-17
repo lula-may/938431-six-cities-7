@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {useSelector} from 'react-redux';
 
 import CitiesList from '../cities-list/cities-list.jsx';
@@ -17,9 +17,9 @@ function Main() {
   const isLoadingError = useSelector(getOffersLoadingError);
   const offersCount = useSelector(selectCityOffersCount);
   const isEmpty = !offersCount;
-  const mainClassnName = cn('page__main page__main--index', isEmpty && 'page__main--index-empty');
+  const mainClassnName = useMemo(() => cn('page__main page__main--index', isEmpty && 'page__main--index-empty'), [isEmpty]);
 
-  const renderBoard = () => {
+  const renderBoard = useMemo(() => {
     if (isLoading) {
       return <Spinner />;
     }
@@ -32,7 +32,7 @@ function Main() {
     return (
       <Places />
     );
-  };
+  }, [isEmpty, isLoading, isLoadingError]);
 
   return (
     <div className="page page--gray page--main">
@@ -46,7 +46,7 @@ function Main() {
           </section>
         </div>
         <div className="cities">
-          {renderBoard()}
+          {renderBoard}
         </div>
       </main>
     </div>
