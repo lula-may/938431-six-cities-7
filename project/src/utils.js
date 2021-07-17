@@ -10,18 +10,6 @@ const formatDate = (date) => {
   }
 };
 
-const getElementById = (elements, elementId) => elements.find(({id}) => id === elementId);
-
-const getOffersByCity = (offers, cityName) => offers.filter(({city}) => city.name === cityName);
-
-const getRestElements = (elements, element) => {
-  const index = elements.findIndex(({id}) => id === element.id);
-  if (index === -1) {
-    return elements;
-  }
-  return [...elements.slice(0, index), ...elements.slice(index + 1)];
-};
-
 const cn = (...args) => args.filter(Boolean).join(' ');
 
 const sortOffersByType = (offers, type) => {
@@ -40,4 +28,21 @@ const sortOffersByType = (offers, type) => {
   }
 };
 
-export {cn, getElementById, getOffersByCity, getRatingStyle, getRestElements, getUniqueItems, formatDate, sortOffersByType};
+const updateElements = (element, elements) => {
+  const index = elements.findIndex(({id}) => id === element.id);
+  if (index === -1) {
+    elements.push(element);
+    return elements;
+  }
+  return [...elements.slice(0, index), ...elements.slice(index + 1)];
+};
+
+const replaceElement = (element, elements) => {
+  const index = elements.findIndex(({id}) => id === element.id);
+  if (index === -1) {
+    return elements;
+  }
+  return [...elements.slice(0, index), element, ...elements.slice(index + 1)];
+};
+
+export {cn, getRatingStyle, getUniqueItems, formatDate, replaceElement, sortOffersByType, updateElements};
