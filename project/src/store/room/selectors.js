@@ -8,4 +8,6 @@ const getRoomLoadingError = (state) => state[NAME_SPACE].isError;
 
 const getRoomLoadingStatus = (state) => state[NAME_SPACE].isLoading;
 
-export {getCurrentRoom, getRoomLoadingError, getRoomLoadingStatus};
+const getRoomNotFound = (state) => state[NAME_SPACE].isNotFound;
+
+export {getCurrentRoom, getRoomLoadingError, getRoomLoadingStatus, getRoomNotFound};
