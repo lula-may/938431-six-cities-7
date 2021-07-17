@@ -12,7 +12,6 @@ import SignIn from '../sign-in/sign-in.jsx';
 import {AppRoute} from '../../const.js';
 import {fetchOfferList} from '../../store/offers/api-actions.js';
 import {checkAuth} from '../../store/user/api-actions.js';
-import {fetchFavoriteList} from '../../store/favorite/api-actions.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +19,6 @@ function App() {
   useEffect(() => {
     dispatch(fetchOfferList());
     dispatch(checkAuth());
-    dispatch(fetchFavoriteList());
   }, [dispatch]);
 
   return (

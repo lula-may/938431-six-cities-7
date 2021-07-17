@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
+import { fetchFavoriteList } from '../../store/favorite/api-actions.js';
 
 import FavoriteList from '../favorite-list/favorite-list.jsx';
 import Header from '../header/header.jsx';
 
 function Favorites() {
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(fetchFavoriteList()), [dispatch]);
   return (
     <div className="page">
       <Header />

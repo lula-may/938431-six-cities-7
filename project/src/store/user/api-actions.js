@@ -1,5 +1,4 @@
 import {APIRoute, AuthorizationStatus} from '../../const.js';
-import {fetchFavoriteList} from '../favorite/api-actions.js';
 import {fetchOfferList} from '../offers/api-actions.js';
 import {logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions';
 import {resetOffers as resetFavoriteOffers} from '../favorite/actions.js';
@@ -22,7 +21,6 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
       dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
     })
     .then(() => dispatch(fetchOfferList()))
-    .then(() => dispatch(fetchFavoriteList()))
     .catch(() => {
       dispatch(setError());
     });
