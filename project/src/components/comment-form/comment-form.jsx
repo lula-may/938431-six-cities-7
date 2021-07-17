@@ -1,11 +1,22 @@
-import React, {Fragment, useCallback, useEffect, useState} from 'react';
+import React, {Fragment, useCallback, useEffect, useMemo, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {MAX_COMMENT_LENGTH, MAX_RATING, MIN_COMMENT_LENGTH, RATINGS} from '../../const';
 import {getUploadingStatus, getUploadingError} from '../../store/comments/selectors';
 import {postComment} from '../../store/comments/api-actions';
 
-const isFormValid = (rating, text) => (text.length >= MIN_COMMENT_LENGTH) && (text.length <= MAX_COMMENT_LENGTH) && rating;
+const ERROR_STYLE = {border: '2px solid red'};
+const isCommentTextValid = (text) => (text.length >= MIN_COMMENT_LENGTH) && (text.length <= MAX_COMMENT_LENGTH);
+
+const getFormErrors = (data) => ({
+  text: !isCommentTextValid(data.comment) ? 'Comment should be at least 50 characters' : undefined,
+  rating: !data.rating ? 'Rating is not set' : undefined,
+});
+
+const isFormValid = (data) => {
+  const errors = getFormErrors(data);
+  return Object.values(errors).every((err) => !err);
+};
 
 function CommentForm() {
   const isUploading = useSelector(getUploadingStatus);
@@ -13,40 +24,45 @@ function CommentForm() {
   const dispatch = useDispatch();
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isValidForm, setIsValidForm] = useState(false);
+  const [hasValidityError, setValidityError] = useState(false);
+
+  const errorStyle = useMemo(() => hasValidityError ? ERROR_STYLE : null, [hasValidityError]);
 
   useEffect(() => {
-    if (!(isError || isUploading)) {
+    const isValid = isFormValid({comment, rating});
+    setIsValidForm(isValid);
+    if (isValid) {
+      setValidityError(false);
+    }
+  }, [comment, rating]);
+
+  useEffect(() => {
+    if (!isError && !isUploading) {
       setRating('');
       setComment('');
-    }
-    if (isError) {
-      setIsButtonDisabled(false);
     }
   }, [isError, isUploading]);
 
   const handleRatingChange = useCallback(({target}) => {
     const newRating = Number(target.value);
     setRating(newRating);
-    setIsButtonDisabled(!isFormValid(newRating, comment));
-  }, [comment]);
+  }, []);
 
   const handleReviewTextChange = useCallback(({target}) => {
     const commentText = target.value;
     setComment(commentText);
-    setIsButtonDisabled(!isFormValid(rating, commentText));
-  }, [rating]);
+  }, []);
 
   const handleFormSubmit = useCallback((evt) => {
     evt.preventDefault();
     const trimmedComment = comment.trim();
-    if (!isFormValid(rating, trimmedComment)) {
+    if (!isFormValid({rating, comment: trimmedComment})) {
       setComment(trimmedComment);
-      setIsButtonDisabled(true);
+      setValidityError(true);
       return;
     }
     dispatch(postComment({comment: trimmedComment, rating}));
-    setIsButtonDisabled(true);
   }, [dispatch, comment, rating]);
 
   return (
@@ -90,6 +106,7 @@ function CommentForm() {
         name="review"
         minLength="50"
         maxLength="300"
+        style={errorStyle}
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
         onChange={handleReviewTextChange}
@@ -102,7 +119,7 @@ function CommentForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isButtonDisabled}
+          disabled={!isValidForm || isUploading}
         >
           Submit
         </button>
