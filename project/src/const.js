@@ -3,6 +3,7 @@ export const AppRoute = {
   LOGIN: '/login',
   ROOM: '/offer',
   ROOT: '/',
+  NOT_FOUND: '/404',
 };
 
 export const APIRoute = {
