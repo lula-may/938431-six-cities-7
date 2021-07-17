@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
-import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 
-import browserHistory from '../../browser-history.js';
 import Favorites from '../favorites/favorites.jsx';
 import Main from '../main/main.jsx';
 import NoAuthRoute from '../no-auth-route/no-auth-route.jsx';
@@ -23,7 +22,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <BrowserRouter history={browserHistory}>
+    <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main />
