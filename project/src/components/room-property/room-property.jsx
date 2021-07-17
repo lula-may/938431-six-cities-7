@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {useSelector} from 'react-redux';
 
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
+import Rating from '../rating/rating.jsx';
 import Reviews from '../reviews/reviews.jsx';
-import {cn, getRatingStyle} from '../../utils.js';
-import { getNearOffers } from '../../store/nearby/selectors.js';
+import {cn} from '../../utils.js';
+import {getNearOffers} from '../../store/nearby/selectors.js';
 import {getCurrentRoom} from '../../store/room/selectors.js';
 
-function RoomProperty(props) {
+function RoomProperty() {
   const offer = useSelector(getCurrentRoom);
   const nearOffers = useSelector(getNearOffers);
 
@@ -28,9 +29,8 @@ function RoomProperty(props) {
     type,
   } = offer;
 
-  const ratingStyle = getRatingStyle(rating);
-  const hostProClass = isPro ? 'property__avatar-wrapper--pro' : '';
-  const offers = [offer, ...nearOffers];
+  const hostClass = useMemo(() => cn('property__avatar-wrapper', isPro &&'property__avatar-wrapper--pro', 'user__avatar-wrapper'), [isPro]);
+  const offers = useMemo(() => [offer, ...nearOffers], [nearOffers, offer]);
 
   return (
     <section className="property">
@@ -63,13 +63,12 @@ function RoomProperty(props) {
               </svg>
             </BookmarkButton>
           </div>
-          <div className="property__rating rating">
-            <div className="property__stars rating__stars">
-              <span style={ratingStyle}></span>
-              <span className="visually-hidden">Rating</span>
-            </div>
+          <Rating
+            parentClass="property"
+            rating={rating}
+          >
             <span className="property__rating-value rating__value">{rating}</span>
-          </div>
+          </Rating>
           <ul className="property__features">
             <li className="property__feature property__feature--entire">{type}</li>
             <li className="property__feature property__feature--bedrooms">
@@ -96,7 +95,7 @@ function RoomProperty(props) {
           <div className="property__host">
             <h2 className="property__host-title">Meet the host</h2>
             <div className="property__host-user user">
-              <div className={`property__avatar-wrapper ${hostProClass}  user__avatar-wrapper`}>
+              <div className={hostClass}>
                 <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar" />
               </div>
               <span className="property__user-name">
