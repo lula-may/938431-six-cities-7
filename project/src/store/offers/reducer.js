@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {CITIES, SortType} from '../../const.js';
-import {endLoading, loadOffers, resetSortType, setCity, setError, setSortType, startLoading} from './actions.js';
+import {setOffers, resetSortType, setCity, setError, setSortType, startLoading} from './actions.js';
 
 const defaultCity = CITIES[0];
 const defaultSortType = SortType.POPULAR;
@@ -16,10 +16,8 @@ const initialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(endLoading, (state) => {
+    .addCase(setOffers, (state, action) => {
       state.isLoading = false;
-    })
-    .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
     .addCase(setCity, (state, action) => {

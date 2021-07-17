@@ -1,4 +1,4 @@
-import {endLoading, logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions';
+import {logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions';
 import {APIRoute, AuthorizationStatus} from '../../const.js';
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -17,7 +17,6 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
       localStorage.setItem('token', data.token);
       dispatch(setUser(data.email));
       dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
-      dispatch(endLoading());
     })
     .catch(() => {
       dispatch(setError());

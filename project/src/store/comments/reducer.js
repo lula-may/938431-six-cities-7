@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {endLoading, endUploading, loadComments, setError, setUploadingError, startLoading, startUploading} from './actions.js';
+import {setComments, setError, setUploadingError, startLoading, startUploading} from './actions.js';
 
 const initialState = {
   comments: [],
@@ -11,14 +11,10 @@ const initialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(endLoading, (state) => {
-      state.isLoading = false;
-    })
-    .addCase(endUploading, (state) => {
-      state.isUploading = false;
-    })
-    .addCase(loadComments, (state, action) => {
+    .addCase(setComments, (state, action) => {
       state.comments = action.payload;
+      state.isLoading = false;
+      state.isUploading = false;
     })
     .addCase(setError, (state) => {
       state.isError = true;

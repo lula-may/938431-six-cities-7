@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {AuthorizationStatus} from '../../const';
-import {endLoading, logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions.js';
+import {logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions.js';
 
 const initialState = {
   userEmail: null,
@@ -11,14 +11,12 @@ const initialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(endLoading, (state) => {
-      state.isLoading = false;
-    })
     .addCase(logout, (state) => {
       state.authorizationStatus = AuthorizationStatus.NO_AUTH;
       state.userEmail = null;
     })
     .addCase(setAuthorizationStatus, (state, action) => {
+      state.isLoading = false;
       state.authorizationStatus = action.payload;
     })
     .addCase(setError, (state) => {

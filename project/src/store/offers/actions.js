@@ -1,7 +1,6 @@
-import { createAction } from '@reduxjs/toolkit';
+import {createAction} from '@reduxjs/toolkit';
 
 export const ActionType = {
-  END_LOADING: 'OFFERS/END_LOADING',
   LOAD_OFFERS: 'OFFERS/LOAD_OFFERS',
   LOAD_FAVORITE_OFFERS: 'OFFERS/LOAD_FAVORITE_OFFERS',
   RESET_SORT_TYPE: 'OFFERS/RESET_SORT_TYPE',
@@ -11,12 +10,10 @@ export const ActionType = {
   START_LOADING: 'OFFERS/START_LOADING',
 };
 
-export const endLoading = createAction(ActionType.END_LOADING);
-
-export const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS,
+export const setFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS,
   (offers) => ({payload: offers}));
 
-export const loadOffers = createAction(ActionType.LOAD_OFFERS,
+export const setOffers = createAction(ActionType.LOAD_OFFERS,
   (offers) => ({payload: offers}));
 
 export const setCity = createAction(ActionType.SET_CITY,

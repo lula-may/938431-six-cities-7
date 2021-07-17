@@ -1,4 +1,4 @@
-import {endLoading, endUploading, loadComments, setError, setUploadingError, startUploading, startLoading} from './actions';
+import {setComments, setError, setUploadingError, startUploading, startLoading} from './actions';
 import {APIRoute} from '../../const.js';
 import {adaptComment} from '../../services/adapter.js';
 import {getCurrentRoom} from '../room/selectors';
@@ -9,10 +9,7 @@ export const fetchComments = (id) => (dispatch, _getState, api) => {
   api.get(url)
     .then(({data}) => {
       const comments = data.map(adaptComment);
-      dispatch(loadComments(comments));
-    })
-    .then(() =>{
-      dispatch(endLoading());
+      dispatch(setComments(comments));
     })
     .catch((err) => {
       dispatch(setError());
@@ -28,10 +25,7 @@ export const postComment = (comment) => (dispatch, getState, api) => {
   api.post(url, comment)
     .then(({data}) => {
       const comments = data.map(adaptComment);
-      dispatch(loadComments(comments));
-    })
-    .then(() =>{
-      dispatch(endUploading());
+      dispatch(setComments(comments));
     })
     .catch((err) => {
       dispatch(setUploadingError());

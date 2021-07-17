@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {endLoading, loadRoom, setError, startLoading} from './actions.js';
+import {setRoom, setError, startLoading} from './actions.js';
 
 const initialState = {
   room: null,
@@ -9,10 +9,8 @@ const initialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(endLoading, (state) => {
+    .addCase(setRoom, (state, action) => {
       state.isLoading = false;
-    })
-    .addCase(loadRoom, (state, action) => {
       state.room = action.payload;
     })
     .addCase(setError, (state) => {
