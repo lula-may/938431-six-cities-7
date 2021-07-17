@@ -1,10 +1,9 @@
 import React, {Fragment, useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import OfferCard from '../offer-card/offer-card';
-import {AuthorizationStatus, ImageSize} from '../../const';
-import {getAuthorizationStatus} from '../../store/user/selectors.js';
+import {ImageSize} from '../../const';
 import {PROP_OFFER} from '../props';
 import {postOffer} from '../../store/favorite/api-actions.js';
 
@@ -19,12 +18,8 @@ export default function OffersList(props) {
   } = props;
 
   const dispatch = useDispatch();
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
-  const onFavoriteButtonClick = useCallback((offer) => {
-    isAuthorized && dispatch(postOffer(offer));
-  }, [dispatch, isAuthorized]);
+  const onFavoriteButtonClick = useCallback((offer) => dispatch(postOffer(offer)), [dispatch]);
 
   const [imageWidth, imageHeight] = ImageSize[cardType];
   return (

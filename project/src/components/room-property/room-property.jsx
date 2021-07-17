@@ -1,5 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {Redirect} from 'react-router-dom';
+import React, {useCallback, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
@@ -7,8 +6,6 @@ import Map from '../map/map.jsx';
 import Rating from '../rating/rating.jsx';
 import Reviews from '../reviews/reviews.jsx';
 import {cn} from '../../utils.js';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {getAuthorizationStatus} from '../../store/user/selectors.js';
 import {getNearOffers} from '../../store/nearby/selectors.js';
 import {getCurrentRoom} from '../../store/room/selectors.js';
 import {postOffer} from '../../store/favorite/api-actions.js';
@@ -16,10 +13,7 @@ import {postOffer} from '../../store/favorite/api-actions.js';
 function RoomProperty() {
   const offer = useSelector(getCurrentRoom);
   const nearOffers = useSelector(getNearOffers);
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
-  const [isFavorite, setFavorite] = useState(offer.isFavorite);
   const {
     bedrooms,
     city,
@@ -27,6 +21,7 @@ function RoomProperty() {
     goods,
     host: {avatarUrl, isPro, name: hostName},
     images,
+    isFavorite,
     isPremium,
     maxAdults,
     price,
@@ -36,16 +31,10 @@ function RoomProperty() {
   } = offer;
   const dispatch = useDispatch();
 
-  const onFavoriteButtonClick = useCallback(() => {
-    if (isAuthorized) {
-      dispatch(postOffer(offer));
-      setFavorite((prev) => !prev);
-      return;
-    }
-    return <Redirect to={AppRoute.LOGIN} />;
-  }, [dispatch, isAuthorized, offer]);
+  const onFavoriteButtonClick = useCallback(() => dispatch(postOffer(offer)), [dispatch, offer]);
 
   const hostClass = useMemo(() => cn('property__avatar-wrapper', isPro &&'property__avatar-wrapper--pro', 'user__avatar-wrapper'), [isPro]);
+
   const offers = useMemo(() => [offer, ...nearOffers], [nearOffers, offer]);
 
   return (
