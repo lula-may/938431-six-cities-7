@@ -1,12 +1,15 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {AuthorizationStatus} from '../../const';
-import {logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions.js';
+import {logout, setAuthorizationStatus, setError, setToken, setUser, startLoading} from './actions.js';
+
+const token = localStorage.getItem('token') ?? '';
 
 const initialState = {
-  userEmail: null,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  isLoading: true,
   isError: false,
+  isLoading: true,
+  token,
+  userEmail: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -22,6 +25,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setError, (state) => {
       state.isError = true;
       state.isLoading = false;
+    })
+    .addCase(setToken, (state, action) => {
+      state.token = action.payload;
     })
     .addCase(setUser, (state, action) => {
       state.userEmail = action.payload;
