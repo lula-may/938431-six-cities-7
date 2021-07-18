@@ -2,6 +2,7 @@ import {APIRoute, AuthorizationStatus} from '../../const.js';
 import {fetchOfferList} from '../offers/api-actions.js';
 import {logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions';
 import {resetOffers as resetFavoriteOffers} from '../favorite/actions.js';
+import { fetchFavoriteList } from '../favorite/api-actions.js';
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
@@ -9,7 +10,8 @@ export const checkAuth = () => (dispatch, _getState, api) => (
       dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
       dispatch(setUser(data.email));
     })
-    .catch(() => {})
+    .then(() => dispatch(fetchFavoriteList()))
+    .catch((err) => err)
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => {
@@ -21,6 +23,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
       dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
     })
     .then(() => dispatch(fetchOfferList()))
+    .then(() => dispatch(fetchFavoriteList()))
     .catch(() => {
       dispatch(setError());
     });

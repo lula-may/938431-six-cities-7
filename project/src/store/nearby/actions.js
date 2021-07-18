@@ -7,8 +7,6 @@ export const ActionType = {
   UPDATE_OFFERS: 'NEARBY/UPDATE_OFFERS',
 };
 
-export const endLoading = createAction(ActionType.END_LOADING);
-
 export const setNearOffers = createAction(ActionType.LOAD_NEARBY,
   (offers) => ({
     payload: offers,
