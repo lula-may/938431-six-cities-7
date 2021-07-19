@@ -24,18 +24,24 @@ function CommentForm() {
   const dispatch = useDispatch();
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
+  // isValidForm отвечает за состояние кнопки: disabled
   const [isValidForm, setIsValidForm] = useState(false);
-  const [hasValidityError, setValidityError] = useState(false);
 
-  const errorStyle = useMemo(() => hasValidityError ? ERROR_STYLE : null, [hasValidityError]);
+  // isInvalidOnSubmit - отвечает за появление красной рамки у textarea
+  // Пока пользователь только начинает печатать, красной рамки нет
+  // При попытке отправить форму, удаляются пробелы в начале и в конце текста
+  // форма может стать невалидной, тогда и появляется красная рамка
+  const [isInvalidOnSubmit, setIsInvalidOnSubmit] = useState(false);
+
+  const errorStyle = useMemo(() => isInvalidOnSubmit ? ERROR_STYLE : null, [isInvalidOnSubmit]);
 
   useEffect(() => {
     const isValid = isFormValid({comment, rating});
-    setIsValidForm(isValid);
-    if (isValid) {
-      setValidityError(false);
+    if (isValid !== isValidForm) {
+      setIsValidForm(isValid);
+      isValid && setIsInvalidOnSubmit(false);
     }
-  }, [comment, rating]);
+  }, [comment, isValidForm, rating]);
 
   useEffect(() => {
     if (!isError && !isUploading) {
@@ -59,7 +65,7 @@ function CommentForm() {
     const trimmedComment = comment.trim();
     if (!isFormValid({rating, comment: trimmedComment})) {
       setComment(trimmedComment);
-      setValidityError(true);
+      setIsInvalidOnSubmit(true);
       return;
     }
     dispatch(postComment({comment: trimmedComment, rating}));
