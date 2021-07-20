@@ -8,8 +8,6 @@ const getOffers = (state) => state[NAME_SPACE].offers;
 
 const getCity = (state) => state[NAME_SPACE].city;
 
-const getFavoriteOffers = (state) => state[NAME_SPACE].favoriteOffers;
-
 const getSortType = (state) => state[NAME_SPACE].sortType;
 
 const getOffersLoadingError = (state) => state[NAME_SPACE].isError;
@@ -33,4 +31,4 @@ const selectCityOffersCount = createSelector(
   (offers) => offers.length,
 );
 
-export {getCity, getFavoriteOffers, getOffersLoadingError, getOffersLoadingStatus, getSortType, selectOffersByCity, selectCityOffersCount, selectSortedOffers};
+export {getCity, getOffersLoadingError, getOffersLoadingStatus, getSortType, selectOffersByCity, selectCityOffersCount, selectSortedOffers};

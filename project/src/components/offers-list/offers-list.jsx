@@ -1,19 +1,25 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useCallback} from 'react';
+import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import OfferCard from '../offer-card/offer-card';
-import {PROP_OFFER} from '../props';
 import {ImageSize} from '../../const';
+import {PROP_OFFER} from '../props';
+import {postOffer} from '../../store/favorite/api-actions.js';
 
 export default function OffersList(props) {
   const {
     cardClassName,
     cardType,
     isPremiumShown,
-    offers,
     onCardEnter,
     onCardLeave,
+    offers,
   } = props;
+
+  const dispatch = useDispatch();
+
+  const onFavoriteButtonClick = useCallback((offer) => dispatch(postOffer(offer)), [dispatch]);
 
   const [imageWidth, imageHeight] = ImageSize[cardType];
   return (
@@ -28,7 +34,7 @@ export default function OffersList(props) {
           offer={offer}
           onCardEnter={onCardEnter}
           onCardLeave={onCardLeave}
-          onFavoriteButtonClick={() => {}}
+          onFavoriteButtonClick={onFavoriteButtonClick}
           type={cardType}
         />))}
     </Fragment>

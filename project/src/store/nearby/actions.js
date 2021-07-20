@@ -1,12 +1,13 @@
 import {createAction} from '@reduxjs/toolkit';
 
 export const ActionType = {
-  LOAD_NEAR_OFFERS: 'NEAR_OFFERS/LOAD_NEAR_OFFERS',
-  SET_ERROR: 'NEAR_OFFERS/SET_ERROR',
-  START_LOADING: 'NEAR_OFFERS/START_LOADING',
+  LOAD_NEARBY: 'NEARBY/LOAD_OFFERS',
+  SET_ERROR: 'NEARBY/SET_ERROR',
+  START_LOADING: 'NEARBY/START_LOADING',
+  UPDATE_OFFERS: 'NEARBY/UPDATE_OFFERS',
 };
 
-export const setNearOffers = createAction(ActionType.LOAD_NEAR_OFFERS,
+export const setNearOffers = createAction(ActionType.LOAD_NEARBY,
   (offers) => ({
     payload: offers,
   }));
@@ -14,3 +15,5 @@ export const setNearOffers = createAction(ActionType.LOAD_NEAR_OFFERS,
 export const setError = createAction(ActionType.SET_ERROR);
 
 export const startLoading = createAction(ActionType.START_LOADING);
+
+export const updateNearbyOffers = createAction(ActionType.UPDATE_OFFERS, (offer) => ({payload: offer}));
