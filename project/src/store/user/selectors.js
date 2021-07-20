@@ -10,6 +10,4 @@ const getAuthorizationStatus = (state) => state[NAME_SPACE].authorizationStatus;
 
 const getUserLoadingStatus = (state) => state[NAME_SPACE].isLoading;
 
-const getToken = (state) => state[NAME_SPACE].token;
-
-export {getAuthorizationStatus, getLoginError, getUserEmail, getUserLoadingStatus, getToken};
+export {getAuthorizationStatus, getLoginError, getUserEmail, getUserLoadingStatus};
