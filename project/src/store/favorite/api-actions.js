@@ -3,11 +3,9 @@ import {adaptOffer} from '../../services/adapter.js';
 import {setFavoriteOffers, setError, startLoading, updateFavoriteOffers} from './actions';
 import {updateOffer} from '../offers/actions.js';
 import {updateNearbyOffers} from '../nearby/actions.js';
-import { getToken } from '../user/selectors.js';
-export const fetchFavoriteList = () => (dispatch, getState, api) => {
-  const headers = {'X-Token': getToken(getState())};
+export const fetchFavoriteList = () => (dispatch, _getState, api) => {
   dispatch(startLoading());
-  api.get(APIRoute.FAVORITES, {headers: headers})
+  api.get(APIRoute.FAVORITES)
     .then(({data}) => {
       const offers = data.map(adaptOffer);
       dispatch(setFavoriteOffers(offers));
@@ -18,13 +16,12 @@ export const fetchFavoriteList = () => (dispatch, getState, api) => {
     });
 };
 
-export const postOffer = (offer) => (dispatch, getState, api) => {
-  const headers = {'X-Token': getToken(getState())};
+export const postOffer = (offer) => (dispatch, _getState, api) => {
   const {id, isFavorite} = offer;
   const status = Number(!isFavorite);
   dispatch(startLoading());
   const url = `${APIRoute.FAVORITES}/${id}/${status}`;
-  api.post(url, null, {headers: headers})
+  api.post(url, null)
     .then(({data}) => {
       const newOffer = adaptOffer(data);
       dispatch(updateFavoriteOffers(newOffer));

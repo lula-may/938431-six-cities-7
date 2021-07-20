@@ -3,11 +3,9 @@ import {fetchOfferList} from '../offers/api-actions.js';
 import {logout, setAuthorizationStatus, setError, setToken, setUser, startLoading} from './actions';
 import {resetOffers as resetFavoriteOffers} from '../favorite/actions.js';
 import { fetchFavoriteList } from '../favorite/api-actions.js';
-import { getToken } from './selectors.js';
 
-export const checkAuth = () => (dispatch, getState, api) => {
-  const headers = {'X-Token': getToken(getState())};
-  api.get(APIRoute.LOGIN, {headers: headers})
+export const checkAuth = () => (dispatch, _getState, api) => {
+  api.get(APIRoute.LOGIN)
     .then(({data}) => {
       dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
       dispatch(setUser(data.email));
@@ -17,9 +15,8 @@ export const checkAuth = () => (dispatch, getState, api) => {
 };
 
 export const login = ({login: email, password}) => (dispatch, getState, api) => {
-  const headers = {'X-Token': getToken(getState())};
   dispatch(startLoading());
-  api.post(APIRoute.LOGIN, {email, password}, {headers: headers})
+  api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
       dispatch(setToken(data.token));
@@ -33,9 +30,8 @@ export const login = ({login: email, password}) => (dispatch, getState, api) => 
     });
 };
 
-export const logoutUser = () => (dispatch, getState, api) => {
-  const headers = {'X-Token': getToken(getState())};
-  api.delete(APIRoute.LOGOUT, {headers: headers})
+export const logoutUser = () => (dispatch, _getState, api) => {
+  api.delete(APIRoute.LOGOUT)
     .then(() => {
       localStorage.removeItem('token');
       dispatch(setToken(''));
