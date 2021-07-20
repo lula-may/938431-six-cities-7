@@ -1,18 +1,18 @@
 import React, {useCallback, useState} from 'react';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Sorting from '../sorting/sorting.jsx';
-import {PROP_OFFER} from '../props.js';
-import {CardType, CITIES} from '../../const.js';
+import {CardType} from '../../const.js';
+import {getCity, selectSortedOffers} from '../../store/offers/selectors.js';
 
-export default function Places({offers, city}) {
+export default function Places() {
   const [activeCard, setActiveCard] = useState(null);
   const handleCardLeave = useCallback(() => setActiveCard(null), []);
-
+  const city = useSelector(getCity);
+  const offers = useSelector(selectSortedOffers);
   const offersCount = offers.length;
-  const isPremiumShown = true;
 
   return (
     <div className="cities__places-container container">
@@ -24,7 +24,7 @@ export default function Places({offers, city}) {
           <OffersList
             cardClassName="cities__place-card"
             cardType={CardType.CITIES}
-            isPremiumShown={isPremiumShown}
+            isPremiumShown
             offers={offers}
             onCardEnter={setActiveCard}
             onCardLeave={handleCardLeave}
@@ -42,8 +42,3 @@ export default function Places({offers, city}) {
     </div>
   );
 }
-
-Places.propTypes = {
-  offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
-  city: PropTypes.oneOf(CITIES).isRequired,
-};

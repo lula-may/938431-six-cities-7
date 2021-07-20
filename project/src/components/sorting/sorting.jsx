@@ -1,9 +1,8 @@
 import React, {useCallback, useState} from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import {cn} from '../../utils';
 import {SortType} from '../../const';
-import {ActionCreator} from '../../store/offers/actions';
+import {setSortType} from '../../store/offers/actions';
 import {getSortType} from '../../store/offers/selectors';
 
 const TypeToText = {
@@ -15,16 +14,20 @@ const TypeToText = {
 
 const sortingTypes = Object.values(SortType);
 
-function Sorting({sortType, onSortTypeChange}) {
+function Sorting() {
+  const sortType = useSelector(getSortType);
+  const dispatch = useDispatch();
   const [isOpened, setIsOpened] = useState(false);
+
   const onSortingClick = useCallback(() => setIsOpened((prev) => !prev), []);
+
   const onSortTypeClick = useCallback((evt) => {
     const newType = evt.target.dataset.type;
     if (newType === sortType) {
       return;
     }
-    onSortTypeChange(newType);
-  }, [onSortTypeChange, sortType]);
+    dispatch(setSortType(newType));
+  }, [dispatch, sortType]);
 
   const optionsClassName = cn('places__options places__options--custom', isOpened && 'places__options--opened');
 
@@ -54,21 +57,4 @@ function Sorting({sortType, onSortTypeChange}) {
   );
 }
 
-Sorting.propTypes = {
-  sortType: PropTypes.oneOf(sortingTypes).isRequired,
-  onSortTypeChange: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  sortType: getSortType(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSortTypeChange: (sortType) => {
-    dispatch(ActionCreator.setSortType(sortType));
-  },
-});
-
-export {Sorting};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
+export default Sorting;

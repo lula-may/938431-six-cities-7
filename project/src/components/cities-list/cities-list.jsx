@@ -1,12 +1,17 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import React, {useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import CityTab from '../city-tab/city-tab';
 import {CITIES} from '../../const';
-import {ActionCreator} from '../../store/offers/actions';
+import {resetSortType, setCity} from '../../store/offers/actions';
 import {getCity} from '../../store/offers/selectors';
 
-function CitiesList ({currentCity, onTabClick}) {
+function CitiesList() {
+  const currentCity = useSelector(getCity);
+  const dispatch = useDispatch();
+  const onTabClick = useCallback((city) => {
+    dispatch(setCity(city));
+    dispatch(resetSortType());
+  }, [dispatch]);
   return (
     <ul className="locations__list tabs__list">
       {CITIES.map((cityName) => (
@@ -21,22 +26,4 @@ function CitiesList ({currentCity, onTabClick}) {
   );
 }
 
-CitiesList.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-  onTabClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentCity: getCity(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onTabClick: (city) => {
-    dispatch(ActionCreator.setCity(city));
-    dispatch(ActionCreator.resetSortType());
-  },
-});
-
-export {CitiesList};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+export default CitiesList;

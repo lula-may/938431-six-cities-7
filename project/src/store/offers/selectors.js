@@ -28,4 +28,9 @@ const selectSortedOffers = createSelector(
   (sortType, offers) => sortOffersByType(offers, sortType),
 );
 
-export {getCity, getFavoriteOffers, getOffersLoadingError, getOffersLoadingStatus, getSortType, selectOffersByCity, selectSortedOffers};
+const selectCityOffersCount = createSelector(
+  selectOffersByCity,
+  (offers) => offers.length,
+);
+
+export {getCity, getFavoriteOffers, getOffersLoadingError, getOffersLoadingStatus, getSortType, selectOffersByCity, selectCityOffersCount, selectSortedOffers};

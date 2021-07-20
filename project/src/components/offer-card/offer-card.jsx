@@ -75,7 +75,7 @@ function OfferCard(props) {
             </svg>
           </BookmarkButton>
         </div>
-        <Rating rating={rating} />
+        <Rating rating={rating} parentClass="place-card"/>
         <h2 className="place-card__name">
           <Link to={placeRoot}>{title}</Link>
         </h2>

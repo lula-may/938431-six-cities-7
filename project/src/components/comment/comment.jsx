@@ -25,7 +25,7 @@ export default function Comment({comment}) {
         <span className="reviews__user-name">{name}</span>
       </div>
       <div className="reviews__info">
-        <Rating rating={rating} />
+        <Rating rating={rating} parentClass="reviews"/>
         <p className="reviews__text">{text}</p>
         <time className="reviews__time" dateTime={dateTimeAttr}>{commentDate}</time>
       </div>

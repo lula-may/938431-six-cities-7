@@ -1,26 +1,27 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Header from '../header/header.jsx';
 import {AppRoute} from '../../const.js';
 import {login} from '../../store/user/api-actions';
 import {getLoginError} from '../../store/user/selectors';
 
-function SignIn({onSubmit, isError}) {
+function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const isError = useSelector(getLoginError);
+  const dispatch = useDispatch();
 
   const errorStyle = useMemo(() => (isError ? {borderColor: 'red'} : {}), [isError]);
 
   const handleSubmit = useCallback((evt) => {
     evt.preventDefault();
-    onSubmit({
+    dispatch(login({
       login: email,
       password,
-    });
-  }, [email, password, onSubmit]);
+    }));
+  }, [dispatch,email, password]);
 
   const handlePasswordChange = useCallback((evt) => {
     const value = evt.target.value.trim();
@@ -87,19 +88,4 @@ function SignIn({onSubmit, isError}) {
   );
 }
 
-SignIn.propTypes = {
-  isError: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isError: getLoginError(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (authData) => dispatch(login(authData)),
-});
-
-export {SignIn};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

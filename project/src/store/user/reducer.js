@@ -1,50 +1,35 @@
+import {createReducer} from '@reduxjs/toolkit';
 import {AuthorizationStatus} from '../../const';
-import {ActionType} from './actions.js';
+import {logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions.js';
 
 const initialState = {
   userEmail: null,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  isLoading: false,
+  isLoading: true,
   isError: false,
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.END_LOADING:
-      return {
-        ...state,
-        isLoading: false,
-      };
-    case ActionType.LOGOUT:
-      return {
-        ...state,
-        authorizationStatus: AuthorizationStatus.NO_AUTH,
-        userEmail: null,
-      };
-    case ActionType.SET_AUTHORIZATION_STATUS:
-      return {
-        ...state,
-        authorizationStatus: action.payload,
-      };
-    case ActionType.SET_ERROR:
-      return {
-        ...state,
-        isError: true,
-      };
-    case ActionType.SET_USER:
-      return {
-        ...state,
-        userEmail: action.payload,
-      };
-    case ActionType.START_LOADING:
-      return {
-        ...state,
-        isError: false,
-        isLoading: true,
-      };
-    default:
-      return state;
-  }
-};
+const reducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(logout, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NO_AUTH;
+      state.userEmail = null;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.isLoading = false;
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state) => {
+      state.isError = true;
+      state.isLoading = false;
+    })
+    .addCase(setUser, (state, action) => {
+      state.userEmail = action.payload;
+    })
+    .addCase(startLoading, (state) => {
+      state.isError = false;
+      state.isLoading = true;
+    });
+});
 
 export {reducer};
