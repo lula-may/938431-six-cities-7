@@ -2,6 +2,8 @@ import {SortType} from './const';
 
 const getUniqueItems = (items) => items.filter((el, i, els) => els.indexOf(el) === i);
 
+const filterOffersByCity = (cityName, offers) => offers.filter(({city}) => city.name === cityName);
+
 const getRatingStyle = (rating) => ({width: `${Math.round(rating) * 20}%`});
 
 const formatDate = (date) => {
@@ -45,4 +47,4 @@ const replaceElement = (element, elements) => {
   return [...elements.slice(0, index), element, ...elements.slice(index + 1)];
 };
 
-export {cn, getRatingStyle, getUniqueItems, formatDate, replaceElement, sortOffersByType, updateElements};
+export {cn, getRatingStyle, getUniqueItems, filterOffersByCity, formatDate, replaceElement, sortOffersByType, updateElements};

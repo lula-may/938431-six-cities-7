@@ -5,13 +5,10 @@ import PropTypes from 'prop-types';
 
 import OffersList from '../offers-list/offers-list.jsx';
 import {AppRoute, CardType} from '../../const.js';
-import {getFavoriteOffers} from '../../store/favorite/selectors.js';
-
-const filterOffersByCity = (cityName, offers) => offers.filter(({city}) => city.name === cityName);
+import {selectFavoriteOffersByCities} from '../../store/favorite/selectors.js';
 
 export default function FavoriteCity({city}) {
-  const allOffers = useSelector(getFavoriteOffers);
-  const offers = filterOffersByCity(city, allOffers);
+  const offers = useSelector(selectFavoriteOffersByCities)[city];
 
   return (
     <li className="favorites__locations-items">
