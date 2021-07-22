@@ -30,21 +30,23 @@ const sortOffersByType = (offers, type) => {
   }
 };
 
-const updateElements = (element, elements) => {
-  const index = elements.findIndex(({id}) => id === element.id);
+// Удаляет предложение из списка, если оно там есть, вставляет в список - если нет
+const updateOffersList = (offer, offers) => {
+  const index = offers.findIndex(({id}) => id === offer.id);
   if (index === -1) {
-    elements.push(element);
-    return elements;
+    return [...offers, offer];
   }
-  return [...elements.slice(0, index), ...elements.slice(index + 1)];
+  return [...offers.slice(0, index), ...offers.slice(index + 1)];
 };
 
-const replaceElement = (element, elements) => {
-  const index = elements.findIndex(({id}) => id === element.id);
+// Заменяет предложение в списке на новое с таким же id. Возвращает массив из двух значений: список предложений и признак был список обновлен или нет.
+const replaceOffer = (offer, offers) => {
+  const index = offers.findIndex(({id}) => id === offer.id);
   if (index === -1) {
-    return elements;
+    return [offers, false];
   }
-  return [...elements.slice(0, index), element, ...elements.slice(index + 1)];
+  const updatedOffers = [...offers.slice(0, index), offer, ...offers.slice(index + 1)];
+  return [updatedOffers, true];
 };
 
-export {cn, getRatingStyle, getUniqueItems, filterOffersByCity, formatDate, replaceElement, sortOffersByType, updateElements};
+export {cn, getRatingStyle, getUniqueItems, filterOffersByCity, formatDate, replaceOffer, sortOffersByType, updateOffersList};
