@@ -2,12 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+
+import Error from '../error/error';
+import Header from '../header/header';
+import Spinner from '../spinner/spinner';
 import {AppRoute} from '../../const';
-import {selectIsAuthorized} from '../../store/user/selectors';
+import {getLoginError, getUserLoadingStatus, selectIsAuthorized} from '../../store/user/selectors';
 
 function PrivateRoute({children, path, exact}) {
   const isAuthorized = useSelector(selectIsAuthorized);
+  const isLoading = useSelector(getUserLoadingStatus);
+  const isError = useSelector(getLoginError);
 
+  if (isLoading) {
+    return (
+      <div className="page">
+        <Header />
+        <Spinner />
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <div className="page">
+        <Header />
+        <Error />
+      </div>
+    );
+  }
   return (
     <Route
       path={path}
