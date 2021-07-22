@@ -1,26 +1,18 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {cn} from '../../utils';
-import { getAuthorizationStatus } from '../../store/user/selectors';
+import {selectIsAuthorized} from '../../store/user/selectors';
 
 export default function BookmarkButton({buttonClassName, children, isFavorite, onClick}) {
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
-  const [isActive, setIsActive] = useState(isFavorite);
+  const isAuthorized = useSelector(selectIsAuthorized);
   const history = useHistory();
-  const className = useMemo(() => cn(buttonClassName, isActive && `${buttonClassName}--active`, 'button'), [buttonClassName, isActive]);
+  const className = useMemo(() => cn(buttonClassName, isFavorite && `${buttonClassName}--active`, 'button'), [buttonClassName, isFavorite]);
 
-  const handleClick = useCallback(() => {
-    if (!isAuthorized) {
-      history.push(AppRoute.LOGIN);
-    }
-    onClick();
-    setIsActive((prev) => !prev);
-  }, [history, isAuthorized, onClick]);
+  const handleClick = useCallback(() => isAuthorized ? onClick() : history.push(AppRoute.LOGIN), [history, isAuthorized, onClick]);
 
   return (
     <button
