@@ -7,7 +7,6 @@ export const ActionType = {
   SET_ERROR: 'OFFERS/SET_ERROR',
   SET_SORT_TYPE: 'OFFERS/SET_SORT_TYPE',
   START_LOADING: 'OFFERS/START_LOADING',
-  UPDATE_OFFER: 'OFFERS/UPDATE_OFFER',
 };
 
 export const setOffers = createAction(ActionType.LOAD_OFFERS,
@@ -24,5 +23,3 @@ export const setSortType = createAction(ActionType.SET_SORT_TYPE,
 export const startLoading = createAction(ActionType.START_LOADING);
 
 export const resetSortType = createAction(ActionType.RESET_SORT_TYPE);
-
-export const updateOffer = createAction(ActionType.UPDATE_OFFER, (offer) => ({payload: offer}));

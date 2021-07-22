@@ -5,7 +5,6 @@ export const ActionType = {
   RESET_OFFERS: 'FAVORITE/RESET_OFFERS',
   SET_ERROR: 'FAVORITE/SET_ERROR',
   START_LOADING: 'FAVORITE/START_LOADING',
-  UPDATE_OFFERS: 'FAVORITE/UPDATE_OFFERS',
 };
 
 export const setFavoriteOffers = createAction(ActionType.LOAD_OFFERS,
@@ -16,5 +15,3 @@ export const resetOffers = createAction(ActionType.RESET_OFFERS);
 export const setError = createAction(ActionType.SET_ERROR);
 
 export const startLoading = createAction(ActionType.START_LOADING);
-
-export const updateFavoriteOffers = createAction(ActionType.UPDATE_OFFERS, (offer) => ({payload: offer}));

@@ -1,6 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setFavoriteOffers, resetOffers, setError, startLoading, updateFavoriteOffers} from './actions';
-import {updateElements} from '../../utils';
+import {setFavoriteOffers, resetOffers, setError, startLoading} from './actions';
 const initialState = {
   isError: false,
   isLoading: true,
@@ -23,9 +22,5 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(startLoading, (state) => {
       state.isError = false;
       state.isLoading = true;
-    })
-    .addCase(updateFavoriteOffers, (state, action) => {
-      state.isLoading = false;
-      state.offers = updateElements(action.payload, state.offers);
     });
 });

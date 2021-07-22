@@ -31,4 +31,4 @@ const selectCityOffersCount = createSelector(
   (offers) => offers.length,
 );
 
-export {getCity, getOffersLoadingError, getOffersLoadingStatus, getSortType, selectOffersByCity, selectCityOffersCount, selectSortedOffers};
+export {getCity, getOffers, getOffersLoadingError, getOffersLoadingStatus, getSortType, selectOffersByCity, selectCityOffersCount, selectSortedOffers};
