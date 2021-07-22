@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {getAuthorizationStatus} from '../../store/user/selectors';
+import {AppRoute} from '../../const';
+import {selectIsAuthorized} from '../../store/user/selectors';
 
 function PrivateRoute({children, path, exact}) {
-  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const isAuthorized = useSelector(selectIsAuthorized);
 
   return (
     <Route
       path={path}
       exact={exact}
     >
-      {authorizationStatus === AuthorizationStatus.AUTH ? children : <Redirect to={AppRoute.LOGIN} />}
+      {isAuthorized ? children : <Redirect to={AppRoute.LOGIN} />}
     </Route>
   );
 }
