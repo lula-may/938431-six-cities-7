@@ -1,22 +1,14 @@
-import React, {useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React from 'react';
+import {useSelector} from 'react-redux';
 import OffersList from '../offers-list/offers-list.jsx';
 import Spinner from '../spinner/spinner.jsx';
-import {AuthorizationStatus, CardType} from '../../const.js';
+import {CardType} from '../../const.js';
 import {getNearOffers, getNearOffersLoadingError, getNearOffersLoadingStatus} from '../../store/nearby/selectors.js';
-import {postOffer} from '../../store/favorite/api-actions';
-import { getAuthorizationStatus } from '../../store/user/selectors';
 
 function NearOffers() {
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
   const isError = useSelector(getNearOffersLoadingError);
   const isLoading = useSelector(getNearOffersLoadingStatus);
   const offers = useSelector(getNearOffers);
-  const dispatch = useDispatch();
-  const handleFavoriteButtonClick = useCallback((offer) => {
-    isAuthorized && dispatch(postOffer(offer));
-  }, [dispatch, isAuthorized]);
 
   return (
     <section className="near-places places">
@@ -29,7 +21,6 @@ function NearOffers() {
           cardType={CardType.NEAR_PLACES}
           isPremiumShown={false}
           offers={offers}
-          onFavoriteButtonClick={handleFavoriteButtonClick}
         />
       </div>
     </section>

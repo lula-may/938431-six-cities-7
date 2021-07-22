@@ -7,6 +7,7 @@ import Rating from '../rating/rating';
 import {PROP_OFFER} from '../props';
 import {AppRoute, CardType} from '../../const';
 import {cn} from '../../utils.js';
+import {useAddToFavorite} from '../../hooks/use-add-to-favorite';
 
 function OfferCard(props) {
   const {
@@ -17,7 +18,6 @@ function OfferCard(props) {
     offer,
     onCardEnter,
     onCardLeave,
-    onFavoriteButtonClick,
     type: cardType,
   } = props;
 
@@ -38,7 +38,7 @@ function OfferCard(props) {
   const placeRoot = `${AppRoute.ROOM}/${id}`;
 
   const handleMouseEnter = useCallback(() => onCardEnter && onCardEnter(offer), [onCardEnter, offer]);
-  const handleFavoriteButtonClick = useCallback(() => onFavoriteButtonClick(offer), [offer, onFavoriteButtonClick]);
+  const onFavoriteButtonClick = useAddToFavorite(offer);
 
   return (
     <article
@@ -64,7 +64,7 @@ function OfferCard(props) {
           <BookmarkButton
             buttonClassName="place-card__bookmark-button"
             isFavorite={isFavorite}
-            onClick={handleFavoriteButtonClick}
+            onClick={onFavoriteButtonClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -89,7 +89,6 @@ OfferCard.propTypes = {
   offer: PROP_OFFER.isRequired,
   onCardEnter: PropTypes.func,
   onCardLeave: PropTypes.func,
-  onFavoriteButtonClick: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
 

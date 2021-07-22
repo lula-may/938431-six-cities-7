@@ -1,5 +1,5 @@
-import React, {useCallback, useMemo} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, {useMemo} from 'react';
+import {useSelector} from 'react-redux';
 
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
@@ -8,7 +8,7 @@ import Reviews from '../reviews/reviews.jsx';
 import {cn} from '../../utils.js';
 import {getNearOffers} from '../../store/nearby/selectors.js';
 import {getCurrentRoom} from '../../store/room/selectors.js';
-import {postOffer} from '../../store/favorite/api-actions.js';
+import {useAddToFavorite} from '../../hooks/use-add-to-favorite.js';
 
 function RoomProperty() {
   const offer = useSelector(getCurrentRoom);
@@ -29,9 +29,7 @@ function RoomProperty() {
     title,
     type,
   } = offer;
-  const dispatch = useDispatch();
-
-  const onFavoriteButtonClick = useCallback(() => dispatch(postOffer(offer)), [dispatch, offer]);
+  const onFavoriteButtonClick = useAddToFavorite(offer);
 
   const hostClass = useMemo(() => cn('property__avatar-wrapper', isPro &&'property__avatar-wrapper--pro', 'user__avatar-wrapper'), [isPro]);
 
