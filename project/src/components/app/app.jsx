@@ -11,6 +11,7 @@ import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {AppRoute} from '../../const.js';
 import {checkAuth} from '../../store/user/api-actions.js';
+import { useOnAuthChange } from '../../hooks/use-on-auth-change.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function App() {
     dispatch(checkAuth());
   }, [dispatch]);
 
+  useOnAuthChange();
   return (
     <BrowserRouter>
       <Switch>

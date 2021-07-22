@@ -9,10 +9,7 @@ import Spinner from '../spinner/spinner';
 
 import {cn} from '../../utils.js';
 import {getOffersLoadingError, getOffersLoadingStatus, selectCityOffersCount} from '../../store/offers/selectors.js';
-// import { fetchOfferList } from '../../store/offers/api-actions.js';
 import Header from '../header/header.jsx';
-import { useOnAuthChange } from '../../hooks/use-on-auth-change.js';
-
 
 function Main() {
   const isLoading = useSelector(getOffersLoadingStatus);
@@ -37,7 +34,6 @@ function Main() {
     );
   }, [isEmpty, isLoading, isLoadingError]);
 
-  useOnAuthChange();
   return (
     <div className="page page--gray page--main">
       <Header isActive />
