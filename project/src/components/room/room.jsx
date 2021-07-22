@@ -12,8 +12,11 @@ import {fetchCurrentRoom} from '../../store/room/api-actions.js';
 import {fetchComments} from '../../store/comments/api-actions.js';
 import {fetchNearOffers} from '../../store/nearby/api-actions.js';
 import {getRoomLoadingError, getRoomLoadingStatus, getRoomNotFound} from '../../store/room/selectors.js';
+import { useOnAuthChange } from '../../hooks/use-on-auth-change.js';
+import { selectIsAuthorized } from '../../store/user/selectors.js';
 
 function Room() {
+  const isAuthorized = useSelector(selectIsAuthorized);
   const isError = useSelector(getRoomLoadingError);
   const isLoading = useSelector(getRoomLoadingStatus);
   const isNotFound = useSelector(getRoomNotFound);
@@ -25,8 +28,9 @@ function Room() {
     dispatch(fetchCurrentRoom(id));
     dispatch(fetchComments(id));
     dispatch(fetchNearOffers(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, isAuthorized]);
 
+  useOnAuthChange();
   const hasData = !isLoading && !isError && !isNotFound;
 
   if (isNotFound) {

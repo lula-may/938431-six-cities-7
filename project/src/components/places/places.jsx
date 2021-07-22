@@ -12,7 +12,8 @@ export default function Places() {
   const offers = useSelector(selectSortedOffers);
   const offersCount = offers.length;
   const [activeCard, setActiveCard] = useState(null);
-  const handleCardLeave = useCallback(() => setActiveCard(null), []);
+  const onCardLeave = useCallback(() => setActiveCard(null), []);
+
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -26,7 +27,7 @@ export default function Places() {
             isPremiumShown
             offers={offers}
             onCardEnter={setActiveCard}
-            onCardLeave={handleCardLeave}
+            onCardLeave={onCardLeave}
           />
         </div>
       </section>
