@@ -1,17 +1,19 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setNearOffers, setError, startLoading} from './actions.js';
-
+import {setFavoriteOffers, resetOffers, setError, startLoading} from './actions';
 const initialState = {
-  nearOffers: [],
   isError: false,
   isLoading: true,
+  offers: [],
 };
 
-const reducer = createReducer(initialState, (builder) => {
+export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setNearOffers, (state, action) => {
+    .addCase(setFavoriteOffers, (state, action) => {
       state.isLoading = false;
-      state.nearOffers = action.payload;
+      state.offers = action.payload;
+    })
+    .addCase(resetOffers, (state) => {
+      state.offers = [];
     })
     .addCase(setError, (state) => {
       state.isError = true;
@@ -20,9 +22,5 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(startLoading, (state) => {
       state.isError = false;
       state.isLoading = true;
-      state.nearOffers = [];
     });
-
 });
-
-export {reducer};

@@ -1,4 +1,3 @@
-// import history from '../../browser-history';
 import {setRoom, setError, startLoading, setNotFound} from './actions';
 import {APIRoute} from '../../const.js';
 import {adaptOffer} from '../../services/adapter.js';

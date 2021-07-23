@@ -4,16 +4,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Logo from '../logo/logo';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {getAuthorizationStatus, getUserEmail} from '../../store/user/selectors.js';
+import {AppRoute} from '../../const';
+import {selectIsAuthorized, getUserEmail} from '../../store/user/selectors.js';
 import {logoutUser} from '../../store/user/api-actions';
 
 function Header({isActive}) {
-  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const isAuthorized = useSelector(selectIsAuthorized);
   const userEmail = useSelector(getUserEmail);
   const dispatch = useDispatch();
-
-  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   const onClick = useCallback((evt) => {
     evt.preventDefault();

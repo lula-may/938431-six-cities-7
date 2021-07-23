@@ -2,17 +2,17 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 import OfferCard from '../offer-card/offer-card';
-import {PROP_OFFER} from '../props';
 import {ImageSize} from '../../const';
+import {PROP_OFFER} from '../props';
 
 export default function OffersList(props) {
   const {
     cardClassName,
     cardType,
     isPremiumShown,
-    offers,
     onCardEnter,
     onCardLeave,
+    offers,
   } = props;
 
   const [imageWidth, imageHeight] = ImageSize[cardType];
@@ -28,7 +28,6 @@ export default function OffersList(props) {
           offer={offer}
           onCardEnter={onCardEnter}
           onCardLeave={onCardLeave}
-          onFavoriteButtonClick={() => {}}
           type={cardType}
         />))}
     </Fragment>

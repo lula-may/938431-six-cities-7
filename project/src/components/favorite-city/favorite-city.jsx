@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
-import OffersList from '../offers-list/offers-list.jsx';
-import {PROP_OFFER} from '../props.js';
-import {AppRoute, CardType} from '../../const.js';
 
-export default function FavoriteCity({city, offers}) {
+import OffersList from '../offers-list/offers-list.jsx';
+import {AppRoute, CardType} from '../../const.js';
+import {selectFavoriteOffersByCities} from '../../store/favorite/selectors.js';
+
+export default function FavoriteCity({city}) {
+  const offers = useSelector(selectFavoriteOffersByCities)[city];
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -21,7 +25,6 @@ export default function FavoriteCity({city, offers}) {
           cardType={CardType.FAVORITES}
           isPremiumShown={false}
           offers={offers}
-          onFavoriteButtonClick={() => {}}
         />
       </div>
     </li>
@@ -30,5 +33,4 @@ export default function FavoriteCity({city, offers}) {
 
 FavoriteCity.propTypes = {
   city: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
 };

@@ -10,17 +10,17 @@ import PrivateRoute from '../private-route/private-route.jsx';
 import Room from '../room/room.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {AppRoute} from '../../const.js';
-import { fetchOfferList } from '../../store/offers/api-actions.js';
-import { checkAuth } from '../../store/user/api-actions.js';
+import {checkAuth} from '../../store/user/api-actions.js';
+import { useOnAuthChange } from '../../hooks/use-on-auth-change.js';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchOfferList());
     dispatch(checkAuth());
   }, [dispatch]);
 
+  useOnAuthChange();
   return (
     <BrowserRouter>
       <Switch>

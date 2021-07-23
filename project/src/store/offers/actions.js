@@ -2,16 +2,12 @@ import {createAction} from '@reduxjs/toolkit';
 
 export const ActionType = {
   LOAD_OFFERS: 'OFFERS/LOAD_OFFERS',
-  LOAD_FAVORITE_OFFERS: 'OFFERS/LOAD_FAVORITE_OFFERS',
   RESET_SORT_TYPE: 'OFFERS/RESET_SORT_TYPE',
   SET_CITY: 'OFFERS/SET_CITY',
   SET_ERROR: 'OFFERS/SET_ERROR',
   SET_SORT_TYPE: 'OFFERS/SET_SORT_TYPE',
   START_LOADING: 'OFFERS/START_LOADING',
 };
-
-export const setFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS,
-  (offers) => ({payload: offers}));
 
 export const setOffers = createAction(ActionType.LOAD_OFFERS,
   (offers) => ({payload: offers}));

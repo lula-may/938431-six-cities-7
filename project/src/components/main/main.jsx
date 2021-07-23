@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, {useMemo } from 'react';
 import {useSelector} from 'react-redux';
 
 import CitiesList from '../cities-list/cities-list.jsx';
@@ -11,12 +11,12 @@ import {cn} from '../../utils.js';
 import {getOffersLoadingError, getOffersLoadingStatus, selectCityOffersCount} from '../../store/offers/selectors.js';
 import Header from '../header/header.jsx';
 
-
 function Main() {
   const isLoading = useSelector(getOffersLoadingStatus);
   const isLoadingError = useSelector(getOffersLoadingError);
   const offersCount = useSelector(selectCityOffersCount);
   const isEmpty = !offersCount;
+
   const mainClassnName = useMemo(() => cn('page__main page__main--index', isEmpty && 'page__main--index-empty'), [isEmpty]);
 
   const renderBoard = useMemo(() => {

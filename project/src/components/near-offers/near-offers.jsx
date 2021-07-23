@@ -1,6 +1,5 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-
 import OffersList from '../offers-list/offers-list.jsx';
 import Spinner from '../spinner/spinner.jsx';
 import {CardType} from '../../const.js';

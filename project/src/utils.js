@@ -2,24 +2,14 @@ import {SortType} from './const';
 
 const getUniqueItems = (items) => items.filter((el, i, els) => els.indexOf(el) === i);
 
+const filterOffersByCity = (cityName, offers) => offers.filter(({city}) => city.name === cityName);
+
 const getRatingStyle = (rating) => ({width: `${Math.round(rating) * 20}%`});
 
 const formatDate = (date) => {
   if (date instanceof Date) {
     return date.toLocaleString('en-US', {month: 'long', year: 'numeric'});
   }
-};
-
-const getElementById = (elements, elementId) => elements.find(({id}) => id === elementId);
-
-const getOffersByCity = (offers, cityName) => offers.filter(({city}) => city.name === cityName);
-
-const getRestElements = (elements, element) => {
-  const index = elements.findIndex(({id}) => id === element.id);
-  if (index === -1) {
-    return elements;
-  }
-  return [...elements.slice(0, index), ...elements.slice(index + 1)];
 };
 
 const cn = (...args) => args.filter(Boolean).join(' ');
@@ -40,4 +30,23 @@ const sortOffersByType = (offers, type) => {
   }
 };
 
-export {cn, getElementById, getOffersByCity, getRatingStyle, getRestElements, getUniqueItems, formatDate, sortOffersByType};
+// Удаляет предложение из списка, если оно там есть, вставляет в список - если нет
+const updateOffersList = (offer, offers) => {
+  const index = offers.findIndex(({id}) => id === offer.id);
+  if (index === -1) {
+    return [...offers, offer];
+  }
+  return [...offers.slice(0, index), ...offers.slice(index + 1)];
+};
+
+// Заменяет предложение в списке на новое с таким же id. Возвращает массив из двух значений: список предложений и признак был список обновлен или нет.
+const replaceOffer = (offer, offers) => {
+  const index = offers.findIndex(({id}) => id === offer.id);
+  if (index === -1) {
+    return [offers, false];
+  }
+  const updatedOffers = [...offers.slice(0, index), offer, ...offers.slice(index + 1)];
+  return [updatedOffers, true];
+};
+
+export {cn, getRatingStyle, getUniqueItems, filterOffersByCity, formatDate, replaceOffer, sortOffersByType, updateOffersList};

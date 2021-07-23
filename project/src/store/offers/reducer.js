@@ -9,7 +9,6 @@ const initialState = {
   isError: false,
   isLoading: true,
   city: defaultCity,
-  favoriteOffers: [],
   offers: [],
   sortType: defaultSortType,
 };

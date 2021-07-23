@@ -8,11 +8,11 @@ import {CardType} from '../../const.js';
 import {getCity, selectSortedOffers} from '../../store/offers/selectors.js';
 
 export default function Places() {
-  const [activeCard, setActiveCard] = useState(null);
-  const handleCardLeave = useCallback(() => setActiveCard(null), []);
   const city = useSelector(getCity);
   const offers = useSelector(selectSortedOffers);
   const offersCount = offers.length;
+  const [activeCard, setActiveCard] = useState(null);
+  const onCardLeave = useCallback(() => setActiveCard(null), []);
 
   return (
     <div className="cities__places-container container">
@@ -27,7 +27,7 @@ export default function Places() {
             isPremiumShown
             offers={offers}
             onCardEnter={setActiveCard}
-            onCardLeave={handleCardLeave}
+            onCardLeave={onCardLeave}
           />
         </div>
       </section>

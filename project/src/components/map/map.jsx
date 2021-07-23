@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import {PROP_CITY, PROP_OFFER} from '../props';
 import {cn} from '../../utils.js';
 

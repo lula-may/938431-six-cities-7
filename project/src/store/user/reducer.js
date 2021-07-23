@@ -3,10 +3,10 @@ import {AuthorizationStatus} from '../../const';
 import {logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions.js';
 
 const initialState = {
-  userEmail: null,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  isLoading: true,
   isError: false,
+  isLoading: true,
+  userEmail: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {

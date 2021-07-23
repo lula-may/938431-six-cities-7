@@ -7,6 +7,7 @@ import Rating from '../rating/rating';
 import {PROP_OFFER} from '../props';
 import {AppRoute, CardType} from '../../const';
 import {cn} from '../../utils.js';
+import {useAddToFavorite} from '../../hooks/use-add-to-favorite';
 
 function OfferCard(props) {
   const {
@@ -17,13 +18,11 @@ function OfferCard(props) {
     offer,
     onCardEnter,
     onCardLeave,
-    onFavoriteButtonClick,
     type: cardType,
   } = props;
 
   const {
     id,
-    images,
     isFavorite,
     isPremium,
     previewImage,
@@ -33,13 +32,13 @@ function OfferCard(props) {
     type,
   } = offer;
 
-  const imageUrl = (cardType === CardType.FAVORITES) ? previewImage : images[0];
-
   const imageWrapperClassName = cn(`${cardType}__image-wrapper`, 'place-card__image-wrapper');
   const isCitiesType = cardType === CardType.CITIES;
   const infoClassName = cn( !isCitiesType && `${cardType}__info`,'place-card__info');
   const placeRoot = `${AppRoute.ROOM}/${id}`;
+
   const handleMouseEnter = useCallback(() => onCardEnter && onCardEnter(offer), [onCardEnter, offer]);
+  const onFavoriteButtonClick = useAddToFavorite(offer);
 
   return (
     <article
@@ -53,7 +52,7 @@ function OfferCard(props) {
         </div>}
       <div className={imageWrapperClassName}>
         <Link to={placeRoot}>
-          <img className="place-card__image" src={imageUrl} width={imageWidth} height={imageHeight} alt="Place"/>
+          <img className="place-card__image" src={previewImage} width={imageWidth} height={imageHeight} alt="Place"/>
         </Link>
       </div>
       <div className={infoClassName}>
@@ -63,11 +62,8 @@ function OfferCard(props) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <BookmarkButton
-            className={cn(
-              'place-card__bookmark-button',
-              isFavorite && 'place-card__bookmark-button--active',
-              'button',
-            )}
+            buttonClassName="place-card__bookmark-button"
+            isFavorite={isFavorite}
             onClick={onFavoriteButtonClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -93,7 +89,6 @@ OfferCard.propTypes = {
   offer: PROP_OFFER.isRequired,
   onCardEnter: PropTypes.func,
   onCardLeave: PropTypes.func,
-  onFavoriteButtonClick: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
 
