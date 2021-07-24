@@ -5,8 +5,7 @@ import {
   setError,
   setOffers,
   setSortType,
-  startLoading,
-  updateOffer
+  startLoading
 } from './actions';
 
 describe('Actions', () => {
@@ -97,30 +96,5 @@ describe('Actions', () => {
     };
 
     expect(startLoading()).toEqual(expectedAction);
-  });
-
-  it('should return correct action for updating offers', () => {
-    const expectedAction = {
-      type: ActionType.UPDATE_OFFER,
-      payload: {
-        bedrooms: 5,
-        city: 'Amsterdam',
-        id: 2,
-        description: 'text2',
-        host: 'host2',
-        isFavorite: false,
-      },
-    };
-
-    const offer = {
-      bedrooms: 5,
-      city: 'Amsterdam',
-      id: 2,
-      description: 'text2',
-      host: 'host2',
-      isFavorite: false,
-    };
-
-    expect(updateOffer(offer)).toEqual(expectedAction);
   });
 });

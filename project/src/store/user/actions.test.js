@@ -3,7 +3,6 @@ import {
   logout,
   setAuthorizationStatus,
   setError,
-  setToken,
   setUser,
   startLoading
 } from './actions';
@@ -41,17 +40,6 @@ describe('Actions', () => {
     const status = 'AUTH';
 
     expect(setAuthorizationStatus(status)).toEqual(expectedAction);
-  });
-
-  it('should return correct action for X-token to be set', () => {
-    const expectedAction = {
-      type: ActionType.SET_TOKEN,
-      payload: 'sdk%3ksjfh',
-    };
-
-    const token = 'sdk%3ksjfh';
-
-    expect(setToken(token)).toEqual(expectedAction);
   });
 
   it('should return correct action for error to be set', () => {

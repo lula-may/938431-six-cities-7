@@ -3,8 +3,7 @@ import {
   resetOffers,
   setFavoriteOffers,
   setError,
-  startLoading,
-  updateFavoriteOffers
+  startLoading
 } from './actions';
 
 describe('Actions', () => {
@@ -77,30 +76,5 @@ describe('Actions', () => {
     };
 
     expect(startLoading()).toEqual(expectedAction);
-  });
-
-  it('should return correct action for updating favorite offers', () => {
-    const expectedAction = {
-      type: ActionType.UPDATE_OFFERS,
-      payload: {
-        bedrooms: 5,
-        city: 'Amsterdam',
-        id: 2,
-        description: 'text2',
-        host: 'host2',
-        isFavorite: false,
-      },
-    };
-
-    const offer = {
-      bedrooms: 5,
-      city: 'Amsterdam',
-      id: 2,
-      description: 'text2',
-      host: 'host2',
-      isFavorite: false,
-    };
-
-    expect(updateFavoriteOffers(offer)).toEqual(expectedAction);
   });
 });
