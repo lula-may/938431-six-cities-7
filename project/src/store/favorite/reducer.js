@@ -1,5 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {setFavoriteOffers, resetOffers, setError, startLoading} from './actions';
+
 const initialState = {
   isError: false,
   isLoading: true,
