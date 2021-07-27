@@ -5,7 +5,7 @@ import {adaptOffer} from '../../services/adapter.js';
 export const fetchNearOffers = (id) => (dispatch, _getState, api) => {
   dispatch(startLoading());
   const url = `${APIRoute.OFFERS}/${id}/nearby`;
-  api.get(url)
+  return api.get(url)
     .then(({data}) => {
       const offers = data.map(adaptOffer);
       dispatch(setNearOffers(offers));

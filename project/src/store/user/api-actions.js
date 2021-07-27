@@ -1,14 +1,13 @@
 import {APIRoute, AuthorizationStatus} from '../../const.js';
 import {logout, setAuthorizationStatus, setError, setUser, startLoading} from './actions';
 
-export const checkAuth = () => (dispatch, _getState, api) => {
+export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
       dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
       dispatch(setUser(data.email));
     })
-    .catch((err) => err);
-};
+    .catch((err) => err));
 
 export const login = ({login: email, password}) => (dispatch, getState, api) => {
   dispatch(startLoading());
