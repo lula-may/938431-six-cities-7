@@ -11,7 +11,7 @@ export const fetchCurrentRoom = (id) => (dispatch, _getState, api) => {
       dispatch(setRoom(offer));
     })
     .catch((err) => {
-      if (err.response.status === 404) {
+      if (err.response && err.response.status === 404) {
         dispatch(setNotFound());
         return;
       }
