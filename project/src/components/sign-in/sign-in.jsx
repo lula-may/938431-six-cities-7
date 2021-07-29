@@ -48,27 +48,31 @@ function SignIn() {
             >
               <div className="login__input-wrapper form__input-wrapper">
                 {isError && <p>Please, enter a valid email!</p>}
-                <label className="visually-hidden">E-mail</label>
+                <label className="visually-hidden" htmlFor="email">E-mail</label>
                 <input
                   className="login__input form__input"
                   style={errorStyle}
                   type="email"
                   name="email"
+                  id="email"
                   onChange={handleEmailChange}
                   placeholder="Email"
                   value={email}
+                  data-testid="email"
                   required
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
+                <label className="visually-hidden" htmlFor="password">Password</label>
                 <input
                   className="login__input form__input"
                   type="password"
                   name="password"
+                  id="password"
                   onChange={handlePasswordChange}
                   placeholder="Password"
                   value={password}
+                  data-testid="password"
                   required
                 />
               </div>

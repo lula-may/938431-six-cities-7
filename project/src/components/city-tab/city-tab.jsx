@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {cn} from '../../utils';
 
@@ -12,9 +13,9 @@ export default function CityTab({isActive, cityName, onTabClick}) {
 
   return (
     <li className="locations__item">
-      <a className={className} onClick={onClick}>
+      <Link className={className} onClick={onClick} to="/">
         <span>{cityName}</span>
-      </a>
+      </Link>
     </li>
   );
 }
