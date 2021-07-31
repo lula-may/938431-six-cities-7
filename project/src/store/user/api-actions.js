@@ -9,9 +9,9 @@ export const checkAuth = () => (dispatch, _getState, api) => (
     })
     .catch((err) => err));
 
-export const login = ({login: email, password}) => (dispatch, getState, api) => {
+export const login = ({login: email, password}) => (dispatch, _getState, api) => {
   dispatch(startLoading());
-  api.post(APIRoute.LOGIN, {email, password})
+  return api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
       dispatch(setUser(data.email));
@@ -22,11 +22,11 @@ export const login = ({login: email, password}) => (dispatch, getState, api) => 
     });
 };
 
-export const logoutUser = () => (dispatch, _getState, api) => {
+export const logoutUser = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => {
       localStorage.removeItem('token');
       dispatch(logout());
     })
-    .catch((err) => err);
-};
+    .catch((err) => err)
+);
