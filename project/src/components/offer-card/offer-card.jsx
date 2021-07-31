@@ -45,6 +45,7 @@ function OfferCard(props) {
       className={getClassName(className, 'place-card')}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={onCardLeave}
+      data-testid="card"
     >
       {isPremiumShown && isPremium &&
         <div className="place-card__mark">
