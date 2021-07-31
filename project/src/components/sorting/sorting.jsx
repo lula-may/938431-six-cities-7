@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {cn} from '../../utils';
+import {getClassName} from '../../utils';
 import {SortType} from '../../const';
 import {setSortType} from '../../store/offers/actions';
 import {getSortType} from '../../store/offers/selectors';
@@ -29,7 +29,7 @@ function Sorting() {
     dispatch(setSortType(newType));
   }, [dispatch, sortType]);
 
-  const optionsClassName = cn('places__options places__options--custom', isOpened && 'places__options--opened');
+  const optionsClassName = getClassName('places__options places__options--custom', isOpened && 'places__options--opened');
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -45,7 +45,7 @@ function Sorting() {
           <li
             key={type}
             data-type={type}
-            className={cn('places__option', (type === sortType) && 'places__option--active')}
+            className={getClassName('places__option', (type === sortType) && 'places__option--active')}
             onClick={onSortTypeClick}
             tabIndex="0"
           >

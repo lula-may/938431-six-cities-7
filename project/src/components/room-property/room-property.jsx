@@ -5,7 +5,7 @@ import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
 import Rating from '../rating/rating.jsx';
 import Reviews from '../reviews/reviews.jsx';
-import {cn} from '../../utils.js';
+import {getClassName} from '../../utils.js';
 import {getNearOffers} from '../../store/nearby/selectors.js';
 import {getCurrentRoom} from '../../store/room/selectors.js';
 import {useAddToFavorite} from '../../hooks/use-add-to-favorite.js';
@@ -31,7 +31,7 @@ function RoomProperty() {
   } = offer;
   const onFavoriteButtonClick = useAddToFavorite(offer);
 
-  const hostClass = useMemo(() => cn('property__avatar-wrapper', isPro &&'property__avatar-wrapper--pro', 'user__avatar-wrapper'), [isPro]);
+  const hostClass = useMemo(() => getClassName('property__avatar-wrapper', isPro &&'property__avatar-wrapper--pro', 'user__avatar-wrapper'), [isPro]);
 
   const offers = useMemo(() => [offer, ...nearOffers], [nearOffers, offer]);
 

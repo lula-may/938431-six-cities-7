@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/use-map';
 import {PROP_CITY, PROP_OFFER} from '../props';
-import {cn} from '../../utils.js';
+import {getClassName} from '../../utils.js';
 
 const DEFAULT_ICON = leaflet.icon({
   iconUrl: 'img/pin.svg',
@@ -23,7 +23,7 @@ export default function Map({className, city, activeOffer, offers}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const activeId = activeOffer && activeOffer.id;
-  const containerClass = cn(className, 'map');
+  const containerClass = getClassName(className, 'map');
 
   useEffect(() => {
     if (map) {

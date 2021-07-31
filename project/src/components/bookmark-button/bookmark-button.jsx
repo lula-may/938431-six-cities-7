@@ -4,13 +4,13 @@ import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {AppRoute} from '../../const';
-import {cn} from '../../utils';
+import {getClassName} from '../../utils';
 import {selectIsAuthorized} from '../../store/user/selectors';
 
 export default function BookmarkButton({buttonClassName, children, isFavorite, onClick}) {
   const isAuthorized = useSelector(selectIsAuthorized);
   const history = useHistory();
-  const className = useMemo(() => cn(buttonClassName, isFavorite && `${buttonClassName}--active`, 'button'), [buttonClassName, isFavorite]);
+  const className = useMemo(() => getClassName(buttonClassName, isFavorite && `${buttonClassName}--active`, 'button'), [buttonClassName, isFavorite]);
 
   const handleClick = useCallback(() => isAuthorized ? onClick() : history.push(AppRoute.LOGIN), [history, isAuthorized, onClick]);
 
