@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 
 import Favorites from '../favorites/favorites.jsx';
@@ -22,31 +22,29 @@ function App() {
 
   useOnAuthChange();
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={AppRoute.ROOT}>
-          <Main />
-        </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.FAVORITES}
-        >
-          <Favorites />
-        </PrivateRoute>
-        <NoAuthRoute
-          exact
-          path={AppRoute.LOGIN}
-        >
-          <SignIn/>
-        </NoAuthRoute>
-        <Route exact path={`${AppRoute.ROOM}/:id`}>
-          <Room />
-        </Route>
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoute.ROOT}>
+        <Main />
+      </Route>
+      <PrivateRoute
+        exact
+        path={AppRoute.FAVORITES}
+      >
+        <Favorites />
+      </PrivateRoute>
+      <NoAuthRoute
+        exact
+        path={AppRoute.LOGIN}
+      >
+        <SignIn/>
+      </NoAuthRoute>
+      <Route exact path={`${AppRoute.ROOM}/:id`}>
+        <Room />
+      </Route>
+      <Route>
+        <NotFound />
+      </Route>
+    </Switch>
   );
 }
 
