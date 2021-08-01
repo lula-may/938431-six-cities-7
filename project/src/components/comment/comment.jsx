@@ -3,7 +3,7 @@ import React from 'react';
 import Rating from '../rating/rating';
 import {DATETIME_LENGTH} from '../../const';
 import {formatDate} from '../../utils';
-import {PROP_COMMENT} from '../props';
+import {Prop} from '../props';
 
 export default function Comment({comment}) {
   const {
@@ -34,5 +34,5 @@ export default function Comment({comment}) {
 }
 
 Comment.propTypes = {
-  comment: PROP_COMMENT.isRequired,
+  comment: Prop.COMMENT.isRequired,
 };

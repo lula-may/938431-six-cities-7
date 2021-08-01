@@ -4,7 +4,7 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/use-map';
-import {PROP_CITY, PROP_OFFER} from '../props';
+import {Prop} from '../props';
 import {getClassName} from '../../utils.js';
 
 const DEFAULT_ICON = leaflet.icon({
@@ -50,8 +50,8 @@ export default function Map({className, city, activeOffer, offers}) {
 }
 
 Map.propTypes = {
-  activeOffer: PROP_OFFER,
+  activeOffer: Prop.OFFER,
   className: PropTypes.string,
-  city: PROP_CITY.isRequired,
-  offers: PropTypes.arrayOf(PROP_OFFER),
+  city: Prop.CITY.isRequired,
+  offers: PropTypes.arrayOf(Prop.OFFER),
 };
