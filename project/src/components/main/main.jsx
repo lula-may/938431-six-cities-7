@@ -7,7 +7,7 @@ import PlacesEmpty from '../places-empty/places-empty';
 import Places from '../places/places';
 import Spinner from '../spinner/spinner';
 
-import {cn} from '../../utils.js';
+import {getClassName} from '../../utils.js';
 import {getOffersLoadingError, getOffersLoadingStatus, selectCityOffersCount} from '../../store/offers/selectors.js';
 import Header from '../header/header.jsx';
 
@@ -17,7 +17,7 @@ function Main() {
   const offersCount = useSelector(selectCityOffersCount);
   const isEmpty = !offersCount;
 
-  const mainClassnName = useMemo(() => cn('page__main page__main--index', isEmpty && 'page__main--index-empty'), [isEmpty]);
+  const mainClassnName = useMemo(() => getClassName('page__main page__main--index', isEmpty && 'page__main--index-empty'), [isEmpty]);
 
   const renderBoard = useMemo(() => {
     if (isLoading) {

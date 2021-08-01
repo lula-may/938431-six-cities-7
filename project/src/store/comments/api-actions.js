@@ -6,7 +6,7 @@ import {getCurrentRoom} from '../room/selectors';
 export const fetchComments = (id) => (dispatch, _getState, api) => {
   dispatch(startLoading());
   const url = `${APIRoute.COMMENTS}/${id}`;
-  api.get(url)
+  return api.get(url)
     .then(({data}) => {
       const comments = data.map(adaptComment);
       dispatch(setComments(comments));
@@ -22,7 +22,7 @@ export const postComment = (comment) => (dispatch, getState, api) => {
   const id = getCurrentRoom(state).id;
   dispatch(startUploading());
   const url = `${APIRoute.COMMENTS}/${id}`;
-  api.post(url, comment)
+  return api.post(url, comment)
     .then(({data}) => {
       const comments = data.map(adaptComment);
       dispatch(setComments(comments));

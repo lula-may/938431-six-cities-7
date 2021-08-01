@@ -12,7 +12,7 @@ const formatDate = (date) => {
   }
 };
 
-const cn = (...args) => args.filter(Boolean).join(' ');
+const getClassName = (...args) => args.filter(Boolean).join(' ');
 
 const sortOffersByType = (offers, type) => {
   switch (type) {
@@ -49,4 +49,4 @@ const replaceOffer = (offer, offers) => {
   return [updatedOffers, true];
 };
 
-export {cn, getRatingStyle, getUniqueItems, filterOffersByCity, formatDate, replaceOffer, sortOffersByType, updateOffersList};
+export {getClassName, getRatingStyle, getUniqueItems, filterOffersByCity, formatDate, replaceOffer, sortOffersByType, updateOffersList};

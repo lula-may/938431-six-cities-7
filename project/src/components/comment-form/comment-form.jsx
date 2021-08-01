@@ -96,6 +96,7 @@ function CommentForm() {
                 checked={isChecked}
                 onChange={handleRatingChange}
                 disabled={isUploading}
+                data-testid={`rating-${currentRating}`}
               />
               <label htmlFor={`${currentRating}-stars`} className="reviews__rating-label form__rating-label" title={value}>
                 <svg className="form__star-image" width="37" height="33">
@@ -117,6 +118,8 @@ function CommentForm() {
         value={comment}
         onChange={handleReviewTextChange}
         disabled={isUploading}
+        data-testid="comment"
+
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -126,6 +129,7 @@ function CommentForm() {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={!isValidForm || isUploading}
+          data-testid="submit"
         >
           Submit
         </button>

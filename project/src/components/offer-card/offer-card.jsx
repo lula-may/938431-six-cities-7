@@ -6,7 +6,7 @@ import BookmarkButton from '../bookmark-button/bookmark-button';
 import Rating from '../rating/rating';
 import {PROP_OFFER} from '../props';
 import {AppRoute, CardType} from '../../const';
-import {cn} from '../../utils.js';
+import {getClassName} from '../../utils.js';
 import {useAddToFavorite} from '../../hooks/use-add-to-favorite';
 
 function OfferCard(props) {
@@ -32,9 +32,9 @@ function OfferCard(props) {
     type,
   } = offer;
 
-  const imageWrapperClassName = cn(`${cardType}__image-wrapper`, 'place-card__image-wrapper');
+  const imageWrapperClassName = getClassName(`${cardType}__image-wrapper`, 'place-card__image-wrapper');
   const isCitiesType = cardType === CardType.CITIES;
-  const infoClassName = cn( !isCitiesType && `${cardType}__info`,'place-card__info');
+  const infoClassName = getClassName( !isCitiesType && `${cardType}__info`,'place-card__info');
   const placeRoot = `${AppRoute.ROOM}/${id}`;
 
   const handleMouseEnter = useCallback(() => onCardEnter && onCardEnter(offer), [onCardEnter, offer]);
@@ -42,9 +42,10 @@ function OfferCard(props) {
 
   return (
     <article
-      className={cn(className, 'place-card')}
+      className={getClassName(className, 'place-card')}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={onCardLeave}
+      data-testid="card"
     >
       {isPremiumShown && isPremium &&
         <div className="place-card__mark">

@@ -5,13 +5,13 @@ import {adaptOffer} from '../../services/adapter.js';
 export const fetchCurrentRoom = (id) => (dispatch, _getState, api) => {
   dispatch(startLoading());
   const url = `${APIRoute.OFFERS}/${id}`;
-  api.get(url)
+  return api.get(url)
     .then(({data}) => {
       const offer = adaptOffer(data);
       dispatch(setRoom(offer));
     })
     .catch((err) => {
-      if (err.response.status === 404) {
+      if (err.response && err.response.status === 404) {
         dispatch(setNotFound());
         return;
       }

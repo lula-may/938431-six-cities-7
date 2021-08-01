@@ -9,9 +9,10 @@ import {setNearOffers} from '../nearby/actions.js';
 import {setRoom} from '../room/actions.js';
 import {replaceOffer, updateOffersList} from '../../utils.js';
 import { getCurrentRoom } from '../room/selectors.js';
+
 export const fetchFavoriteList = () => (dispatch, _getState, api) => {
   dispatch(startLoading());
-  api.get(APIRoute.FAVORITES)
+  return api.get(APIRoute.FAVORITES)
     .then(({data}) => {
       const offers = data.map(adaptOffer);
       dispatch(setFavoriteOffers(offers));
@@ -27,7 +28,7 @@ export const postOffer = (offer) => (dispatch, getState, api) => {
   const status = Number(!isFavorite);
   dispatch(startLoading());
   const url = `${APIRoute.FAVORITES}/${id}/${status}`;
-  api.post(url, null)
+  return api.post(url, null)
     .then(({data}) => {
       const newOffer = adaptOffer(data);
       const state = getState();
