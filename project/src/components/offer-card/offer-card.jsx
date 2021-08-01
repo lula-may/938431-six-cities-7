@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import Rating from '../rating/rating';
-import {PROP_OFFER} from '../props';
+import {Prop} from '../props';
 import {AppRoute, CardType} from '../../const';
 import {getClassName} from '../../utils.js';
 import {useAddToFavorite} from '../../hooks/use-add-to-favorite';
@@ -87,7 +87,7 @@ OfferCard.propTypes = {
   imageHeight: PropTypes.number.isRequired,
   imageWidth: PropTypes.number.isRequired,
   isPremiumShown: PropTypes.bool.isRequired,
-  offer: PROP_OFFER.isRequired,
+  offer: Prop.OFFER.isRequired,
   onCardEnter: PropTypes.func,
   onCardLeave: PropTypes.func,
   type: PropTypes.string.isRequired,

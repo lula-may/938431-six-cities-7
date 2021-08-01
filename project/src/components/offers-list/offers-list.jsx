@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import OfferCard from '../offer-card/offer-card';
 import {ImageSize} from '../../const';
-import {PROP_OFFER} from '../props';
+import {Prop} from '../props';
 
 export default function OffersList(props) {
   const {
@@ -38,7 +38,7 @@ OffersList.propTypes = {
   cardClassName: PropTypes.string.isRequired,
   cardType: PropTypes.string.isRequired,
   isPremiumShown: PropTypes.bool.isRequired,
-  offers: PropTypes.arrayOf(PROP_OFFER).isRequired,
+  offers: PropTypes.arrayOf(Prop.OFFER).isRequired,
   onCardEnter: PropTypes.func,
   onCardLeave: PropTypes.func,
 };
