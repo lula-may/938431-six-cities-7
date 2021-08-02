@@ -39,6 +39,8 @@ describe('Component: Comment Form', () => {
     expect(screen.getByLabelText(/Your review/i)).toBeInTheDocument();
 
     expect(screen.getByPlaceholderText(/Tell how was your stay, what you like and what can be improved/i)).toBeInTheDocument();
+
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
   it('should render comment on user typing and call dispatch on submit button click', () => {
@@ -54,5 +56,20 @@ describe('Component: Comment Form', () => {
     userEvent.click(screen.getByTestId('submit'));
 
     expect(dispatch).toHaveBeenCalledTimes(1);
+  });
+
+  it('should submit button be disabled until 50 characters comment is typed and rating is checked', () => {
+    const dispatch = jest.fn();
+    jest.spyOn(Redux, 'useDispatch').mockReturnValue(dispatch);
+
+    render(fakeCommentForm);
+
+    expect(screen.getByTestId('submit')).toHaveAttribute('disabled');
+    userEvent.type(screen.getByTestId('comment'), 'Hello, World! This is a fake comment. It should be not less then 50.');
+
+    expect(screen.getByTestId('submit')).toHaveAttribute('disabled');
+    userEvent.click(screen.getByTestId('rating-4'));
+
+    expect(screen.getByTestId('submit')).not.toHaveAttribute('disabled');
   });
 });
