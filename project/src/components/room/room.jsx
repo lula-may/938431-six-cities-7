@@ -40,7 +40,7 @@ function Room() {
       {isLoading && <Spinner />}
       {isError && <Error />}
       {hasData &&
-      <main className="page__main page__main--property">
+      <main className="page__main page__main--property" data-testid="room">
         <RoomProperty />
         <div className="container">
           <NearOffers />
