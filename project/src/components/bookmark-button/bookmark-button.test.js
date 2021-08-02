@@ -6,7 +6,6 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import BookmarkButton from './bookmark-button';
-import SignIn from '../sign-in/sign-in';
 import {AppRoute, AuthorizationStatus} from '../../const';
 
 const mockStore = configureStore({});
@@ -45,14 +44,14 @@ describe('Component: Bookmark Button', () => {
       USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
     });
     const onBookmarkButtonClick = jest.fn();
-    history.push('/');
+    history.push('/fake');
 
     const fakeComponent = (
       <Provider store={store} >
         <Router history={history}>
           <Switch>
             <Route exact path={AppRoute.LOGIN}>
-              <SignIn />
+              <h1>This is Sign In page</h1>
             </Route>
             <Route>
               <BookmarkButton
@@ -69,6 +68,6 @@ describe('Component: Bookmark Button', () => {
     expect(screen.getByRole('button')).toBeInTheDocument();
     userEvent.click(screen.getByRole('button'));
     expect(onBookmarkButtonClick).toHaveBeenCalledTimes(0);
-    expect(screen.getByText(/Sign In/i, {selector: 'h1'})).toBeInTheDocument();
+    expect(screen.getByText(/This is Sign In page/i)).toBeInTheDocument();
   });
 });
