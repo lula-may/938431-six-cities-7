@@ -7,8 +7,7 @@ import {Provider} from 'react-redux';
 import * as Redux from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import Header from './header';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import Favorites from '../favorites/favorites';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 let fakeComponent = null;
 let history = null;
@@ -61,7 +60,7 @@ describe('Component: Header', () => {
         <Router history={history} >
           <Switch>
             <Route exact path={AppRoute.FAVORITES}>
-              <Favorites />
+              <h1>This is Favorites page</h1>
             </Route>
             <Route>
               <Header/>
@@ -71,13 +70,12 @@ describe('Component: Header', () => {
       </Provider>
     );
 
-    history.push('/');
+    history.push('/fake');
     render(fakeComponent);
 
     userEvent.click(screen.getByText(/user@mail.ru/i));
 
-    expect(screen.getByText(/Nothing yet saved./i)).toBeInTheDocument();
-    expect(screen.getByText(/Save properties to narrow down search or plan your future trips./i)).toBeInTheDocument();
+    expect(screen.getByText('This is Favorites page')).toBeInTheDocument();
   });
 
   it('should dispatch logout on "Sign out" click', () => {
