@@ -34,7 +34,7 @@ function Sorting() {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by&nbsp;</span>
-      <span className="places__sorting-type" tabIndex="0" onClick={onSortingClick}>
+      <span className="places__sorting-type" tabIndex="0" onClick={onSortingClick} data-testid="sorting-type">
         {TypeToText[sortType]}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
