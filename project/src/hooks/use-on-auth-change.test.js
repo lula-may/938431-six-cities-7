@@ -10,6 +10,8 @@ describe('Hook: useOnAuthChange', () => {
       .mockReturnValueOnce(AuthorizationStatus.NO_AUTH)
       .mockReturnValueOnce(false)
       .mockReturnValueOnce(AuthorizationStatus.AUTH)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(AuthorizationStatus.AUTH)
       .mockReturnValueOnce(true);
 
     const dispatch = jest.fn();
